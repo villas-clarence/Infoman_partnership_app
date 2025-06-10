@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Partner Login - Coffee Clover</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <div class="split-container">
@@ -37,14 +37,6 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.email.value;
-            const userType = this.userType.value;
-            alert(`Logging in as ${userType} with Email: ${email}`);
-            this.reset();
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

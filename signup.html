@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Partner Sign Up - Coffee Clover</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <div class="split-container">
@@ -26,19 +26,6 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.email.value;
-            const password = this.password.value;
-            const confirmPassword = this.confirmPassword.value;
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            alert(`Signing up with Email: ${email}`);
-            this.reset();
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
