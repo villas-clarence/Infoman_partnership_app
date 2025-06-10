@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Partner Login - Coffee Clover</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="split-container">
+        <div class="image-side login-image"></div>
+        <div class="form-side">
+            <div class="form-container">
+                <h2>Welcome Back, Please login to your account</h2>
+                <form id="loginForm">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required />
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required />
+                    <label>User Type</label>
+                    <div class="user-type">
+                        <label><input type="radio" name="userType" value="partner" checked /> Partner</label>
+                        <label><input type="radio" name="userType" value="admin" /> Admin</label>
+                    </div>
+                    <div class="form-extra">
+                        <label><input type="checkbox" name="remember" /> Remember me</label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn-primary">Sign In</button>
+                </form>
+                <div class="alternative-signin">
+                    <span>Or</span>
+                    <button class="btn-google">Sign in with Google</button>
+                </div>
+                <p class="signup-link">Don't have an account? <a href="signup.html">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.email.value;
+            const userType = this.userType.value;
+            alert(`Logging in as ${userType} with Email: ${email}`);
+            this.reset();
+        });
+    </script>
+</body>
+</html>
