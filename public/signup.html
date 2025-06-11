@@ -3,29 +3,38 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap" rel="stylesheet">
     <title>Partner Sign Up - Coffee Clover</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <div class="split-container">
-        <div class="image-side signup-image"></div>
+        <div class="image-side">
+            <img src="../assets/signup-coffee.avif" alt="Coffee beans and plants background" />
+            <div class="image-overlay-title">Aniya</div>
+            <p>You can choose your favorite coffee here.</p>
+        </div>
         <div class="form-side">
             <div class="form-container">
                 <h2>Create your account</h2>
                 <form id="signupForm">
                     <label for="email">Email address</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email" required />
+                    
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="Enter your password" required />
+                    
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required />
+                    
                     <button type="submit" class="btn-primary">Sign Up</button>
                 </form>
                 <p class="login-link">Already have an account? <a href="login.html">Log In</a></p>
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
