@@ -4,7 +4,411 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Coffee Clover</title>
-    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2f4f2f;
+            color: #e6e6d4;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Header */
+        header {
+            background-color: #2f4f2f;
+            color: #e6e6d4;
+            padding: 20px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo-text {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e6e6d4;
+        }
+
+        nav ul.nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul.nav-links li a {
+            color: #e6e6d4;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            padding-bottom: 5px;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+
+        nav ul.nav-links li a:hover {
+            text-decoration: none;
+        }
+
+        nav ul.nav-links li a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a3c293;
+            transition: width 0.3s ease;
+        }
+
+        nav ul.nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .auth-links a {
+            color: #e6e6d4;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .auth-links a.signup-link {
+            border: 1px solid #e6e6d4;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .auth-links a.signup-link:hover {
+            background-color: #e6e6d4;
+            color: #2f4f2f;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: #2f4f2f;
+            padding: 80px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .hero-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .hero-features {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 30px;
+        }
+
+        .hero-features li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .hero-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #a3c293;
+            font-weight: bold;
+        }
+
+        .hero-image img {
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        /* Info Section */
+        .info-section {
+            background-color: #a3c293;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .info-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 200px;
+            text-align: center;
+            color: #2f4f2f;
+        }
+
+        .info-item img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+        }
+
+        /* Menu Section */
+        .menu {
+            padding: 60px 20px;
+            background-color: #e6e6d4;
+            text-align: center;
+            color: #2f4f2f;
+        }
+
+        .menu h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .coffee-items {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .coffee-item {
+            background-color: #f3f1ed;
+            border: 1px solid #a3c293;
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .coffee-item h3 {
+            margin-top: 0;
+            color: #2f4f2f;
+        }
+
+        .coffee-item p {
+            font-size: 1rem;
+            color: #4b3b2b;
+            margin-bottom: 20px;
+        }
+
+        .order-btn {
+            background-color: #2f4f2f;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #e6e6d4;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .order-btn:hover {
+            background-color: #1f3f1f;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2f4f2f;
+            color: #e6e6d4;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            font-size: 1rem;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 10px 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links ul li a {
+            color: #e6e6d4;
+            text-decoration: none;
+        }
+
+        .footer-links ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #2f4f2f 0%, #1f3f1f 100%);
+            color: #e6e6d4;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid #a3c293;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #a3c293;
+            padding-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: #a3c293;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #e6e6d4;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(163, 194, 147, 0.2);
+            color: #a3c293;
+        }
+
+        .modal-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #e6e6d4;
+            text-align: justify;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .info-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .coffee-items {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .modal-content {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+
+            .modal-header h2 {
+                font-size: 2rem;
+            }
+
+            .modal-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -15,7 +419,7 @@
             </div>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
+                    <li><a href="#" onclick="openModal()">About</a></li>
                     <li><a href="#service">Service</a></li>
                     <li><a href="#pricing">Pricing</a></li>
                     <li><a href="#contact">Contact</a></li>
@@ -37,10 +441,10 @@
                     <li>Roasted with the best methods</li>
                     <li>Served with the best taste</li>
                 </ul>
-                <button id="orderNowBtn">Order Now</button>
+                
             </div>
             <div class="hero-image">
-                <img src="https://i.ibb.co/3mThcXc/coffee-beans.png" alt="Coffee Beans" />
+                <img src="../assets/farmer.jpg" alt="Coffee Beans" />
             </div>
         </div>
     </section>
@@ -48,7 +452,7 @@
     <section class="info-section">
         <div class="container info-container">
             <div class="info-item">
-                <img src="https://i.ibb.co/7vDLJFZ/organic.png" alt="Organic" />
+                <img src="../assets/coffee1.jpg" alt="Organic" />
                 <p>Coffee beans from organic garden</p>
             </div>
             <div class="info-item">
@@ -85,11 +489,23 @@
         </div>
     </section>
 
+    <!-- Modal Overlay -->
+    <div id="aboutModal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>About</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-text">
+                <p>Introducing Aniya: Aniya lets anyone farm no land, no experience needed. Through a simple online dashboard, you can grow real coffee trees, crops, or even livestock on actual farmland in Sitio Dueg, Tarlac, Philippines. This project is built and supported by The Four-Leaf Clover Coffee and Clover Coffee Reserves in partnership with Farm to Cup Philippines, with land and operations based in Sitio Dueg, San Clemente, Tarlac. We make it easy to start, track your farm's progress, receive updates with photos, and even share in the harvest. Whether you're living in the city or just want to make a difference Aniya helps you connect to the land and grow something that matters. "Aniya" comes from the Filipino words "ani" (harvest) and "niya" (yours) meaning, the harvest is yours.</p>
+            </div>
+        </div>
+    </div>
+
     <footer id="contact">
         <div class="container footer-container">
             <div class="footer-links">
                 <ul>
-                    <li><a href="#ourstory">Our Story</a></li>
                     <li><a href="#farmlocations">Farm Locations</a></li>
                     <li><a href="#wholesale">Wholesale</a></li>
                     <li><a href="#franchise">Franchise</a></li>
@@ -99,6 +515,24 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        function openModal() {
+            document.getElementById('aboutModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('aboutModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close modal when pressing Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
