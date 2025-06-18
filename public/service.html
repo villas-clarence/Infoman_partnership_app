@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Service - Coffee Clover</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="https://i.ibb.co/7QpKsCX/logo.png" alt="Coffee Clover Logo" class="logo-img" />
+                <span class="logo-text">Coffee Clover</span>
+            </div>
+<nav>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#service" class="active">Service</a></li>
+        <li><a href="mission.html">Mission</a></li>
+        <li><a href="vision.html">Vision</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+            <div class="auth-links">
+                <a href="login.html" class="login-link">Log In</a>
+                <a href="signup.html" class="signup-link">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="service" class="menu">
+        <div class="container">
+            <div class="subscription-titles">
+                <h2>Our Farming Subscription Tiers</h2>
+                <!-- Removed duplicate Aniya’s Subscription Tiers heading -->
+                <!-- <h2 class="aniya-title">Aniya’s Subscription Tiers</h2> -->
+            </div>
+
+            <div class="coffee-items">
+                <div class="coffee-item">
+                    <h3>Grower Plan</h3>
+                    <p><strong>₱319 per tree</strong></p>
+                    <p>Ideal for 10–199 trees, fully planted and maintained.</p>
+                </div>
+                <div class="coffee-item">
+                    <h3>Legacy Plan</h3>
+                    <p><strong>₱407 per tree</strong> (min 200)</p>
+                    <p>Bulk planting with intercropping options.</p>
+                </div>
+            </div>
+
+            <!-- Removed Small-Scale Farming section as per user request -->
+            <!-- <h3>Small-Scale Farming</h3>
+            <p class="description fadeIn">
+                Small-scale farming is ideal for those who want to plant with purpose — not just for profit. Think of it as your way of giving back to the earth and supporting Filipino farmers.
+            </p>
+            <ul class="description fadeIn">
+                <li><img src="https://img.icons8.com/emoji/24/seedling.png" alt="seedling icon" /> Plant real coffee trees in Sitio Dueg, Tarlac</li>
+                <li><img src="https://img.icons8.com/emoji/24/package.png" alt="package icon" /> A share of your tree’s harvest when it's ready</li>
+                <li><img src="https://img.icons8.com/emoji/24/gift.png" alt="gift box icon" /> Quarterly box of goods from Farm to Cup PH (1 year)</li>
+                <li><img src="https://img.icons8.com/emoji/24/earth-asia.png" alt="earth icon" /> Support climate action, rural livelihoods, reforestation</li>
+            </ul>
+            <p class="description fadeIn">It’s not just farming — it’s planting legacy, one tree at a time.</p> -->
+
+            <!-- Removed Large-Scale Farming section as per user request -->
+            <!-- <h3>Large-Scale Farming</h3>
+            <p class="description fadeIn">
+                Designed for those ready to grow a real agricultural asset — starting with 200 trees minimum.
+            </p>
+            <ul class="description fadeIn">
+                <li><img src="https://img.icons8.com/emoji/24/sheaf-of-rice.png" alt="rice icon" /> Intercropping for short-term returns (lettuce, poultry, etc.)</li>
+                <li><img src="https://img.icons8.com/emoji/24/farmer-light-skin-tone.png" alt="farmer icon" /> Full farm management by Aniya & Farm to Cup Philippines</li>
+            </ul>
+            <p class="description fadeIn">Earn from harvests while restoring land and supporting local farmers.</p> -->
+
+        </div>
+    </section>
+
+    <section id="aniya-subscription" class="menu">
+        <div class="container">
+            <h2 class="aniya-title">Aniya’s Subscription Tiers</h2>
+            <div class="coffee-items">
+                <div class="subscription-box">
+                    <div class="coffee-item" onclick="togglePlan(this)" style="cursor: pointer;">
+                        <h3>Seedling Plan (Small Scale)</h3>
+                        <p><strong>₱499 / semi-annual</strong></p>
+                        <ul style="display: none;">
+                            <li><img src="https://img.icons8.com/ios-filled/20/internet.png" alt="dashboard" /> Farm dashboard access</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/deciduous-tree.png" alt="tree" /> Assigned tree with digital ID</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/camera.png" alt="camera" /> Quarterly photo updates</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/certificate.png" alt="certificate" /> Certificate of contribution</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/book.png" alt="book" /> Basic Knowledge Hub access</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/combo-chart.png" alt="chart" /> Impact tracker (CO₂ saved, farmers supported)</li>
+                        </ul>
+                    </div>
+
+                    <div class="coffee-item" onclick="togglePlan(this)" style="cursor: pointer;">
+                        <h3>Grower Plan (Large Scale)</h3>
+                        <p><strong>₱499 / quarter</strong></p>
+                        <ul style="display: none;">
+                            <li><img src="https://img.icons8.com/ios-filled/20/calendar.png" alt="calendar" /> Monthly farm progress updates</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/image.png" alt="photo" /> Custom photo reports (24–48 hrs)</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/graph.png" alt="timeline" /> Farm milestone tracker</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/plant-under-sun.png" alt="intercropping" /> Intercropping options access</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/book-shelf.png" alt="knowledge hub" /> Full Knowledge Hub access</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/document.png" alt="report" /> ESG reports & impact metrics</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/online-support.png" alt="support" /> VIP support & tech feedback</li>
+                            <li><img src="https://img.icons8.com/ios-filled/20/medal2.png" alt="medal" /> Donor Honor Board recognition</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-container">
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#farmlocations">Farm Locations</a></li>
+                    <li><a href="#wholesale">Wholesale</a></li>
+                    <li><a href="#franchise">Franchise</a></li>
+                </ul>
+            </div>
+            <p>© 2024 Coffee Clover. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function togglePlan(card) {
+            const ul = card.querySelector('ul');
+            const allPlans = document.querySelectorAll('.coffee-item ul');
+            allPlans.forEach(list => {
+                if (list !== ul) list.style.display = 'none';
+            });
+            ul.style.display = ul.style.display === 'none' || ul.style.display === '' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
