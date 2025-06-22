@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Partnership - Coffee Clover</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Partnership - Coffee Clover</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="script.js" defer></script>
+    </head>
 <body style="background-color: #2f4f2f; color: #e6e6d4; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     <header>
         <div class="container header-container">
@@ -38,6 +39,67 @@
         <p style="font-size: 1.2rem; line-height: 1.8; text-align: justify; margin-top: 20px;">
             Join us in our mission to empower farmers and foster a thriving agricultural ecosystem.
         </p>
+
+        <!-- Dashboard Section Start -->
+        <section class="dashboard-container">
+            <div class="id-card">
+                <h3>📋 My ID card</h3>
+                <div class="id-card-content">
+                    <div class="id-card-left">
+                        <h4>Who am I?</h4>
+<div class="id-info">
+    <div><strong>Date of birth:</strong> 04/16/2025</div>
+    <div><strong>Name:</strong> <input type="text" id="user-name" name="user-name" placeholder="Enter your name" style="background-color: #2f4f2f; color: #e6e6d4; border: 1px solid #a3c293; border-radius: 5px; padding: 5px 10px; font-size: 1rem; width: 150px;" /></div>
+</div>
+                        <div class="tree-info">
+                            <img src="https://cdn-icons-png.flaticon.com/512/427/427735.png" alt="Tree Icon" class="tree-icon" />
+                            <span>Tree Coffee</span>
+                        </div>
+                    </div>
+                    <div class="id-card-right">
+                        <h4>Where am I located?</h4>
+<div class="location-info">
+    <div><strong>Country:</strong> Philippines</div>
+    <div><strong>Place of birth:</strong> Sitio Dueg, Tarlac</div>
+    <div><strong>Coordinates:</strong> 15° 29' 0" N, 120° 35' 0" E</div>
+</div>
+                        <div class="map-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Earthmap1000x500compac.png/800px-Earthmap1000x500compac.png" alt="Map" class="map-image" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <h3>📋 My Timeline</h3>
+                <p class="timeline-description">The important moments in your tree's life.</p>
+                <div class="timeline-items">
+                    <div class="timeline-item active">
+                        <div class="timeline-icon">🌱</div>
+                        <div class="timeline-label">Seed</div>
+                        <div class="timeline-text">It all starts with a tiny seed, nice and warm in the soil.</div>
+                    </div>
+                    <div class="timeline-item active">
+                        <div class="timeline-icon">🌿</div>
+                        <div class="timeline-label">Nursery</div>
+                        <div class="timeline-text">Your seedling is big enough to be welcomed into one of our nurseries, along with many others.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">📍</div>
+                        <div class="timeline-label">Planted</div>
+                    </div>
+<div class="timeline-item">
+    <div class="timeline-icon">🖼️</div>
+    <div class="timeline-label">Photo</div>
+    <input type="file" id="photo-upload" accept="image/*" style="margin-top: 10px; background-color: #2f4f2f; color: #e6e6d4; border: 1px solid #a3c293; border-radius: 5px; padding: 5px;" />
+    <div id="photo-preview" style="margin-top: 10px;">
+        <img src="" alt="Photo Preview" style="max-width: 100%; border-radius: 10px; display: none;" />
+    </div>
+</div>
+                </div>
+            </div>
+        </section>
+        <!-- Dashboard Section End -->
     </main>
 
     <footer id="contact" style="background-color: #2f4f2f; color: #e6e6d4; text-align: center; padding: 20px 0; margin-top: 40px; font-size: 1rem;">

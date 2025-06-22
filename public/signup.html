@@ -9,17 +9,20 @@
     <title>Partner Sign Up - Coffee Clover</title>
     <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-    <div class="split-container">
-        <div class="image-side">
+<body class="signup-page">
+    <div class="signup-wrapper">
+        <div class="signup-left">
             <img src="../assets/signup-coffee.avif" alt="Coffee beans and plants background" />
-            <div class="image-overlay-title">Aniya</div>
-            <p>You can choose your favorite coffee here.</p>
+            <div class="signup-overlay">
+                <h1 class="brand-title">Aniya</h1>
+                <p>Find your favorite coffee blend with us.</p>
+            </div>
         </div>
-        <div class="form-side">
-            <div class="form-container">
+        <div class="signup-right">
+            <div class="form-box">
                 <h2>Create your account</h2>
-                <form id="signupForm">
+                <p>Please sign up to get started</p>
+                <form id="signupForm" method="POST" action="signup.php">
                     <label for="email">Email address</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email" required />
                     
@@ -29,10 +32,10 @@
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required />
                     
-                <button type="submit" class="btn-primary">Sign Up</button>
+                    <button type="submit" class="btn-primary">Sign Up</button>
                 </form>
                 <p class="login-link">Already have an account? <a href="login.html">Log In</a></p>
-                <p class="partnership-link" style="margin-top: 20px;">After signing up, please <a href="partnership_form.php">fill out the partnership form</a> to connect with us.</p>
+                <p class="partnership-link" style="margin-top: 20px;">After signing up, please <a href="aniya_registration_form.html">fill out the partnership form</a> to connect with us.</p>
             </div>
         </div>
     </div>

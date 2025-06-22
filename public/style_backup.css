@@ -1,0 +1,223 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Imperial+Script&family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0d2818 0%, #1b3a1b 25%, #2d5a2d 50%, #4caf50 75%, #a3c293 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    color: #e6e6d4;
+    min-height: 100vh;
+}
+
+body.signup-page,
+body.login-page,
+body.partnership-page,
+body.service-page {
+    animation: none !important;
+    background-size: 400% 400%;
+}
+
+body.signup-page,
+body.login-page {
+    background: linear-gradient(135deg, #f4f4f0 0%, #e6e1d6 100%);
+    color: #1b3a1b;
+}
+
+.signup-wrapper,
+.login-wrapper {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.signup-left,
+.login-left {
+    flex: 1;
+    position: relative;
+}
+
+.signup-left img,
+.login-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8);
+}
+
+.signup-overlay,
+.login-overlay {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: #f0f0e8;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.brand-title {
+    font-family: 'Imperial Script', cursive;
+    font-size: 4rem;
+    margin: 0;
+}
+
+.signup-right,
+.login-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1b3a1b;
+    padding: 40px;
+}
+
+.form-box {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    padding: 45px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    color: #1e4620;
+}
+
+.form-box h2 {
+    margin-bottom: 10px;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.form-box p {
+    margin-bottom: 20px;
+    color: #4a4a4a;
+    text-align: center;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 8px 0 18px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.user-type {
+    display: flex;
+    gap: 20px;
+    margin: 10px 0 15px;
+}
+
+.form-extra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+}
+
+.forgot-password {
+    color: #2d7a2d;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #2d7a2d, #4caf50);
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, #1e4620, #2d7a2d);
+    transform: scale(1.02);
+}
+
+.alternative-signin {
+    text-align: center;
+    margin: 25px 0;
+}
+
+.alternative-signin span {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.btn-google {
+    background: #fff;
+    color: #1b3a1b;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 25px;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-google:hover {
+    background-color: #f3f3f3;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 0.95rem;
+}
+
+.signup-link a {
+    color: #2d7a2d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .login-wrapper {
+        flex-direction: column;
+    }
+
+    .login-left {
+        height: 250px;
+    }
+
+    .login-right {
+        padding: 20px;
+    }
+
+    .form-box {
+        padding: 30px;
+    }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

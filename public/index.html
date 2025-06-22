@@ -9,14 +9,60 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            /* Removed background color */
-            /* background-color: #2f4f2f; */
             color: #e6e6d4;
-            /* Removed background image */
-            /* background-image: url('../assets/beans spread.png'); */
-            /* background-size: cover; */
-            /* background-position: center; */
-            /* background-repeat: no-repeat; */
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center center;
+            z-index: -1;
+            opacity: 1;
+            animation: slideshowBackground 20s infinite;
+            filter: brightness(0.7) contrast(1.1) saturate(1.2);
+            transition: filter 0.5s ease-in-out;
+        }
+
+        @keyframes slideshowBackground {
+            0% {
+                background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/aniya.jpeg');
+                opacity: 1;
+            }
+            22.5% {
+                background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/aniya.jpeg');
+                opacity: 1;
+            }
+            27.5% {
+                background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/farm.jpeg');
+                opacity: 1;
+            }
+            72.5% {
+                background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/farm.jpeg');
+                opacity: 1;
+            }
+            77.5% {
+                background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/aniya.jpeg');
+                opacity: 1;
+            }
+            100% {
+                background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/aniya.jpeg');
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInBackground {
+            to {
+                opacity: 1;
+            }
         }
 
         .container {
@@ -30,9 +76,9 @@
 
         /* Header */
         header {
-            background-color: #2f4f2f;
-            color: #e6e6d4;
+            background: none;
             padding: 20px 0;
+            color: #e6e6d4;
         }
 
         .header-container {
@@ -426,7 +472,7 @@
 <nav>
     <ul class="nav-links">
         <li><a href="#" onclick="openModal()">About</a></li>
-        <li><a href="#service">Service</a></li>
+        <li><a href="service.html" style="color: #e6e6d4; text-decoration: none;">Service</a></li>
         <li><a href="mission.html">Mission</a></li>
         <li><a href="vision.html">Vision</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -439,9 +485,9 @@
         </div>
     </header>
 
-    <section class="hero-section">
+    <section class="hero-section" style="position: relative; overflow: hidden; background: none; padding: 80px 20px; display: flex; justify-content: center; align-items: center; gap: 50px;">
         <div class="container hero-container">
-            <div class="hero-text">
+            <div class="hero-text" style="position: relative; z-index: 2;">
                 <h1>You can choose your favorite coffee here.</h1>
                 <ul class="hero-features">
                     <li>The best selection of beans</li>
@@ -450,51 +496,19 @@
                 </ul>
                 
             </div>
-            <div class="hero-image">
-                <img src="../assets/beans spread.png" alt="Coffee Beans" />
+            <div class="hero-image" style="position: relative; z-index: 2;">
+                <!-- Removed beans picture as requested -->
             </div>
         </div>
     </section>
 
-    <section class="info-section">
-        <div class="container info-container">
-            <!--<div class="info-item">
-                <img src="../assets/coffee1.jpg" alt="Organic" />
-                <p>Coffee beans from organic garden</p>
-            </div>-->
-            <div class="info-item">
-                <img src="https://i.ibb.co/3mZbXqZ/environment.png" alt="Environmentally Friendly" />
-                <p>Environmentally friendly materials</p>
-            </div>
-            <div class="info-item">
-                <img src="https://i.ibb.co/4J7QZ9R/recycled.png" alt="Recycled" />
-                <p>Recycled materials equipment</p>
-            </div>
+    <section class="info-section" style="min-height: 0; padding: 0; margin: 0;">
+        <div class="container info-container" style="padding: 0; margin: 0;">
+            <!-- Removed environmental and recycled materials items and reduced space -->
         </div>
     </section>
 
-    <section id="menu" class="menu">
-        <div class="container">
-            <h2>Our Coffee Menu</h2>
-            <div class="coffee-items">
-                <div class="coffee-item">
-                    <h3>Espresso</h3>
-                    <p>Strong and bold espresso shot.</p>
-                    <button class="order-btn" data-coffee="Espresso">Order</button>
-                </div>
-                <div class="coffee-item">
-                    <h3>Cappuccino</h3>
-                    <p>Espresso with steamed milk and foam.</p>
-                    <button class="order-btn" data-coffee="Cappuccino">Order</button>
-                </div>
-                <div class="coffee-item">
-                    <h3>Latte</h3>
-                    <p>Smooth blend of espresso and steamed milk.</p>
-                    <button class="order-btn" data-coffee="Latte">Order</button>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Modal Overlay -->
     <div id="aboutModal" class="modal-overlay" onclick="closeModal(event)">

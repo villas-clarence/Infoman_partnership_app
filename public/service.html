@@ -6,138 +6,153 @@
     <title>Service - Coffee Clover</title>
     <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-    <header>
+<body class="service-page" style="background: linear-gradient(135deg, #a3c293 0%, #d0e8c0 100%); color: #1b3a1b;">
+    <header style="background: linear-gradient(135deg, #0f3d0f 0%, #6bcf6b 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.4); border-bottom: 3px solid rgba(76, 175, 80, 0.3); position: sticky; top: 0; z-index: 1000;">
         <div class="container header-container">
             <div class="logo-container">
                 <img src="https://i.ibb.co/7QpKsCX/logo.png" alt="Coffee Clover Logo" class="logo-img" />
-                <span class="logo-text">Coffee Clover</span>
+                <span class="logo-text" style="font-style: italic; color: #e6e4d4;">Aniya</span>
             </div>
-<nav>
-    <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#service" class="active">Service</a></li>
-        <li><a href="mission.html">Mission</a></li>
-        <li><a href="vision.html">Vision</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-</nav>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" style="color: #e6e4d4;">Home</a></li>
+                    <li><a href="service.html" class="active" style="color: #e6e4d4;">Service</a></li>
+                    <li><a href="mission.html" style="color: #e6e4d4;">Mission</a></li>
+                    <li><a href="vision.html" style="color: #e6e4d4;">Vision</a></li>
+                    <li><a href="#contact" style="color: #e6e4d4;">Contact</a></li>
+                </ul>
+            </nav>
             <div class="auth-links">
-                <a href="login.html" class="login-link">Log In</a>
-                <a href="signup.html" class="signup-link">Sign Up</a>
+                <a href="login.html" class="login-link" style="color: #e6e4d4;">Log In</a>
+                <a href="signup.html" class="signup-link" style="color: #e6e4d4;">Sign Up</a>
             </div>
         </div>
     </header>
 
-    <section id="service" class="menu">
+    <section id="service" class="menu" style="padding: 80px 40px;">
         <div class="container">
-            <div class="subscription-titles">
-                <h2>Our Farming Subscription Tiers</h2>
-                <!-- Removed duplicate Aniya’s Subscription Tiers heading -->
-                <!-- <h2 class="aniya-title">Aniya’s Subscription Tiers</h2> -->
-            </div>
+            <h2 style="color: #1b3a1b;">Our Premium Services</h2>
+            
+            <div class="service-main" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                <!-- Farm Tier Section (Left) -->
+                <div class="farm-section" style="flex: 1; background: #a3c293; border-radius: 20px; padding: 35px; box-shadow: 0 12px 35px rgba(0,0,0,0.4); border: 2px solid rgba(76, 175, 80, 0.3); overflow: hidden;">
+                    <h3 class="section-title" style="color: #1b3a1b;">Farming Subscription Tiers</h3>
+                    
+                    <div class="plan-item" style="background: #d0e8c0; color: #1b3a1b; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); cursor: pointer;">
+                        <h3>Grower Plan</h3>
+                        <p class="price">₱319 per tree</p>
+                        <p>Perfect for individuals starting their sustainability journey. Ideal for 10–199 trees, each fully planted and maintained with professional care.</p>
+                        <p><em>Make a meaningful environmental impact with our entry-level farming solution.</em></p>
+                    </div>
 
-            <div class="coffee-items">
-                <div class="coffee-item">
-                    <h3>Grower Plan</h3>
-                    <p><strong>₱319 per tree</strong></p>
-                    <p>Ideal for 10–199 trees, fully planted and maintained.</p>
+                    <div class="plan-item" style="background: #d0e8c0; color: #1b3a1b; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); cursor: pointer;">
+                        <h3>Legacy Plan</h3>
+                        <p class="price">₱407 per tree (minimum 200 trees)</p>
+                        <p>Designed for serious environmental advocates and organizations. Features bulk planting with advanced intercropping options for maximum ecological benefit.</p>
+                        <p><em>Create a lasting legacy with our comprehensive large-scale farming program.</em></p>
+                    </div>
+
+                    <!-- Aniya Subscription nested inside Farm Section -->
+                    <div class="aniya-nested">
+                        <h3 style="color: #1b3a1b;">Aniya's Premium Monitoring Add-On</h3>
+                        <p style="text-align: center; margin-bottom: 25px; font-style: italic; color: #1b3a1b;">
+                            Enhance your farming experience with advanced tracking and personalized support
+                        </p>
+                        
+                        <div class="plan-item" onclick="togglePlan(this)" style="background: #d0e8c0; color: #1b3a1b; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); cursor: pointer;">
+                            <h3>🌱 Seedling Plan (Small Scale)</h3>
+                            <p class="price">₱499 / semi-annual</p>
+                            <p>Enhanced monitoring and support services for your farming investment</p>
+                            <p style="font-size: 0.9rem; opacity: 0.8; cursor: pointer;">
+                                <strong>Click to view features ↓</strong>
+                            </p>
+                            <ul style="display: none; color: #1b3a1b;">
+                                <li>📊 Farm dashboard access with real-time data</li>
+                                <li>🏷️ Assigned tree with unique digital ID</li>
+                                <li>📸 Quarterly professional photo updates</li>
+                                <li>🏆 Certificate of environmental contribution</li>
+                                <li>📚 Basic Knowledge Hub access</li>
+                                <li>🌍 Impact tracker (CO₂ saved, farmers supported)</li>
+                                <li>📧 Email notifications and progress reports</li>
+                            </ul>
+                        </div>
+
+                        <div class="plan-item" onclick="togglePlan(this)" style="background: #d0e8c0; color: #1b3a1b; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); cursor: pointer;">
+                            <h3>🌳 Grower Plan (Large Scale)</h3>
+                            <p class="price">₱499 / quarter</p>
+                            <p>Premium monitoring with comprehensive access and VIP support</p>
+                            <p style="font-size: 0.9rem; opacity: 0.8; cursor: pointer;">
+                                <strong>Click to view features ↓</strong>
+                            </p>
+                            <ul style="display: none; color: #1b3a1b;">
+                                <li>📈 Monthly detailed farm progress updates</li>
+                                <li>📷 Custom photo reports delivered within 24–48 hours</li>
+                                <li>🎯 Advanced farm milestone tracker</li>
+                                <li>🌾 Premium intercropping options access</li>
+                                <li>📖 Full Knowledge Hub access with expert content</li>
+                                <li>📊 Comprehensive ESG reports & impact metrics</li>
+                                <li>🎧 VIP customer support & technical feedback</li>
+                                <li>🏅 Donor Honor Board recognition</li>
+                                <li>💼 Quarterly business impact assessments</li>
+                                <li>🔔 Priority notifications and updates</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="coffee-item">
-                    <h3>Legacy Plan</h3>
-                    <p><strong>₱407 per tree</strong> (min 200)</p>
-                    <p>Bulk planting with intercropping options.</p>
-                </div>
-            </div>
 
-            <!-- Removed Small-Scale Farming section as per user request -->
-            <!-- <h3>Small-Scale Farming</h3>
-            <p class="description fadeIn">
-                Small-scale farming is ideal for those who want to plant with purpose — not just for profit. Think of it as your way of giving back to the earth and supporting Filipino farmers.
-            </p>
-            <ul class="description fadeIn">
-                <li><img src="https://img.icons8.com/emoji/24/seedling.png" alt="seedling icon" /> Plant real coffee trees in Sitio Dueg, Tarlac</li>
-                <li><img src="https://img.icons8.com/emoji/24/package.png" alt="package icon" /> A share of your tree’s harvest when it's ready</li>
-                <li><img src="https://img.icons8.com/emoji/24/gift.png" alt="gift box icon" /> Quarterly box of goods from Farm to Cup PH (1 year)</li>
-                <li><img src="https://img.icons8.com/emoji/24/earth-asia.png" alt="earth icon" /> Support climate action, rural livelihoods, reforestation</li>
-            </ul>
-            <p class="description fadeIn">It’s not just farming — it’s planting legacy, one tree at a time.</p> -->
-
-            <!-- Removed Large-Scale Farming section as per user request -->
-            <!-- <h3>Large-Scale Farming</h3>
-            <p class="description fadeIn">
-                Designed for those ready to grow a real agricultural asset — starting with 200 trees minimum.
-            </p>
-            <ul class="description fadeIn">
-                <li><img src="https://img.icons8.com/emoji/24/sheaf-of-rice.png" alt="rice icon" /> Intercropping for short-term returns (lettuce, poultry, etc.)</li>
-                <li><img src="https://img.icons8.com/emoji/24/farmer-light-skin-tone.png" alt="farmer icon" /> Full farm management by Aniya & Farm to Cup Philippines</li>
-            </ul>
-            <p class="description fadeIn">Earn from harvests while restoring land and supporting local farmers.</p> -->
-
-        </div>
-    </section>
-
-    <section id="aniya-subscription" class="menu">
-        <div class="container">
-            <h2 class="aniya-title">Aniya’s Subscription Tiers</h2>
-            <div class="coffee-items">
-                <div class="subscription-box">
-                    <div class="coffee-item" onclick="togglePlan(this)" style="cursor: pointer;">
-                        <h3>Seedling Plan (Small Scale)</h3>
-                        <p><strong>₱499 / semi-annual</strong></p>
-                        <ul style="display: none;">
-                            <li><img src="https://img.icons8.com/ios-filled/20/internet.png" alt="dashboard" /> Farm dashboard access</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/deciduous-tree.png" alt="tree" /> Assigned tree with digital ID</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/camera.png" alt="camera" /> Quarterly photo updates</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/certificate.png" alt="certificate" /> Certificate of contribution</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/book.png" alt="book" /> Basic Knowledge Hub access</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/combo-chart.png" alt="chart" /> Impact tracker (CO₂ saved, farmers supported)</li>
+                <!-- Additional Services Section (Right) -->
+                <div class="subscription-section" style="flex: 1; background: #d0e8c0; border-radius: 20px; padding: 35px; box-shadow: 0 12px 35px rgba(0,0,0,0.3); color: #1b3a1b; border: 2px solid rgba(15, 61, 15, 0.2); overflow: hidden;">
+                    <h3 class="section-title" style="color: #1b3a1b;">Aniya's Premium Monitoring Add-On</h3>
+                    <p style="text-align: center; margin-bottom: 25px; font-style: italic; color: #1b3a1b;">
+                        Enhance your farming experience with advanced tracking and personalized support
+                    </p>
+                    
+                    <div class="plan-item" onclick="togglePlan(this)" style="background: #a3c293; color: #1b3a1b; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); cursor: pointer;">
+                        <h3>🌱 Seedling Plan (Small Scale)</h3>
+                        <p class="price">₱499 / semi-annual</p>
+                        <p>Enhanced monitoring and support services for your farming investment</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8; cursor: pointer;">
+                            <strong>Click to view features ↓</strong>
+                        </p>
+                        <ul style="display: none; color: #1b3a1b;">
+                            <li>📊 Farm dashboard access with real-time data</li>
+                            <li>🏷️ Assigned tree with unique digital ID</li>
+                            <li>📸 Quarterly professional photo updates</li>
+                            <li>🏆 Certificate of environmental contribution</li>
+                            <li>📚 Basic Knowledge Hub access</li>
+                            <li>🌍 Impact tracker (CO₂ saved, farmers supported)</li>
+                            <li>📧 Email notifications and progress reports</li>
                         </ul>
                     </div>
 
-                    <div class="coffee-item" onclick="togglePlan(this)" style="cursor: pointer;">
-                        <h3>Grower Plan (Large Scale)</h3>
-                        <p><strong>₱499 / quarter</strong></p>
-                        <ul style="display: none;">
-                            <li><img src="https://img.icons8.com/ios-filled/20/calendar.png" alt="calendar" /> Monthly farm progress updates</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/image.png" alt="photo" /> Custom photo reports (24–48 hrs)</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/graph.png" alt="timeline" /> Farm milestone tracker</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/plant-under-sun.png" alt="intercropping" /> Intercropping options access</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/book-shelf.png" alt="knowledge hub" /> Full Knowledge Hub access</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/document.png" alt="report" /> ESG reports & impact metrics</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/online-support.png" alt="support" /> VIP support & tech feedback</li>
-                            <li><img src="https://img.icons8.com/ios-filled/20/medal2.png" alt="medal" /> Donor Honor Board recognition</li>
+                    <div class="plan-item" onclick="togglePlan(this)" style="background: #a3c293; color: #1b3a1b; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); cursor: pointer;">
+                        <h3>🌳 Grower Plan (Large Scale)</h3>
+                        <p class="price">₱499 / quarter</p>
+                        <p>Premium monitoring with comprehensive access and VIP support</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8; cursor: pointer;">
+                            <strong>Click to view features ↓</strong>
+                        </p>
+                        <ul style="display: none; color: #1b3a1b;">
+                            <li>📈 Monthly detailed farm progress updates</li>
+                            <li>📷 Custom photo reports delivered within 24–48 hours</li>
+                            <li>🎯 Advanced farm milestone tracker</li>
+                            <li>🌾 Premium intercropping options access</li>
+                            <li>📖 Full Knowledge Hub access with expert content</li>
+                            <li>📊 Comprehensive ESG reports & impact metrics</li>
+                            <li>🎧 VIP customer support & technical feedback</li>
+                            <li>🏅 Donor Honor Board recognition</li>
+                            <li>💼 Quarterly business impact assessments</li>
+                            <li>🔔 Priority notifications and updates</li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-        </div>
-    </section>
 
-    <footer id="contact">
-        <div class="container footer-container">
-            <div class="footer-links">
-                <ul>
-                    <li><a href="#farmlocations">Farm Locations</a></li>
-                    <li><a href="#wholesale">Wholesale</a></li>
-                    <li><a href="#franchise">Franchise</a></li>
-                </ul>
+            <div class="button-container" style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
+                <button class="btn-primary" onclick="window.location.href='signup.html'">Get Started Today</button>
+                <button class="order-btn" onclick="window.location.href='#contact'">Contact Us</button>
             </div>
-            <p>© 2024 Coffee Clover. All rights reserved.</p>
         </div>
-    </footer>
-
-    <script>
-        function togglePlan(card) {
-            const ul = card.querySelector('ul');
-            const allPlans = document.querySelectorAll('.coffee-item ul');
-            allPlans.forEach(list => {
-                if (list !== ul) list.style.display = 'none';
-            });
-            ul.style.display = ul.style.display === 'none' || ul.style.display === '' ? 'block' : 'none';
-        }
-    </script>
+    </section>
 </body>
 </html>
