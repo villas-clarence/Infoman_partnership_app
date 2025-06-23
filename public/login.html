@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
-    <link href="style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
     <title>Partner Login - Coffee Clover</title>
 </head>
 <body class="login-page">
@@ -32,10 +32,10 @@
                         <label><input type="radio" name="userType" value="admin" /> Admin</label>
                     </div>
 
-                    <div class="form-extra">
-                        <label><input type="checkbox" name="remember" /> Remember me</label>
-                        <a href="#" class="forgot-password">Forgot password?</a>
-                    </div>
+    <div class="form-extra" role="group" aria-label="Remember me and forgot password options">
+        <label><input type="checkbox" name="remember" /> Remember me</label>
+        <a href="#" class="forgot-password" role="button" tabindex="0" aria-label="Forgot password">Forgot password?</a>
+    </div>
 
                     <button type="submit" class="btn-primary">Sign In</button>
                 </form>

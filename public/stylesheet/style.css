@@ -87,24 +87,42 @@ body {
         width: 100%;
     }
 
-    .auth-links a {
-        color: #e6e6d4;
-        text-decoration: none;
-        margin-left: 20px;
-        font-weight: 600;
-        font-size: 1rem;
-    }
+.auth-links a {
+    color: #e6e6d4;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
 
-    .auth-links a.signup-link {
-        border: 1px solid #e6e6d4;
-        padding: 5px 10px;
-        border-radius: 5px;
-    }
+.auth-links a.signup-link {
+    border: 1px solid #e6e6d4;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
 
-    .auth-links a.signup-link:hover {
-        background-color: #e6e6d4;
-        color: #2f4f2f;
-    }
+.auth-links a.signup-link:hover {
+    background-color: #e6e6d4;
+    color: #2f4f2f;
+}
+
+.auth-links a.login-link {
+    border: 1px solid #e6e6d4;
+    background-color: transparent;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.auth-links a.login-link:hover {
+    background-color: #a3c293;
+    color: #2f4f2f;
+    border-color: #a3c293;
+}
 
     /* Hero Section */
     .hero-section {

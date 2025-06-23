@@ -1,0 +1,105 @@
+/* Additional CSS fixes for partnership.html */
+
+body.partnership-page header {
+  background: linear-gradient(135deg, #0f3d0f 0%, #1e5a1e 25%, #2d7a2d 50%, #4caf50 75%, #6bcf6b 100%);
+  background-size: 300% 300%;
+  animation: none !important;
+  color: #f0f0e8;
+  padding: 20px 40px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  border-bottom: 3px solid rgba(76, 175, 80, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.partnership-main {
+  padding: 60px 20px;
+  background: linear-gradient(to bottom right, #1e4620, #2d7a2d, #4caf50);
+  color: #e6e6d4;
+}
+
+.id-card {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 15px;
+  padding: 30px;
+  margin: 40px 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.id-card-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.id-card-left, .id-card-right {
+  flex: 1 1 300px;
+}
+
+.tree-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.tree-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.timeline {
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 2px solid #a3c29344;
+}
+
+.timeline-description {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.timeline-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.timeline-item {
+  flex: 1 1 220px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  color: #e6e6d4;
+  transition: transform 0.3s;
+}
+
+.timeline-item.active {
+  border: 2px solid #a3c293;
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+}
+
+.timeline-item:hover {
+  transform: translateY(-5px);
+}
+
+.timeline-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.timeline-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.photo-preview img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: block;
+}
