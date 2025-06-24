@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact - Aniya</title>
+    <link rel="stylesheet" href="contact.css" />
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <span class="logo-text">Aniya</span>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="service.html">Service</a></li>
+                    <li><a href="mission.html">Mission</a></li>
+                    <li><a href="vision.html">Vision</a></li>
+                    <li><a href="partnership.html">Partnership</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+                <div class="auth-links">
+                    <a href="login.html" class="login-link">Log In</a>
+                    <a href="signup.html" class="signup-link">Sign Up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>We're here to help you connect with Aniya and answer any questions about our farming initiatives. Reach out to us!</p>
+            <div class="contact-container">
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required class="styled-input" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required class="styled-input" />
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Your Message" required class="styled-input"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                    <p id="form-message" class="form-message"></p>
+                </div>
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="info-item">
+                        <strong>Email:</strong> <a href="mailto:support@aniya.com">support@aniya.com</a>
+                    </div>
+                    <div class="info-item">
+                        <strong>Phone:</strong> <a href="tel:+639123456789">+63 912 345 6789</a>
+                    </div>
+                    <div class="info-item">
+                        <strong>Address:</strong> Sitio Dueg, San Clemente, Tarlac, Philippines
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#farmlocations">Farm Locations</a></li>
+                    <li><a href="#wholesale">Wholesale</a></li>
+                    <li><a href="#franchise">Franchise</a></li>
+                </ul>
+            </div>
+            <p>© 2025 Coffee Clover. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="contact.js"></script>
+</body>
+</html>
