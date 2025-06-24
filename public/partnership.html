@@ -1,117 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Partnership - Coffee Clover</title>
-    <link rel="stylesheet" href="partnership.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Partnership - Coffee Clover</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/partnership-fix.css" />
+  <style>
+    /* Modal styles1 */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 300px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .close-btn {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close-btn:hover,
+    .close-btn:focus {
+      color: black;
+      text-decoration: none;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    .action-btn {
+      margin-right: 5px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .edit-btn {
+      background-color: #3498db;
+      color: white;
+    }
+    .delete-btn {
+      background-color: #e74c3c;
+      color: white;
+    }
+    .save-btn {
+      background-color: #2ecc71;
+      color: white;
+    }
+    .cancel-btn {
+      background-color: #95a5a6;
+      color: white;
+    }
+  </style>
 </head>
-<body>
-    <header>
-        <div class="container header-container">
-            <div class="logo-container">
-                <span class="logo-text">Aniya</span>
-            </div>
-            <button class="nav-toggle" aria-label="Toggle navigation">
-                <span class="hamburger"></span>
-            </button>
-            <nav class="nav-menu">
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="service.html">Service</a></li>
-                    <li><a href="mission.html">Mission</a></li>
-                    <li><a href="vision.html">Vision</a></li>
-                    <li><a href="partnership.html" class="active">Partnership</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-                <div class="auth-links">
-                    <a href="login.html" class="login-link">Log In</a>
-                    <a href="signup.html" class="signup-link">Sign Up</a>
-                </div>
-            </nav>
+<body class="partnership-page">
+
+<div id="popupModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModal">&times;</span>
+    <p id="popupMessage"></p>
+  </div>
+</div>
+
+<main class="partnership-main">
+  <!-- Removed the top partnership image as per user request -->
+  <h2 class="section-title">Partnership</h2>
+  <p class="section-text">
+    Welcome to our Partnership page. Here we build strong collaborations with farmers, communities, and stakeholders to create sustainable and impactful farming initiatives.
+  </p>
+  <p class="section-text">
+    Join us in our mission to empower farmers and foster a thriving agricultural ecosystem.
+  </p>
+
+  <!-- Partnership Submission Form -->
+  <form id="partnershipForm" class="partnership-form">
+    <label><strong>Full Name:</strong></label>
+    <input type="text" id="userNameInput" name="user_name" placeholder="Enter your name" required class="styled-input" />
+    <button type="submit" class="styled-button">Submit Partnership</button>
+  </form>
+
+  <!-- Who am I Section -->
+  <section class="dashboard-container">
+    <div class="id-card">
+      <h3>📋 My ID card</h3>
+      <div class="id-card-content">
+        <div class="id-card-left">
+          <h4>Who am I?</h4>
+          <div class="id-info">
+            <div><strong>Date of birth:</strong> 04/16/2025</div>
+            <div><strong>Name:</strong> <span id="treeNameDisplay">Tree Partner</span></div>
+          </div>
+          <div class="tree-info">
+            <img src="https://cdn-icons-png.flaticon.com/512/427/427735.png" alt="Tree Icon" class="tree-icon" />
+            <span>Tree Coffee</span>
+          </div>
         </div>
-    </header>
-
-    <main class="main-content">
-        <section id="partnership">
-            <h2>Partnership</h2>
-            <p>Welcome to our Partnership page. Here we build strong collaborations with farmers, communities, and stakeholders to create sustainable and impactful farming initiatives.</p>
-            <p>Join us in our mission to empower farmers and foster a thriving agricultural ecosystem.</p>
-
-            <div class="dashboard-container">
-                <div class="id-card">
-                    <h3>My ID Card</h3>
-                    <div class="id-card-content">
-                        <div class="id-card-left">
-                            <h4>Who am I?</h4>
-                            <div class="id-info">
-                                <div><strong>Date of birth:</strong> 04/16/2025</div>
-                                <div><strong>Name:</strong> <input type="text" id="user-name" name="user-name" placeholder="Enter your name" class="styled-input" /></div>
-                            </div>
-                            <div class="tree-info">
-                                <img src="https://cdn-icons-png.flaticon.com/512/427/427735.png" alt="Tree Icon" class="tree-icon" />
-                                <span>Tree Coffee</span>
-                            </div>
-                        </div>
-                        <div class="id-card-right">
-                            <h4>Where am I located?</h4>
-                            <div class="location-info">
-                                <div><strong>Country:</strong> Philippines</div>
-                                <div><strong>Place of birth:</strong> Sitio Dueg, Tarlac</div>
-                                <div><strong>Coordinates:</strong> 15° 29' 0" N, 120° 35' 0" E</div>
-                            </div>
-                            <div class="map-container">
-                                <img src="../assets/partnership_image.png" alt="Partnership Map" class="map-image" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline">
-                    <h3>My Timeline</h3>
-                    <p class="timeline-description">The important moments in your tree's life.</p>
-                    <div class="timeline-items">
-                        <div class="timeline-item active">
-                            <div class="timeline-icon">🌱</div>
-                            <div class="timeline-label">Seed</div>
-                            <div class="timeline-text">It all starts with a tiny seed, nice and warm in the soil.</div>
-                        </div>
-                        <div class="timeline-item active">
-                            <div class="timeline-icon">🌿</div>
-                            <div class="timeline-label">Nursery</div>
-                            <div class="timeline-text">Your seedling is big enough to be welcomed into one of our nurseries, along with many others.</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon">📍</div>
-                            <div class="timeline-label">Planted</div>
-                            <div class="timeline-text">Your tree has been planted in its permanent home.</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon">🖼️</div>
-                            <div class="timeline-label">Photo</div>
-                            <input type="file" id="photo-upload" accept="image/*" class="styled-input" />
-                            <div id="photo-preview" class="photo-preview">
-                                <img src="" alt="Photo Preview" style="display: none;" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer id="contact">
-        <div class="container footer-container">
-            <div class="footer-links">
-                <ul>
-                    <li><a href="#farmlocations">Farm Locations</a></li>
-                    <li><a href="#wholesale">Wholesale</a></li>
-                    <li><a href="#franchise">Franchise</a></li>
-                </ul>
-            </div>
-            <p>© 2025 Coffee Clover. All rights reserved.</p>
+        <div class="id-card-right">
+          <h4>Where am I located?</h4>
+          <div class="location-info">
+            <div><strong>Country:</strong> Philippines</div>
+            <div><strong>Place of birth:</strong> Sitio Dueg, Tarlac</div>
+            <div><strong>Coordinates:</strong> 15° 29' 0" N, 120° 35' 0" E</div>
+          </div>
+<div class="map-container">
+<img src="../assets/partneship_image.jpeg" alt="Map" class="map-image" style="width: 100%; max-width: 400px; height: 150px; object-fit: cover; border-radius: 10px;" />
+</div>
         </div>
-    </footer>
-    <script src="partnership.js"></script>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partnership List Table -->
+  <section class="dashboard-container">
+    <h3>Partnership Records</h3>
+    <table id="partnershipTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dynamic rows here -->
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<script>
+  const modal = document.getElementById('popupModal');
+  const popupMessage = document.getElementById('popupMessage');
+  const closeModalBtn = document.getElementById('closeModal');
+  const partnershipForm = document.getElementById('partnershipForm');
+  const userNameInput = document.getElementById('userNameInput');
+  const partnershipTableBody = document.querySelector('#partnershipTable tbody');
+
+  // Show popup modal with message
+  function showPopup(message) {
+    popupMessage.textContent = message;
+    modal.style.display = 'block';
+  }
+
+  // Close popup modal
+  closeModalBtn.onclick = () => modal.style.display = 'none';
+  window.onclick = event => {
+    if (event.target === modal) modal.style.display = 'none';
+  };
+
+  // Fetch and display partnerships
+  function fetchPartnerships() {
+    fetch('partnership.php')
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to load partnerships.');
+        return response.json();
+      })
+      .then(data => {
+        partnershipTableBody.innerHTML = '';
+        if (data.length > 0) {
+          document.getElementById('treeNameDisplay').textContent = data[0].user_name;
+        }
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          row.dataset.id = item.id;
+
+          row.innerHTML = `
+            <td>${item.id}</td>
+            <td contenteditable="false">${item.user_name}</td>
+            <td>
+              <button class="action-btn edit-btn">Edit</button>
+              <button class="action-btn delete-btn">Delete</button>
+            </td>
+          `;
+
+          row.querySelector('.edit-btn').onclick = () => enableEdit(row);
+          row.querySelector('.delete-btn').onclick = () => deletePartnership(item.id);
+          partnershipTableBody.appendChild(row);
+        });
+      })
+      .catch(error => showPopup('Error fetching partnerships: ' + error.message));
+  }
+
+  function enableEdit(row) {
+    const nameCell = row.children[1];
+    nameCell.contentEditable = true;
+    nameCell.focus();
+
+    const actionsCell = row.children[2];
+    actionsCell.innerHTML = '';
+
+    const saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.className = 'action-btn save-btn';
+    saveBtn.onclick = () => saveEdit(row);
+    actionsCell.appendChild(saveBtn);
+
+    const cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.className = 'action-btn cancel-btn';
+    cancelBtn.onclick = () => cancelEdit(row);
+    actionsCell.appendChild(cancelBtn);
+  }
+
+  function cancelEdit(row) {
+    fetchPartnerships();
+  }
+
+  function saveEdit(row) {
+    const id = row.dataset.id;
+    const newName = row.children[1].textContent.trim();
+
+    if (!newName) {
+      showPopup('Name cannot be empty.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('action', 'update');
+    formData.append('id', id);
+    formData.append('user_name', newName);
+
+    fetch('partnership.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showPopup(data.success);
+        fetchPartnerships();
+      } else {
+        showPopup(data.error);
+      }
+    })
+    .catch(error => showPopup('Error updating partnership: ' + error.message));
+  }
+
+  function deletePartnership(id) {
+    if (!confirm('Are you sure you want to delete this entry?')) return;
+
+    const formData = new FormData();
+    formData.append('action', 'delete');
+    formData.append('id', id);
+
+    fetch('partnership.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showPopup(data.success);
+        fetchPartnerships();
+      } else {
+        showPopup(data.error);
+      }
+    })
+    .catch(error => showPopup('Error deleting partnership: ' + error.message));
+  }
+
+  partnershipForm.onsubmit = function(event) {
+    event.preventDefault();
+    const userName = userNameInput.value.trim();
+    if (!userName) {
+      showPopup('Please enter a valid name.');
+      return;
+    }
+
+    const formData = new FormData(partnershipForm);
+    formData.append('action', 'create');
+
+    fetch('partnership.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showPopup(data.success);
+        userNameInput.value = '';
+        fetchPartnerships();
+      } else {
+        showPopup(data.error);
+      }
+    })
+    .catch(error => {
+      showPopup('Error creating partnership: ' + error.message);
+    });
+  };
+
+  // Initial load
+  fetchPartnerships();
+</script>
+
 </body>
 </html>
