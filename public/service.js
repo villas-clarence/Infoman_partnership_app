@@ -19,6 +19,24 @@ function togglePlan(element) {
     }
 }
 
+function openModal() {
+    document.getElementById('aboutModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closeModal(event) {
+    if (event && event.target !== event.currentTarget) return;
+    document.getElementById('aboutModal').style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling
+}
+
+// Close modal when pressing Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+});
+
 // Toggle mobile navigation
 document.querySelector('.nav-toggle').addEventListener('click', function() {
     document.querySelector('.nav-menu').classList.toggle('active');
@@ -40,19 +58,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Initialize animations on scroll
-function animateOnScroll() {
-    const elements = document.querySelectorAll('.plan-item, .farm-section, .subscription-section');
-    
-    elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 100;
-        
-        if (elementTop < window.innerHeight - elementVisible) {
-            element.classList.add('animate');
-        }
+// Add toggle functionality to plan items
+document.querySelectorAll('.plan-item .toggle-text').forEach(toggle => {
+    toggle.addEventListener('click', function() {
+        togglePlan(this.parentElement);
     });
-}
-
-window.addEventListener('scroll', animateOnScroll);
-window.addEventListener('load', animateOnScroll);
+});

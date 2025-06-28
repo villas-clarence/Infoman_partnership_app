@@ -10,6 +10,9 @@
     <header>
         <div class="container header-container">
             <div class="logo-container">
+                <div class="logo-img">
+                    <img src="../assets/farmtocupr.png" alt="aniyalogo">
+                </div>
                 <span class="logo-text">Aniya</span>
             </div>
             <button class="nav-toggle" aria-label="Toggle navigation">
@@ -18,6 +21,7 @@
             <nav class="nav-menu">
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
+                    <li><a href="#" onclick="openModal()">About</a></li>
                     <li><a href="service.html" class="active">Service</a></li>
                     <li><a href="mission.html">Mission</a></li>
                     <li><a href="vision.html">Vision</a></li>
@@ -31,48 +35,154 @@
             </nav>
         </div>
     </header>
+    
+    <!-- Modal Overlay -->
+    <div id="aboutModal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>About</h2>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-text">
+                <p>Introducing Aniya: Aniya lets anyone farm no land, no experience needed. Through a simple online dashboard, you can grow real coffee trees, crops, or even livestock on actual farmland in Sitio Dueg, Tarlac, Philippines. This project is built and supported by The Four-Leaf Clover Coffee and Clover Coffee Reserves in partnership with Farm to Cup Philippines, with land and operations based in Sitio Dueg, San Clemente, Tarlac. We make it easy to start, track your farm's progress, receive updates with photos, and even share in the harvest. Whether you're living in the city or just want to make a difference Aniya helps you connect to the land and grow something that matters. "Aniya" comes from the Filipino words "ani" (harvest) and "niya" (yours) meaning, the harvest is yours.</p>
+            </div>
+        </div>
+    </div>
 
     <main class="main-content">
         <section id="service">
-            <h2>Our Services</h2>
+            <h2>Plan Selection & Payment Integration</h2>
             <div class="service-main">
-                <div class="farm-section">
-                    <h3 class="section-title">Farm Management</h3>
-                    <p>Empowering farmers with digital tools to manage crops, monitor growth, and connect with communities.</p>
-                    <ul>
-                        <li>Real-time crop monitoring</li>
-                        <li>Yield optimization tools</li>
-                        <li>Community marketplace</li>
-                    </ul>
-                    <div class="button-container">
-                        <a href="#learn-more" class="btn-primary">Learn More</a>
-                        <a href="#order" class="order-btn">Get Started</a>
+                <div class="package-section">
+                    <h3 class="section-title">One-time Farming Packages</h3>
+                    <div class="section-content">
+                        <div class="table-container">
+                            <table class="package-table">
+                                <thead>
+                                    <tr>
+                                        <th>Package</th>
+                                        <th>Cost</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Grower Plan</td>
+                                        <td>₱319 per tree</td>
+                                        <td>Ideal for 10–199 trees, fully planted and maintained</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Legacy Plan</td>
+                                        <td>₱407 per tree (min 200)</td>
+                                        <td>Bulk planting with intercropping options</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="plan-details">
+                            <div class="plan-item">
+                                <h3>Grower Plan</h3>
+                                <p>Ideal for those who want to plant with purpose — not just for profit. Think of it as your way of giving back to the earth and supporting Filipino farmers. For legacy builders, climate champions, and community contributors.</p>
+                                <p class="toggle-text"><strong>Click to view features ↓</strong></p>
+                                <ul>
+                                    <li>You’ll help plant real coffee trees in the highlands of Sitio Dueg, Tarlac.</li>
+                                    <li>Though there’s no guaranteed financial return, you will receive:</li>
+                                    <li>A small share of your tree’s harvest when it's ready</li>
+                                    <li>A quarterly box of goods from Farm to Cup Philippines (fruits, vegetables, seasonal produce) for 1 year for free.</li>
+                                    <li>This plan supports climate action, rural livelihoods, and reforestation.</li>
+                                </ul>
+                                <div class="button-container">
+                                    <a href="#get-started" class="btn-primary">Get Started</a>
+                                </div>
+                            </div>
+                            <div class="plan-item">
+                                <h3>Legacy Plan</h3>
+                                <p>Designed for those ready to grow a real agricultural asset — starting with a minimum of 200 coffee trees. For serious impact investors, companies, and organizations planting at scale.</p>
+                                <p class="toggle-text"><strong>Click to view features ↓</strong></p>
+                                <ul>
+                                    <li>You receive a harvest share from your coffee tree portfolio</li>
+                                    <li>While coffee takes 3–4 years to mature, we maximize your investment by offering:</li>
+                                    <li>Intercropping options — grow crops and/or livestock between your coffee trees (faster ROI, may take only months while waiting for your harvest on your coffee.)</li>
+                                    <li>This creates short-term yield while waiting for your long-term coffee harvest</li>
+                                    <li>Your entire farming operation is managed by Aniya & Farm to Cup Philippines — from planting to maintenance.</li>
+                                </ul>
+                                <div class="button-container">
+                                    <a href="#get-started" class="btn-primary">Get Started</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="subscription-section">
-                    <h3 class="section-title">Subscription Plans</h3>
-                    <div class="plan-item">
-                        <h3>Basic Plan</h3>
-                        <p class="price">$9.99/month</p>
-                        <p>Perfect for small farms starting their digital journey.</p>
-                        <p class="toggle-text"><strong>Click to view features ↓</strong></p>
-                        <ul>
-                            <li>Basic crop tracking</li>
-                            <li>Community access</li>
-                            <li>Email support</li>
-                        </ul>
-                    </div>
-                    <div class="plan-item">
-                        <h3>Premium Plan</h3>
-                        <p class="price">$29.99/month</p>
-                        <p>Advanced tools for growing farms.</p>
-                        <p class="toggle-text"><strong>Click to view features ↓</strong></p>
-                        <ul>
-                            <li>Advanced analytics</li>
-                            <li>Priority support</li>
-                            <li>Marketplace premium access</li>
-                            <li>Weather integration</li>
-                        </ul>
+                    <h3 class="section-title">Aniya’s Subscription Tiers</h3>
+                    <p class="note">Note: Inclusions are still under feasibility studies and may vary upon discussion with founders and partners.</p>
+                    <div class="section-content">
+                        <div class="table-container">
+                            <table class="subscription-table">
+                                <thead>
+                                    <tr>
+                                        <th>Plan</th>
+                                        <th>Price</th>
+                                        <th>Includes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Seedling Plan (for small scale)</td>
+                                        <td>₱499/semi-annual</td>
+                                        <td>
+                                            Personal farm dashboard access, assigned coffee tree with digital ID, quarterly photo updates, digital certificate, basic Knowledge Hub access, impact tracker
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Grower Plan (for large scale)</td>
+                                        <td>₱499/quarter</td>
+                                        <td>
+                                            Monthly updates, update request system, farm milestone tracker, intercropping options, early access to new features, full Knowledge Hub access, personalized tags, ESG reports, VIP support, recognition, priority access to campaigns
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="plan-details">
+                            <div class="plan-item">
+                                <h3>Seedling Plan</h3>
+                                <p>For small-scale supporters looking to engage with Aniya’s digital platform and track their farming impact.</p>
+                                <p class="toggle-text"><strong>Click to view features ↓</strong></p>
+                                <ul>
+                                    <li>Personal farm dashboard access</li>
+                                    <li>Assigned coffee tree with digital ID</li>
+                                    <li>Quarterly photo updates from real farmers</li>
+                                    <li>Digital certificate of contribution</li>
+                                    <li>Access to the basic Knowledge Hub (intro to coffee farming, agroforestry)</li>
+                                    <li>Impact tracker (CO₂ saved, farmers supported)</li>
+                                </ul>
+                                <div class="button-container">
+                                    <a href="#subscribe" class="btn-primary">Subscribe Now</a>
+                                </div>
+                            </div>
+                            <div class="plan-item">
+                                <h3>Grower Plan</h3>
+                                <p>For large-scale supporters seeking advanced features and deeper engagement with their farming journey.</p>
+                                <p class="toggle-text"><strong>Click to view features ↓</strong></p>
+                                <ul>
+                                    <li>Monthly farm progress updates (instead of quarterly)</li>
+                                    <li>Access to update request system (receive custom photo reports within 24–48 hrs)</li>
+                                    <li>Farm milestone tracker (planting to harvest timeline)</li>
+                                    <li>Access to intercropping options (e.g., lettuce, ginger, poultry, pigs, etc.)</li>
+                                    <li>Early access to new offerings, features, and expansion slots</li>
+                                    <li>Full access to the Knowledge Hub learning modules</li>
+                                    <li>Personalized name tags on trees or livestock pens</li>
+                                    <li>Downloadable ESG impact reports (CO₂ saved, jobs created, produce forecast)</li>
+                                    <li>VIP support & early access to farm technician feedback</li>
+                                    <li>Recognition on Aniya’s Donor/Partner Honor Board (optional)</li>
+                                    <li>Priority access to co-branded campaigns or corporate sustainability partnerships</li>
+                                </ul>
+                                <div class="button-container">
+                                    <a href="#subscribe" class="btn-primary">Subscribe Now</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

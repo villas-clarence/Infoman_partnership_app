@@ -1,32 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-* {
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #a3c293 0%, #d0e8c0 100%);
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #a3c293 0%, #d0e8c0 100%);
     color: #1b3a1b;
-    line-height: 1.6;
+    position: relative;
+    min-height: 100vh;
     overflow-x: hidden;
 }
 
-/* Header Styles */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Header */
 header {
     background: linear-gradient(135deg, #0f3d0f 0%, #6bcf6b 100%);
     box-shadow: 0 4px 16px rgba(0,0,0,0.2);
     position: sticky;
     top: 0;
     z-index: 1000;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
 }
 
 .header-container {
@@ -43,9 +43,12 @@ header {
 }
 
 .logo-img {
-    height: 40px;
+    width: 20px;
+    height: 20px;
     width: auto;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    margin-bottom: 30px;
+    margin-right: 12px;
 }
 
 .logo-text {
@@ -104,6 +107,7 @@ header {
 
 .nav-links li a {
     color: #e6e4d4;
+    font-family: 'Poppins', sans-serif;
     font-weight: 600;
     text-decoration: none;
     padding: 8px 16px;
@@ -120,15 +124,18 @@ header {
 .auth-links {
     display: flex;
     gap: 12px;
+    flex-direction: row;
 }
 
 .auth-links a {
     color: #e6e4d4;
+    font-family: 'Poppins', sans-serif;
     font-weight: 600;
     text-decoration: none;
     padding: 8px 20px;
     border-radius: 20px;
     transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .login-link {
@@ -147,31 +154,31 @@ header {
 
 /* Main Content */
 .main-content {
-    max-width: 1000px;
+    max-width: 1400px;
     margin: 40px auto;
     padding: 0 20px;
 }
 
 #service {
-    padding: 60px 0;
+    padding: 5px 2px;
 }
 
 #service h2 {
     text-align: center;
     font-size: 2.5rem;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     color: #1b3a1b;
     font-weight: 700;
 }
 
 .service-main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 30px;
 }
 
-/* Farm Section */
-.farm-section {
+/* Package and Subscription Sections */
+.package-section, .subscription-section {
     background: #fff;
     border-radius: 12px;
     padding: 30px;
@@ -179,25 +186,7 @@ header {
     transition: transform 0.3s ease;
 }
 
-.farm-section:hover {
-    transform: translateY(-5px);
-}
-
-.farm-section ul {
-    list-style: none;
-    margin: 20px 0;
-}
-
-/* Subscription Section */
-.subscription-section {
-    background: #fff;
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.subscription-section:hover {
+.package-section:hover, .subscription-section:hover {
     transform: translateY(-5px);
 }
 
@@ -208,12 +197,69 @@ header {
     font-weight: 600;
 }
 
+.note {
+    font-size: 0.9rem;
+    color: #2d7a2d;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+/* Section Content */
+.section-content {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.table-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+.plan-details {
+    flex: 2;
+    min-width: 400px;
+}
+
+/* Tables */
+.package-table, .subscription-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.package-table th, .subscription-table th {
+    background: #4caf50;
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.package-table td, .subscription-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.package-table tr:nth-child(even), .subscription-table tr:nth-child(even) {
+    background: rgba(200, 230, 201, 0.3);
+}
+
+.package-table tr:hover, .subscription-table tr:hover {
+    background: rgba(200, 230, 201, 0.5);
+}
+
 /* Plan Items */
+.plan-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .plan-item {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 12px;
     padding: 20px;
-    margin-bottom: 20px;
     transition: all 0.3s ease;
 }
 
@@ -226,13 +272,6 @@ header {
     font-size: 1.3rem;
     margin-bottom: 10px;
     color: #1b3a1b;
-}
-
-.price {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #2d7a2d;
-    margin-bottom: 10px;
 }
 
 .plan-item p {
@@ -249,7 +288,7 @@ header {
 }
 
 .plan-item ul.show {
-    max-height: 300px;
+    max-height: 500px;
 }
 
 .plan-item ul li {
@@ -272,37 +311,109 @@ header {
     display: flex;
     gap: 15px;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
-.btn-primary, .order-btn {
+.btn-primary {
     padding: 12px 24px;
     border-radius: 25px;
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
+    background: #4caf50;
+    color: white;
+    border: none;
     transition: all 0.3s ease;
 }
 
-.btn-primary {
-    background: #4caf50;
-    color: white;
-}
-
-.order-btn {
-    background: transparent;
-    color: #2d7a2d;
-    border: 2px solid #2d7a2d;
-}
-
-.btn-primary:hover, .order-btn:hover {
+.btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.order-btn:hover {
-    background: #4caf50;
-    color: white;
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #2f4f2f 0%, #1f3f1f 100%);
+    color: #e6e4d4;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 800px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 2px solid #a3c293;
+    position: relative;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #a3c293;
+    padding-bottom: 15px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #a3c293;
+    font-weight: 700;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: #e6e4d4;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background-color: rgba(163, 194, 147, 0.2);
+    color: #a3c293;
+}
+
+.modal-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #e6e4d4;
+    text-align: justify;
 }
 
 /* Footer */
@@ -332,6 +443,16 @@ footer {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .section-content {
+        flex-direction: column;
+    }
+
+    .table-container, .plan-details {
+        min-width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .header-container {
         position: relative;
@@ -381,8 +502,23 @@ footer {
         text-align: center;
     }
 
-    .service-main {
-        grid-template-columns: 1fr;
+    .package-table, .subscription-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .modal-content {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+
+    .modal-header h2 {
+        font-size: 2rem;
+    }
+
+    .modal-text {
+        font-size: 1.1rem;
     }
 }
 
@@ -397,5 +533,9 @@ footer {
 
     .plan-item h3 {
         font-size: 1.2rem;
+    }
+
+    .logo-text {
+        font-size: 1.5rem;
     }
 }
