@@ -155,6 +155,7 @@ $pay_stmt->execute();
 $pay_stmt->close();
 
 // --- SUCCESS ---
-echo "<script>alert('Registration successful!'); window.location.href='form_success.html';</script>";
+echo "<script>alert('Registration successful!'); window.location.href='thankyou_afterform.html';</script>";
+
 $conn->close();
 ?>
