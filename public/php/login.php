@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'configuration.php'; // Your DB connection (mysqli $conn)
+require_once 'configuration.php'; // assumes $conn is your DB connection
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
@@ -19,11 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_type'] = $user['user_type'];
 
-            // REDIRECTS BASED ON ROLE
             if ($user['user_type'] === 'admin') {
                 header("Location: ../admin_dashboard.php");
             } else {
-                header("Location: ../aniya_registration_form.html"); // for partner
+                header("Location: ../aniya_registration_form.html");
             }
             exit;
         } else {
@@ -36,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
     $conn->close();
 
-    // Redirect with error
     header("Location: ../login.html?error=" . urlencode($error));
     exit;
 }
