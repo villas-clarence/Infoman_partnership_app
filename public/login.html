@@ -1,53 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet" />
-    <title>Partner Login - Coffee Clover</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet" />
+  <title>Partner Login - Coffee Clover</title>
 </head>
 <body class="login-page">
-    <div class="signup-wrapper">
-        <div class="signup-left">
-            <img src="../assets/signup-coffee.avif" alt="Coffee background" />
-            <div class="signup-overlay">
-                <h1 class="brand-title">Aniya</h1>
-                <p>Find your favorite coffee blend with us.</p>
-            </div>
-        </div>
-        <div class="signup-right">
-            <div class="form-box">
-                <h2>Welcome Back, Please login to your Account</h2>
-                <p>Please sign in to continue</p>
-                <form id="loginForm" method="POST" action="login.php">
-                    <label for="email">Email address</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required />
-
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required />
-
-                    <div class="user-type">
-                        <label><input type="radio" name="userType" value="partner" checked /> Partner</label>
-                        <label><input type="radio" name="userType" value="admin" /> Admin</label>
-                    </div>
-
-    <div class="form-extra" role="group" aria-label="Remember me and forgot password options">
-        <label><input type="checkbox" name="remember" /> Remember me</label>
-        <a href="#" class="forgot-password" role="button" tabindex="0" aria-label="Forgot password">Forgot password?</a>
+  <div class="signup-wrapper">
+    <div class="signup-left">
+      <img src="../assets/signup-coffee.avif" alt="Coffee background" />
+      <div class="signup-overlay">
+        <h1 class="brand-title">Aniya</h1>
+        <p>Find your favorite coffee blend with us.</p>
+      </div>
     </div>
+    <div class="signup-right">
+      <div class="form-box">
+        <h2>Welcome Back, Please login to your Account</h2>
+        <p>Please sign in to continue</p>
+        <!-- Display error message if redirected -->
+        <script>
+          const error = new URLSearchParams(window.location.search).get('error');
+          if (error) {
+            document.write(`<div style="color:red; margin-bottom:10px; text-align:center;">${decodeURIComponent(error)}</div>`);
+          }
+        </script>
 
-                    <button type="submit" class="btn-primary">Sign In</button>
-                </form>
+        <form id="loginForm" method="POST" action="php/login.php">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required />
 
-                <div class="alternative-signin">
-                    <span>OR</span>
-                    <button class="btn-google">Sign in with Google</button>
-                </div>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required />
 
-                <p class="signup-link">Don't have an account? <a href="signup.html">Sign up</a></p>
-            </div>
+          <div class="user-type">
+            <label><input type="radio" name="userType" value="partner" checked /> Partner</label>
+            <label><input type="radio" name="userType" value="admin" /> Admin</label>
+          </div>
+
+          <div class="form-extra">
+            <label><input type="checkbox" name="remember" /> Remember me</label>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+
+        <div class="alternative-signin">
+          <span>OR</span>
+          <button class="btn-google">Sign in with Google</button>
         </div>
+
+        <p class="signup-link">Don't have an account? <a href="signup.html">Sign up</a></p>
+      </div>
     </div>
+  </div>
 </body>
 </html>
+
