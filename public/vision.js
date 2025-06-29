@@ -1,3 +1,21 @@
+function openModal() {
+    document.getElementById('aboutModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closeModal(event) {
+    if (event && event.target !== event.currentTarget) return;
+    document.getElementById('aboutModal').style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling
+}
+
+// Close modal when pressing Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+});
+
 // Toggle mobile navigation
 document.querySelector('.nav-toggle').addEventListener('click', function() {
     document.querySelector('.nav-menu').classList.toggle('active');

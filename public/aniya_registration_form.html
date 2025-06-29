@@ -91,6 +91,96 @@
       align-items: center;
     }
   </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aniya Registration Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f3f5f9;
+      padding: 2rem;
+    }
+    form {
+      background: #fff;
+      max-width: 700px;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #2e8b57;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    input[type="file"] {
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    fieldset {
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+    }
+    legend {
+      font-weight: bold;
+      padding: 0 0.5rem;
+    }
+    .total {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      color: #2e8b57;
+    }
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #2e8b57;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-top: 2rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button[type="submit"]:hover {
+      background-color: #256d45;
+    }
+    .checkbox-group, .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0.5rem 0;
+    }
+    .checkbox-group input[type="checkbox"],
+    .radio-group input[type="radio"] {
+      margin-right: 0.5rem;
+      cursor: pointer;
+    }
+    .checkbox-group label,
+    .radio-group label {
+      cursor: pointer;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+    }
+  </style>
 </head>
 <body>
   <form action="reg_submit.php" method="POST" enctype="multipart/form-data">
@@ -230,3 +320,4 @@
   </script>
 </body>
 </html>
+

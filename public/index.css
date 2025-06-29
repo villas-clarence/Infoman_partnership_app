@@ -92,9 +92,12 @@ header {
 }
 
 .logo-img {
-    height: 40px;
+    width: 20px;
+    height: 20px;
     width: auto;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    margin-bottom: 30px;
+    margin-right: 12px;
 }
 
 .logo-text {
@@ -170,6 +173,7 @@ header {
 .auth-links {
     display: flex;
     gap: 12px;
+    flex-direction: row; /* Ensure buttons stay in a row */
 }
 
 .auth-links a {
@@ -180,6 +184,7 @@ header {
     padding: 8px 20px;
     border-radius: 20px;
     transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .login-link {
@@ -495,9 +500,11 @@ footer {
         padding: 12px 20px;
     }
 
+    /* Only on mobile screens, make auth links stack vertically */
     .auth-links {
         flex-direction: column;
         width: 100%;
+        gap: 8px;
     }
 
     .auth-links a {
