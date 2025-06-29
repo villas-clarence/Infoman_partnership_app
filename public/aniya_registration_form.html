@@ -5,319 +5,504 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aniya Registration Form</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f3f5f9;
-      padding: 2rem;
+      background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #e0f2e0 100%);
+      min-height: 100vh;
+      padding: 2rem 1rem;
     }
-    form {
-      background: #fff;
-      max-width: 700px;
-      margin: auto;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
     }
-    h2 {
+
+    .header {
       text-align: center;
-      margin-bottom: 1.5rem;
-      color: #2e8b57;
+      margin-bottom: 2rem;
     }
+
+    .header h1 {
+      color: #2d5a3d;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 4px rgba(45, 90, 61, 0.1);
+    }
+
+    .header p {
+      color: #4a7c59;
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(45, 90, 61, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(45, 90, 61, 0.1);
+    }
+
+    .form-section {
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      color: #2d5a3d;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #a8d5a8;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-icon {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, #4CAF50, #66BB6A);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
     label {
       display: block;
-      margin-top: 1rem;
-      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #2d5a3d;
+      font-weight: 500;
+      font-size: 1rem;
     }
+
+    .label-text {
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
     input[type="text"],
     input[type="email"],
     input[type="number"],
     select,
     input[type="file"] {
       width: 100%;
-      padding: 0.7rem;
-      margin-top: 0.3rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-    fieldset {
-      border: 1px solid #ddd;
       padding: 1rem;
-      border-radius: 6px;
-      margin-top: 1rem;
-    }
-    legend {
-      font-weight: bold;
-      padding: 0 0.5rem;
-    }
-    .total {
-      font-weight: bold;
-      font-size: 1.1rem;
-      margin-top: 1rem;
-      color: #2e8b57;
-    }
-    button[type="submit"] {
-      display: block;
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #2e8b57;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      margin-top: 2rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button[type="submit"]:hover {
-      background-color: #256d45;
-    }
-    .checkbox-group, .radio-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      padding: 0.5rem 0;
-    }
-    .checkbox-group input[type="checkbox"],
-    .radio-group input[type="radio"] {
-      margin-right: 0.5rem;
-      cursor: pointer;
-    }
-    .checkbox-group label,
-    .radio-group label {
-      cursor: pointer;
-      font-weight: 400;
-      display: flex;
-      align-items: center;
-    }
-  </style>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aniya Registration Form</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f3f5f9;
-      padding: 2rem;
-    }
-    form {
-      background: #fff;
-      max-width: 700px;
-      margin: auto;
-      padding: 2rem;
+      border: 2px solid #c8e6c9;
       border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #2e8b57;
-    }
-    label {
-      display: block;
-      margin-top: 1rem;
-      font-weight: 600;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="number"],
-    select,
-    input[type="file"] {
-      width: 100%;
-      padding: 0.7rem;
-      margin-top: 0.3rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
       font-size: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+      outline: none;
     }
-    fieldset {
-      border: 1px solid #ddd;
-      padding: 1rem;
-      border-radius: 6px;
-      margin-top: 1rem;
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      border-color: #4CAF50;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+      background: white;
     }
-    legend {
-      font-weight: bold;
-      padding: 0 0.5rem;
-    }
-    .total {
-      font-weight: bold;
-      font-size: 1.1rem;
-      margin-top: 1rem;
-      color: #2e8b57;
-    }
-    button[type="submit"] {
-      display: block;
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #2e8b57;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      margin-top: 2rem;
+
+    select {
       cursor: pointer;
-      transition: background 0.3s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%234CAF50' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 1rem center;
+      background-repeat: no-repeat;
+      background-size: 1rem;
+      padding-right: 3rem;
     }
-    button[type="submit"]:hover {
-      background-color: #256d45;
+
+    fieldset {
+      border: 2px solid #c8e6c9;
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+      background: rgba(232, 245, 232, 0.3);
+      transition: all 0.3s ease;
     }
+
+    fieldset:hover {
+      border-color: #a5d6a7;
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.1);
+    }
+
+    legend {
+      font-weight: 600;
+      padding: 0 1rem;
+      color: #2d5a3d;
+      font-size: 1.1rem;
+    }
+
+    .total {
+      background: linear-gradient(135deg, #4CAF50, #66BB6A);
+      color: white;
+      padding: 1.2rem 1.5rem;
+      border-radius: 15px;
+      font-weight: 600;
+      font-size: 1.3rem;
+      text-align: center;
+      margin: 1.5rem 0;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
     .checkbox-group, .radio-group {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
       padding: 0.5rem 0;
     }
-    .checkbox-group input[type="checkbox"],
-    .radio-group input[type="radio"] {
-      margin-right: 0.5rem;
-      cursor: pointer;
-    }
+
     .checkbox-group label,
     .radio-group label {
       cursor: pointer;
       font-weight: 400;
       display: flex;
       align-items: center;
+      padding: 0.8rem 1rem;
+      border: 2px solid #e8f5e8;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.7);
+      margin: 0;
+    }
+
+    .checkbox-group label:hover,
+    .radio-group label:hover {
+      border-color: #4CAF50;
+      background: rgba(76, 175, 80, 0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+    }
+
+    .checkbox-group input[type="checkbox"],
+    .radio-group input[type="radio"] {
+      margin-right: 0.8rem;
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      accent-color: #4CAF50;
+    }
+
+    input[type="file"] {
+      padding: 1rem;
+      border: 2px dashed #c8e6c9;
+      border-radius: 12px;
+      background: rgba(232, 245, 232, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    input[type="file"]:hover {
+      border-color: #4CAF50;
+      background: rgba(76, 175, 80, 0.05);
+    }
+
+    .agreement-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: rgba(232, 245, 232, 0.3);
+      border: 2px solid #c8e6c9;
+      border-radius: 15px;
+      margin: 2rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .agreement-checkbox:hover {
+      border-color: #4CAF50;
+      background: rgba(76, 175, 80, 0.05);
+    }
+
+    .agreement-checkbox input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      accent-color: #4CAF50;
+      cursor: pointer;
+    }
+
+    .agreement-checkbox label {
+      margin: 0;
+      font-weight: 500;
+      color: #2d5a3d;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 1.2rem 2rem;
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+      border: none;
+      border-radius: 15px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    button[type="submit"]:hover {
+      background: linear-gradient(135deg, #45a049, #3d8b40);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    .required {
+      color: #e57373;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem 0.5rem;
+      }
+
+      form {
+        padding: 1.5rem;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .checkbox-group, .radio-group {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Loading animation */
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .spinner {
+      border: 4px solid #e8f5e8;
+      border-top: 4px solid #4CAF50;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <form action="reg_submit.php" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="registrant_id" id="registrant_id" />
-    <h2>Aniya Registration</h2>
+  <div class="container">
+    <div class="header">
+      <h1>🌱 Aniya Registration</h1>
+      <p>Join us in creating a sustainable future through tree planting</p>
+    </div>
 
-    <label>Full Name <input type="text" name="fullName" id="fullName" required></label>
-    <label>Email Address <input type="email" name="email" id="email" required></label>
-    <label>Mobile Number <input type="text" name="mobile" id="mobile" required></label>
-    <label>Company Name <input type="text" name="company" id="company"></label>
-    <label>Role <input type="text" name="role" id="role"></label>
-    <label>Preferred Contact Method
-      <select name="contactMethod" id="contactMethod" required>
-        <option value="SMS">SMS</option>
-        <option value="Email">Email</option>
-        <option value="Both">Both</option>
-      </select>
-    </label>
-
-    <label>Package Type
-      <select name="package" required>
-        <option value="Grower Package">Grower Package</option>
-        <option value="Legacy Package">Legacy Package</option>
-      </select>
-    </label>
-    <label>How many trees would you like to plant?
-      <input type="number" name="treeCount" id="treeCount" min="10" required>
-    </label>
-
-    <p class="total">Total Cost: <span id="totalAmount">P0</span></p>
-    <input type="hidden" name="totalAmount" id="totalAmountInput">
-
-    <fieldset>
-      <legend>Intercropping Options</legend>
-      <div class="radio-group">
-        <label><input type="radio" name="intercropping" value="Yes"> Yes</label>
-        <label><input type="radio" name="intercropping" value="No"> No</label>
+    <form action="reg_submit.php" method="POST" enctype="multipart/form-data">
+      <div class="form-section">
+        <div class="section-title">
+          <div class="section-icon">👤</div>
+          Personal Information
+        </div>
+        
+        <label>
+          <span class="label-text">Full Name <span class="required">*</span></span>
+          <input type="text" name="fullName" required placeholder="Enter your full name">
+        </label>
+        
+        <label>
+          <span class="label-text">Email Address <span class="required">*</span></span>
+          <input type="email" name="email" required placeholder="your.email@example.com">
+        </label>
+        
+        <label>
+          <span class="label-text">Mobile Number <span class="required">*</span></span>
+          <input type="text" name="mobile" required placeholder="+63 900 000 0000">
+        </label>
+        
+        <label>
+          <span class="label-text">Company Name</span>
+          <input type="text" name="company" placeholder="Your company (optional)">
+        </label>
+        
+        <label>
+          <span class="label-text">Role</span>
+          <input type="text" name="role" placeholder="Your role/position (optional)">
+        </label>
+        
+        <label>
+          <span class="label-text">Preferred Contact Method <span class="required">*</span></span>
+          <select name="contactMethod" required>
+            <option value="">Select contact method</option>
+            <option value="SMS">SMS</option>
+            <option value="Email">Email</option>
+            <option value="Both">Both</option>
+          </select>
+        </label>
       </div>
 
-      <label><strong>Crops</strong></label>
-      <div class="checkbox-group">
-        <label><input type="checkbox" name="crops[]" value="Papaya"> Papaya</label>
-        <label><input type="checkbox" name="crops[]" value="Saging"> Saging</label>
-        <label><input type="checkbox" name="crops[]" value="Kamoteng Kahoy"> Kamoteng Kahoy</label>
-        <label><input type="checkbox" name="crops[]" value="Sili"> Sili</label>
-        <label><input type="checkbox" name="crops[]" value="Pineapple"> Pineapple</label>
+      <div class="form-section">
+        <div class="section-title">
+          <div class="section-icon">📦</div>
+          Package Selection
+        </div>
+        
+        <label>
+          <span class="label-text">Package Type <span class="required">*</span></span>
+          <select name="package" required>
+            <option value="">Select package type</option>
+            <option value="Grower Package">Grower Package</option>
+            <option value="Legacy Package">Legacy Package</option>
+          </select>
+        </label>
+        
+        <label>
+          <span class="label-text">How many trees would you like to plant? <span class="required">*</span></span>
+          <input type="number" name="treeCount" id="treeCount" min="10" required placeholder="Minimum 10 trees">
+        </label>
+        
+        <div class="total">
+          Total Cost: <span id="totalAmount">₱0</span>
+        </div>
+        <input type="hidden" name="totalAmount" id="totalAmountInput">
       </div>
 
-      <label><strong>Livestock</strong></label>
-      <div class="checkbox-group">
-        <label><input type="checkbox" name="livestock[]" value="Pigs"> Pigs</label>
-        <label><input type="checkbox" name="livestock[]" value="Goats"> Goats</label>
-        <label><input type="checkbox" name="livestock[]" value="Chickens"> Chickens</label>
+      <fieldset>
+        <legend>🌾 Intercropping Options</legend>
+        <div class="radio-group">
+          <label><input type="radio" name="intercropping" value="Yes"> Yes, I want intercropping</label>
+          <label><input type="radio" name="intercropping" value="No"> No intercropping needed</label>
+        </div>
+        
+        <div style="margin-top: 1.5rem;">
+          <strong style="color: #2d5a3d; margin-bottom: 1rem; display: block;">🥬 Available Crops</strong>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="crops[]" value="Papaya"> Papaya</label>
+            <label><input type="checkbox" name="crops[]" value="Saging"> Saging (Banana)</label>
+            <label><input type="checkbox" name="crops[]" value="Kamoteng Kahoy"> Kamoteng Kahoy (Cassava)</label>
+            <label><input type="checkbox" name="crops[]" value="Sili"> Sili (Chili)</label>
+            <label><input type="checkbox" name="crops[]" value="Pineapple"> Pineapple</label>
+          </div>
+        </div>
+        
+        <div style="margin-top: 1.5rem;">
+          <strong style="color: #2d5a3d; margin-bottom: 1rem; display: block;">🐄 Available Livestock</strong>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="livestock[]" value="Pigs"> Pigs</label>
+            <label><input type="checkbox" name="livestock[]" value="Goats"> Goats</label>
+            <label><input type="checkbox" name="livestock[]" value="Chickens"> Chickens</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="form-section">
+        <div class="section-title">
+          <div class="section-icon">📜</div>
+          Certificate & Options
+        </div>
+        
+        <label>
+          <span class="label-text">Name on Tree Certificate</span>
+          <input type="text" name="certificateName" placeholder="Name to appear on certificate (optional)">
+        </label>
+
+        <fieldset>
+          <legend>📊 Dashboard Setup</legend>
+          <div class="radio-group">
+            <label><input type="radio" name="dashboard" value="Yes"> Yes, set up my dashboard</label>
+            <label><input type="radio" name="dashboard" value="No"> No dashboard needed</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>🎁 Gift Option</legend>
+          <div class="radio-group">
+            <label><input type="radio" name="gift" value="Yes"> Yes, this is a gift</label>
+            <label><input type="radio" name="gift" value="No"> No, for personal use</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>🔔 Notification Preferences</legend>
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="notification[]" value="email"> Email notifications</label>
+            <label><input type="checkbox" name="notification[]" value="sms"> SMS notifications</label>
+            <label><input type="checkbox" name="notification[]" value="none"> No notifications</label>
+          </div>
+        </fieldset>
       </div>
-    </fieldset>
 
-    <label>Name on Tree Certificate <input type="text" name="certificateName" id="certificateName"></label>
+      <div class="form-section">
+        <div class="section-title">
+          <div class="section-icon">💳</div>
+          Payment Information
+        </div>
 
-    <fieldset>
-      <legend>Dashboard Setup</legend>
-      <div class="radio-group">
-        <label><input type="radio" name="dashboard" value="Yes"> Yes</label>
-        <label><input type="radio" name="dashboard" value="No"> No</label>
+        <fieldset>
+          <legend>Payment Method</legend>
+          <div class="radio-group">
+            <label><input type="radio" name="paymentMethod" value="GCash"> GCash</label>
+            <label><input type="radio" name="paymentMethod" value="Bank Transfer"> Bank Transfer</label>
+          </div>
+        </fieldset>
+
+        <label>
+          <span class="label-text">Upload Proof of Payment</span>
+          <input type="file" name="paymentProof" accept="image/*">
+        </label>
+
+        <fieldset>
+          <legend>📹 Zoom Call with CEO</legend>
+          <div class="radio-group">
+            <label><input type="radio" name="zoomCall" value="Yes"> Yes, I'd like a call</label>
+            <label><input type="radio" name="zoomCall" value="No"> No call needed</label>
+          </div>
+        </fieldset>
       </div>
-    </fieldset>
 
-    <fieldset>
-      <legend>Gift Option</legend>
-      <div class="radio-group">
-        <label><input type="radio" name="gift" value="Yes"> Yes</label>
-        <label><input type="radio" name="gift" value="No"> No</label>
+      <div class="agreement-checkbox">
+        <input type="checkbox" name="agreement" id="agreement" required>
+        <label for="agreement">
+          I agree to Aniya's terms and conditions and confirm that all details provided are correct. I understand my commitment to sustainable tree planting and environmental conservation.
+        </label>
       </div>
-    </fieldset>
 
-    <fieldset>
-      <legend>Notification Preference</legend>
-      <div class="checkbox-group">
-        <label><input type="checkbox" name="notification[]" value="email"> Email</label>
-        <label><input type="checkbox" name="notification[]" value="sms"> SMS</label>
-        <label><input type="checkbox" name="notification[]" value="none"> None</label>
+      <button type="submit">🌱 Complete Registration</button>
+      
+      <div class="loading" id="loadingDiv">
+        <div class="spinner"></div>
+        <p>Processing your registration...</p>
       </div>
-    </fieldset>
+    </form>
+  </div>
 
-    <fieldset>
-      <legend>Payment Method</legend>
-      <div class="radio-group">
-        <label><input type="radio" name="paymentMethod" value="GCash"> GCash</label>
-        <label><input type="radio" name="paymentMethod" value="Bank Transfer"> Bank Transfer</label>
-      </div>
-    </fieldset>
-
-    <label>Upload Proof of Payment
-      <input type="file" name="paymentProof" accept="image/*">
-    </label>
-
-    <fieldset>
-      <legend>Zoom Call with CEO</legend>
-      <div class="radio-group">
-        <label><input type="radio" name="zoomCall" value="Yes"> Yes</label>
-        <label><input type="radio" name="zoomCall" value="No"> No</label>
-      </div>
-    </fieldset>
-
-    <label>
-      <input type="checkbox" name="agreement" required>
-      I agree to Aniya's terms and confirm all details are correct.
-    </label>
-
-    <button type="submit">Submit</button>
-  </form>
-
-  <script>
-    // Total Cost Calculator
-    const treeCountInput = document.getElementById("treeCount");
-    const totalDisplay = document.getElementById("totalAmount");
-    const totalInput = document.getElementById("totalAmountInput");
-
-    function updateTotal() {
-      const count = parseInt(treeCountInput.value) || 0;
-      const total = count * 100; // example: 100 per tree
-      totalDisplay.textContent = "P" + total;
-      totalInput.value = total;
-    }
-    treeCountInput.addEventListener("input", updateTotal);
-
-    // Load edit data if present
-    const registrant = JSON.parse(localStorage.getItem('editRegistrant') || '{}');
-    if (registrant.registrant_id) {
-      document.getElementById('registrant_id').value = registrant.registrant_id;
-      document.getElementById('fullName').value = registrant.full_name || '';
-      document.getElementById('email').value = registrant.email || '';
-      document.getElementById('mobile').value = registrant.mobile || '';
-      document.getElementById('company').value = registrant.company || '';
-      document.getElementById('role').value = registrant.role || '';
-      document.getElementById('contactMethod').value = registrant.contact_method || '';
-    }
-  </script>
+  <script src="aniya_registration.js"></script>
 </body>
 </html>
-
