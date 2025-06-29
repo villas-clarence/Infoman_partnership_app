@@ -27,6 +27,13 @@
       font-size: 1.75rem;
     }
 
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+    }
+
     .dashboard-grid {
       display: grid;
       grid-template-columns: 1fr 2fr;
@@ -130,7 +137,9 @@
 
 <header>
   <h1>🌿 Aniya's Partner Dashboard</h1>
-  <div>Welcome, Partner!</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+  </div>
 </header>
 
 <div class="dashboard-grid">
@@ -148,7 +157,7 @@
 
   <!-- Countdown, Updates, and Partnership Interaction Panel -->
   <div class="card">
-    <h2>🌱 Harvest Time! </h2>
+    <h2>🌱 Coffee Beans Readiness</h2>
     <div class="countdown" id="countdown"></div>
 
     <h3 style="margin-top: 2rem;">📸 Latest Updates from the Farm</h3>
@@ -179,7 +188,7 @@
 </div>
 
 <footer>
-  &copy; 2025 Coffee Clover | Empowering Sustainable Farming
+  &copy; 2025 Aniya | Empowering Sustainable Farming
 </footer>
 
 <script>
