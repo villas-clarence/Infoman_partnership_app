@@ -35,5 +35,31 @@ if ($result) {
     }
 }
 
-echo json_encode($rows);
+// Fetch counts
+$countData = [
+    "total" => count($rows),
+    "grower" => 0,
+    "legacy" => 0,
+    "crops" => 0,
+    "livestock" => 0,
+    "payments" => 0
+];
+
+foreach ($rows as $r) {
+    if ($r['package_type'] === 'Grower Package') $countData['grower']++;
+    elseif ($r['package_type'] === 'Legacy Package') $countData['legacy']++;
+}
+
+// Additional counts
+$countData['crops'] = $conn->query("SELECT COUNT(*) as c FROM crops")->fetch_assoc()['c'] ?? 0;
+$countData['livestock'] = $conn->query("SELECT COUNT(*) as c FROM livestock")->fetch_assoc()['c'] ?? 0;
+$countData['payments'] = $conn->query("SELECT COUNT(*) as c FROM payments")->fetch_assoc()['c'] ?? 0;
+
+$response = [
+    "registrants" => $rows,
+    "counts" => $countData
+];
+
+echo json_encode($response);
 $conn->close();
+
