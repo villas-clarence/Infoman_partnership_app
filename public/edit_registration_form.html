@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Registrant</title>
+</head>
+<body>
+  <h2>Edit Registrant</h2>
+  <form method="POST" action="update_registration.php">
+    <input type="hidden" name="id" id="id" />
+    <label>Name: <input type="text" name="full_name" id="name" required></label><br>
+    <label>Email: <input type="email" name="email" id="email" required></label><br>
+    <label>Mobile: <input type="text" name="mobile" id="mobile" required></label><br>
+    <label>Tree Count: <input type="number" name="tree_count" id="tree_count" required></label><br>
+    <button type="submit">Update</button>
+  </form>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById('id').value = params.get('id');
+    document.getElementById('name').value = params.get('name');
+    document.getElementById('email').value = params.get('email');
+    document.getElementById('mobile').value = params.get('mobile');
+    document.getElementById('tree_count').value = params.get('tree_count');
+  </script>
+</body>
+</html>

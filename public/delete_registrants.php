@@ -1,22 +1,25 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "aniya_database");
-if ($mysqli->connect_error) {
-    http_response_code(500);
-    echo json_encode(["error" => "DB connection failed"]);
-    exit;
+$host = "localhost";
+$user = "root";
+$password = "";
+$db = "aniya_database";
+
+$conn = new mysqli($host, $user, $password, $db);
+if ($conn->connect_error) {
+    echo json_encode(['success' => false, 'error' => 'Connection failed']);
+    exit();
 }
 
-$id = intval($_POST['id'] ?? 0);
-if ($id <= 0) {
-    echo json_encode(["error" => "Invalid ID"]);
-    exit;
-}
+$registrant_id = $_POST['registrant_id'];
 
-$stmt = $mysqli->prepare("DELETE FROM registrants WHERE registrant_id = ?");
-$stmt->bind_param("i", $id);
+$stmt = $conn->prepare("DELETE FROM registrants WHERE registrant_id = ?");
+$stmt->bind_param("i", $registrant_id);
+
 if ($stmt->execute()) {
-    echo json_encode(["success" => true]);
+    echo json_encode(['success' => true]);
 } else {
-    echo json_encode(["error" => $stmt->error]);
+    echo json_encode(['success' => false, 'error' => $stmt->error]);
 }
-?>
+
+$stmt->close();
+$conn->close();
