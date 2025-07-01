@@ -5,139 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Partner Dashboard - Coffee Clover</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      background-color: #f3f5f9;
-      color: #333;
-    }
-
-    header {
-      background-color: #2e8b57;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 1.75rem;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      margin-left: 1.5rem;
-      font-weight: 500;
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 2rem;
-      padding: 2rem;
-    }
-
-    .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-      padding: 1.5rem;
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-    }
-
-    .id-card img,
-    .map-container img,
-    .update-img {
-      width: 100%;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-
-    .countdown {
-      font-size: 2rem;
-      font-weight: 600;
-      color: #2e8b57;
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .updates-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .update-img {
-      height: 160px;
-    }
-
-    .update-caption {
-      text-align: center;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1.5rem;
-    }
-
-    table th, table td {
-      padding: 0.75rem;
-      text-align: left;
-      border-bottom: 1px solid #ccc;
-    }
-
-    input, button {
-      font-family: 'Poppins', sans-serif;
-    }
-
-    input[type="text"] {
-      padding: 0.5rem;
-      width: 100%;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      margin-top: 0.5rem;
-    }
-
-    button {
-      background-color: #2e8b57;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 1rem;
-    }
-
-    .actions button {
-      margin-right: 0.5rem;
-    }
-
-    footer {
-      background: #2e8b57;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-  </style>
+  <link rel="stylesheet" href="partnership.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="partnership.js" defer></script>
 </head>
 <body>
 
 <header>
   <h1>🌿 Aniya's Partner Dashboard</h1>
   <div class="nav-links">
+    <button onclick="logout()">Log Out</button>
   </div>
 </header>
 
@@ -155,139 +32,23 @@
   </div>
 
   <!-- Countdown, Updates, and Partnership Interaction Panel -->
-  <div class="card">
+  <div class="card enhanced-border">
     <h2>🌱 Coffee Beans Readiness</h2>
     <div class="countdown" id="countdown"></div>
 
     <h3 style="margin-top: 2rem;">📸 Latest Updates from the Farm</h3>
-    <div class="updates-grid">
-      <div>
-        <img src="../assets/update1.jpg" class="update-img" alt="Update 1">
-        <div class="update-caption">Sprouting Stage</div>
-      </div>
-      <div>
-        <img src="../assets/update2.jpg" class="update-img" alt="Update 2">
-        <div class="update-caption">Growing Strong</div>
-      </div>
-    </div>
+    <canvas id="farmUpdatesChart" style="max-height: 300px;"></canvas>
 
     <h3 style="margin-top: 2rem;">🌳 Manage Your Tree Name</h3>
     <input type="text" id="partnerName" placeholder="Enter your tree name...">
     <button onclick="submitPartner()">Add</button>
-
-    <table id="treeTable">
-      <thead>
-        <tr><th>ID</th><th>Tree Name</th><th>Actions</th></tr>
-      </thead>
-      <tbody>
-        <!-- Dynamic Rows via JS -->
-      </tbody>
-    </table>
+    <canvas id="treeNameChart" style="max-height: 300px; margin-top: 1.5rem;"></canvas>
   </div>
 </div>
 
 <footer>
-  &copy; 2025 Aniya | Empowering Sustainable Farming
+  © 2025 Aniya | Empowering Sustainable Farming
 </footer>
-
-<script>
-  const countdownEl = document.getElementById("countdown");
-  const harvestDate = new Date("2025-12-01T00:00:00").getTime();
-
-  const timer = setInterval(() => {
-    const now = new Date().getTime();
-    const distance = harvestDate - now;
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    countdownEl.innerHTML = distance < 0
-      ? "🌟 Coffee beans are ready!"
-      : `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }, 1000);
-
-  async function fetchPartners() {
-    const res = await fetch("partnership.php");
-    const data = await res.json();
-    return data;
-  }
-
-  async function renderTreeTable() {
-    const data = await fetchPartners();
-    const tbody = document.querySelector("#treeTable tbody");
-    tbody.innerHTML = '';
-    data.forEach(row => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${row.id}</td>
-        <td contenteditable="true">${row.user_name}</td>
-        <td class="actions">
-          <button onclick="editTree(${row.id}, this)">Save</button>
-          <button onclick="deleteTree(${row.id})">Delete</button>
-        </td>`;
-      tbody.appendChild(tr);
-    });
-    document.getElementById("treePartnerName").textContent = data.length > 0 ? data[0].user_name : "Tree Partner";
-  }
-
-  async function submitPartner() {
-    const name = document.getElementById("partnerName").value.trim();
-    if (!name) return alert("Please enter a name.");
-    const formData = new FormData();
-    formData.append("action", "create");
-    formData.append("user_name", name);
-    const res = await fetch("partnership.php", {
-      method: "POST",
-      body: formData
-    });
-    const result = await res.json();
-    if (result.success) {
-      document.getElementById("partnerName").value = "";
-      renderTreeTable();
-    } else {
-      alert(result.error);
-    }
-  }
-
-  async function editTree(id, btn) {
-    const row = btn.closest("tr");
-    const newName = row.children[1].textContent.trim();
-    const formData = new FormData();
-    formData.append("action", "update");
-    formData.append("id", id);
-    formData.append("user_name", newName);
-    const res = await fetch("partnership.php", {
-      method: "POST",
-      body: formData
-    });
-    const result = await res.json();
-    if (result.success) {
-      renderTreeTable();
-    } else {
-      alert(result.error);
-    }
-  }
-
-  async function deleteTree(id) {
-    if (!confirm("Are you sure you want to delete this entry?")) return;
-    const formData = new FormData();
-    formData.append("action", "delete");
-    formData.append("id", id);
-    const res = await fetch("partnership.php", {
-      method: "POST",
-      body: formData
-    });
-    const result = await res.json();
-    if (result.success) {
-      renderTreeTable();
-    } else {
-      alert(result.error);
-    }
-  }
-
-  renderTreeTable();
-</script>
 
 </body>
 </html>
