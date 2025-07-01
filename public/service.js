@@ -64,3 +64,87 @@ document.querySelectorAll('.plan-item .toggle-text').forEach(toggle => {
         togglePlan(this.parentElement);
     });
 });
+
+// Cart functionality
+const cart = [];
+const cartItemsEl = document.getElementById('cartItems');
+const cartTotalEl = document.getElementById('cartTotal');
+const cartCountEl = document.getElementById('cartCount');
+const cartDropdown = document.getElementById('cartDropdown');
+const cartButton = document.getElementById('cartButton');
+
+function updateCartUI() {
+    cartItemsEl.innerHTML = '';
+    let total = 0;
+    cart.forEach((item, index) => {
+        total += item.price;
+        const li = document.createElement('li');
+        li.className = 'cart-item';
+        li.innerHTML = `
+            <label>
+                <input type="checkbox" class="cart-item-checkbox" data-index="${index}" checked />
+                <span class="cart-item-name">${item.name}</span>
+                <span class="cart-item-price">₱${item.price}</span>
+            </label>
+        `;
+        cartItemsEl.appendChild(li);
+    });
+    cartTotalEl.textContent = total.toFixed(2);
+    cartCountEl.textContent = cart.length;
+
+    // Add event listeners for checkboxes to update total price
+    document.querySelectorAll('.cart-item-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            let newTotal = 0;
+            document.querySelectorAll('.cart-item-checkbox').forEach(cb => {
+                if (cb.checked) {
+                    const idx = parseInt(cb.getAttribute('data-index'));
+                    if (!isNaN(idx)) {
+                        newTotal += cart[idx].price;
+                    }
+                }
+            });
+            cartTotalEl.textContent = newTotal.toFixed(2);
+        });
+    });
+}
+
+document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const name = btn.getAttribute('data-name');
+        const price = parseFloat(btn.getAttribute('data-price'));
+        if (name && !isNaN(price)) {
+            cart.push({ name, price });
+            updateCartUI();
+            alert(`${name} added to cart.`);
+        }
+    });
+});
+
+cartButton.addEventListener('click', () => {
+    if (cartDropdown.style.display === 'none' || cartDropdown.style.display === '') {
+        cartDropdown.style.display = 'block';
+    } else {
+        cartDropdown.style.display = 'none';
+    }
+});
+
+// Remove selected items button functionality
+const removeSelectedBtn = document.getElementById('removeSelectedBtn');
+removeSelectedBtn.addEventListener('click', () => {
+    const toRemove = [];
+    document.querySelectorAll('.cart-item-checkbox').forEach(cb => {
+        if (!cb.checked) {
+            const idx = parseInt(cb.getAttribute('data-index'));
+            if (!isNaN(idx)) {
+                toRemove.push(idx);
+            }
+        }
+    });
+    // Remove items in reverse order to avoid index shift
+    toRemove.sort((a, b) => b - a);
+    toRemove.forEach(idx => {
+        cart.splice(idx, 1);
+    });
+    updateCartUI();
+});

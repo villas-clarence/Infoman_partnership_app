@@ -98,63 +98,113 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
-      // Cancel edit modal
-      document.getElementById('cancelEdit').addEventListener('click', () => {
-        const modal = document.getElementById('editModal');
-        modal.style.display = 'none';
-      });
+    // Cancel edit modal
+    document.getElementById('cancelEdit').addEventListener('click', () => {
+      const modal = document.getElementById('editModal');
+      modal.style.display = 'none';
+    });
 
-      // Submit edit
-      document.getElementById('editForm').addEventListener('submit', e => {
-        e.preventDefault();
+    // Notification system
+    const notificationContainer = document.getElementById('notificationContainer');
 
-        const form = e.target;
-        const data = {
-          registrant_id: parseInt(form.registrant_id.value),
-          full_name: form.full_name.value,
-          email: form.email.value,
-          mobile: form.mobile.value,
-          company_name: form.company_name.value,
-          role: form.role.value,
-          package_id: parseInt(form.package_name.value) || 0,
-          tree_count: parseInt(form.tree_count.value) || 0,
-          crops: form.crops.value ? form.crops.value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n)) : [],
-          livestock: form.livestock.value ? form.livestock.value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n)) : []
-        };
+    function showNotification(message, type = 'info', duration = 4000) {
+      const notification = document.createElement('div');
+      notification.classList.add('notification-message', `notification-${type}`);
+      notification.textContent = message;
+      notificationContainer.appendChild(notification);
 
-        fetch('update_registrants.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        })
-        .then(res => res.json())
-        .then(res => {
-          if (res.success) {
-            alert('Registrant updated successfully');
-            const modal = document.getElementById('editModal');
-            modal.style.display = 'none';
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+          notificationContainer.removeChild(notification);
+        }, 300);
+      }, duration);
+    }
+
+    // Submit edit
+    document.getElementById('editForm').addEventListener('submit', e => {
+      e.preventDefault();
+
+      const form = e.target;
+      const data = {
+        registrant_id: parseInt(form.registrant_id.value),
+        full_name: form.full_name.value,
+        email: form.email.value,
+        mobile: form.mobile.value,
+        company_name: form.company_name.value,
+        role: form.role.value,
+        package_id: parseInt(form.package_name.value) || 0,
+        tree_count: parseInt(form.tree_count.value) || 0,
+        crops: form.crops.value ? form.crops.value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n)) : [],
+        livestock: form.livestock.value ? form.livestock.value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n)) : []
+      };
+
+      fetch('update_registrants.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          showNotification('Registrant updated successfully', 'success');
+          const modal = document.getElementById('editModal');
+          modal.style.display = 'none';
+          // location.reload(); // Commented out to allow notification to show before reload
+          setTimeout(() => {
             location.reload();
-          } else {
-            alert('Update failed: ' + (res.error || 'Unknown error'));
-          }
-        });
+          }, 1500);
+        } else {
+          showNotification('Update failed: ' + (res.error || 'Unknown error'), 'error');
+        }
       });
+    });
 
-    // Delete logic
+    // Delete logic with custom confirmation pop-up
+    let deleteRegistrantId = null;
+    const deleteConfirmPopup = document.getElementById('deleteConfirmPopup');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+
+    function showDeleteConfirm(id) {
+      deleteRegistrantId = id;
+      deleteConfirmPopup.style.display = 'block';
+    }
+
+    function hideDeleteConfirm() {
+      deleteRegistrantId = null;
+      deleteConfirmPopup.style.display = 'none';
+    }
+
+    confirmDeleteBtn.addEventListener('click', () => {
+      if (!deleteRegistrantId) return;
+      fetch('delete_registrants.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'registrant_id=' + deleteRegistrantId
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          showNotification('Registrant deleted successfully', 'success');
+          hideDeleteConfirm();
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
+        } else {
+          showNotification('Delete failed: ' + (res.error || 'Unknown error'), 'error');
+          hideDeleteConfirm();
+        }
+      });
+    });
+
+    cancelDeleteBtn.addEventListener('click', () => {
+      hideDeleteConfirm();
+    });
+
     document.querySelectorAll('.delete-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        if (confirm('Delete this registrant?')) {
-          fetch('delete_registrants.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'registrant_id=' + btn.dataset.id
-          })
-          .then(res => res.json())
-          .then(res => {
-            if (res.success) location.reload();
-            else alert('Delete failed: ' + (res.error || 'Unknown error'));
-          });
-        }
+        showDeleteConfirm(btn.dataset.id);
       });
     });
 

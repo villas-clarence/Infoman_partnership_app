@@ -5,6 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
+    $userType = isset($_POST['userType']) ? $_POST['userType'] : 'partner';
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Invalid email format.";
@@ -13,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("INSERT INTO users (email, password, user_type) VALUES (?, ?, 'partner')");
-        $stmt->bind_param("ss", $email, $hashedPassword);
+        $stmt = $conn->prepare("INSERT INTO users (email, password, user_type) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $email, $hashedPassword, $userType);
 
         if ($stmt->execute()) {
             header("Location: ../login.html?signup=success");
@@ -39,4 +40,3 @@ if (isset($error)) {
     exit;
 }
 ?>
-

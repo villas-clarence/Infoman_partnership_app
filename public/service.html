@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Service - Coffee Clover</title>
     <link rel="stylesheet" href="service.css" />
-    <link rel="stylesheet" href="aniya_registration_form.html"
 </head>
 <body>
     <header>
@@ -32,23 +31,26 @@
                     <a href="login.html" class="login-link">Log In</a>
                     <a href="signup.html" class="signup-link">Sign Up</a>
                 </div>
+                <div class="cart-container">
+                    <button id="cartButton" class="cart-button" aria-label="Cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 4h13M17 17a2 2 0 11-4 0 2 2 0 014 0zm-6 0a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <span id="cartCount" class="cart-count">0</span>
+                    </button>
+                    <div id="cartDropdown" class="cart-dropdown" style="display:none;">
+                        <ul id="cartItems" class="cart-items"></ul>
+                        <div class="cart-total">
+                            Total: ₱<span id="cartTotal">0</span>
+                        </div>
+                        <button id="removeSelectedBtn" class="btn-secondary">Remove Selected</button>
+                        <button id="checkoutBtn" class="btn-primary" onclick="window.location.href='aniya_registration_form.html'">Checkout</button>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
     
-    <!-- Modal Overlay -->
-    <div id="aboutModal" class="modal-overlay" onclick="closeModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="modal-header">
-                <h2>About</h2>
-                <button class="modal-close" onclick="closeModal()">×</button>
-            </div>
-            <div class="modal-text">
-                <p>Introducing Aniya: Aniya lets anyone farm no land, no experience needed. Through a simple online dashboard, you can grow real coffee trees, crops, or even livestock on actual farmland in Sitio Dueg, Tarlac, Philippines. This project is built and supported by The Four-Leaf Clover Coffee and Clover Coffee Reserves in partnership with Farm to Cup Philippines, with land and operations based in Sitio Dueg, San Clemente, Tarlac. We make it easy to start, track your farm's progress, receive updates with photos, and even share in the harvest. Whether you're living in the city or just want to make a difference Aniya helps you connect to the land and grow something that matters. "Aniya" comes from the Filipino words "ani" (harvest) and "niya" (yours) meaning, the harvest is yours.</p>
-            </div>
-        </div>
-    </div>
-
     <main class="main-content">
         <section id="service">
             <h2>Plan Selection & Payment Integration</h2>
@@ -63,6 +65,7 @@
                                         <th>Package</th>
                                         <th>Cost</th>
                                         <th>Details</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,46 +73,16 @@
                                         <td>Grower Plan</td>
                                         <td>₱319 per tree</td>
                                         <td>Ideal for 10–199 trees, fully planted and maintained</td>
+                                        <td><button class="add-to-cart-btn" data-name="Grower Plan" data-price="319">Add to Cart</button></td>
                                     </tr>
                                     <tr>
                                         <td>Legacy Plan</td>
                                         <td>₱407 per tree (min 200)</td>
                                         <td>Bulk planting with intercropping options</td>
+                                        <td><button class="add-to-cart-btn" data-name="Legacy Plan" data-price="407">Add to Cart</button></td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="plan-details">
-                            <div class="plan-item">
-                                <h3>Grower Plan</h3>
-                                <p>Ideal for those who want to plant with purpose — not just for profit. Think of it as your way of giving back to the earth and supporting Filipino farmers. For legacy builders, climate champions, and community contributors.</p>
-                                <p class="toggle-text"><strong>Click to view features ↓</strong></p>
-                                <ul>
-                                    <li>You’ll help plant real coffee trees in the highlands of Sitio Dueg, Tarlac.</li>
-                                    <li>Though there’s no guaranteed financial return, you will receive:</li>
-                                    <li>A small share of your tree’s harvest when it's ready</li>
-                                    <li>A quarterly box of goods from Farm to Cup Philippines (fruits, vegetables, seasonal produce) for 1 year for free.</li>
-                                    <li>This plan supports climate action, rural livelihoods, and reforestation.</li>
-                                </ul>
-                                <div class="button-container">
-                                    <a href="#get-started" class="btn-primary">Get Started</a>
-                                </div>
-                            </div>
-                            <div class="plan-item">
-                                <h3>Legacy Plan</h3>
-                                <p>Designed for those ready to grow a real agricultural asset — starting with a minimum of 200 coffee trees. For serious impact investors, companies, and organizations planting at scale.</p>
-                                <p class="toggle-text"><strong>Click to view features ↓</strong></p>
-                                <ul>
-                                    <li>You receive a harvest share from your coffee tree portfolio</li>
-                                    <li>While coffee takes 3–4 years to mature, we maximize your investment by offering:</li>
-                                    <li>Intercropping options — grow crops and/or livestock between your coffee trees (faster ROI, may take only months while waiting for your harvest on your coffee.)</li>
-                                    <li>This creates short-term yield while waiting for your long-term coffee harvest</li>
-                                    <li>Your entire farming operation is managed by Aniya & Farm to Cup Philippines — from planting to maintenance.</li>
-                                </ul>
-                                <div class="button-container">
-                                    <a href="#get-started" class="btn-primary">Get Started</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -124,6 +97,7 @@
                                         <th>Plan</th>
                                         <th>Price</th>
                                         <th>Includes</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -133,6 +107,7 @@
                                         <td>
                                             Personal farm dashboard access, assigned coffee tree with digital ID, quarterly photo updates, digital certificate, basic Knowledge Hub access, impact tracker
                                         </td>
+                                        <td><button class="add-to-cart-btn" data-name="Seedling Plan" data-price="499">Add to Cart</button></td>
                                     </tr>
                                     <tr>
                                         <td>Grower Plan (for large scale)</td>
@@ -140,64 +115,36 @@
                                         <td>
                                             Monthly updates, update request system, farm milestone tracker, intercropping options, early access to new features, full Knowledge Hub access, personalized tags, ESG reports, VIP support, recognition, priority access to campaigns
                                         </td>
+                                        <td><button class="add-to-cart-btn" data-name="Grower Plan Subscription" data-price="499">Add to Cart</button></td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="plan-details">
-                            <div class="plan-item">
-                                <h3>Seedling Plan</h3>
-                                <p>For small-scale supporters looking to engage with Aniya’s digital platform and track their farming impact.</p>
-                                <p class="toggle-text"><strong>Click to view features ↓</strong></p>
-                                <ul>
-                                    <li>Personal farm dashboard access</li>
-                                    <li>Assigned coffee tree with digital ID</li>
-                                    <li>Quarterly photo updates from real farmers</li>
-                                    <li>Digital certificate of contribution</li>
-                                    <li>Access to the basic Knowledge Hub (intro to coffee farming, agroforestry)</li>
-                                    <li>Impact tracker (CO₂ saved, farmers supported)</li>
-                                </ul>
-                                <div class="button-container">
-                                    <a href="#subscribe" class="btn-primary">Subscribe Now</a>
-                                </div>
-                            </div>
-                            <div class="plan-item">
-                                <h3>Grower Plan</h3>
-                                <p>For large-scale supporters seeking advanced features and deeper engagement with their farming journey.</p>
-                                <p class="toggle-text"><strong>Click to view features ↓</strong></p>
-                                <ul>
-                                    <li>Monthly farm progress updates (instead of quarterly)</li>
-                                    <li>Access to update request system (receive custom photo reports within 24–48 hrs)</li>
-                                    <li>Farm milestone tracker (planting to harvest timeline)</li>
-                                    <li>Access to intercropping options (e.g., lettuce, ginger, poultry, pigs, etc.)</li>
-                                    <li>Early access to new offerings, features, and expansion slots</li>
-                                    <li>Full access to the Knowledge Hub learning modules</li>
-                                    <li>Personalized name tags on trees or livestock pens</li>
-                                    <li>Downloadable ESG impact reports (CO₂ saved, jobs created, produce forecast)</li>
-                                    <li>VIP support & early access to farm technician feedback</li>
-                                    <li>Recognition on Aniya’s Donor/Partner Honor Board (optional)</li>
-                                    <li>Priority access to co-branded campaigns or corporate sustainability partnerships</li>
-                                </ul>
-                                <div class="button-container">
-                                    <a href="#subscribe" class="btn-primary">Subscribe Now</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Cart Sidebar -->
+        <aside id="cartSidebar" class="cart-sidebar" style="display:none;">
+            <h3>Your Cart</h3>
+            <ul id="cartItems" class="cart-items"></ul>
+            <div class="cart-total">
+                Total: ₱<span id="cartTotal">0</span>
+            </div>
+            <button id="checkoutBtn" class="btn-primary">Checkout</button>
+            <button id="closeCartBtn" class="close-cart-btn">Close</button>
+        </aside>
+
+        <button id="openCartBtn" class="open-cart-btn" style="display:none;">Cart (<span id="cartCount">0</span>)</button>
     </main>
 
     <footer id="contact">
         <div class="container footer-container">
-            <div class="footer-links">
-                <ul>
-                </ul>
-            </div>
             <p>© 2025 Coffee Clover. All rights reserved.</p>
         </div>
     </footer>
+
     <script src="service.js"></script>
 </body>
 </html>

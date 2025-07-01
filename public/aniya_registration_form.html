@@ -502,5 +502,33 @@
       </div>
     </form>
   </div>
+
+  <script>
+    const packageSelect = document.querySelector('select[name="package"]');
+    const treeCountInput = document.getElementById('treeCount');
+    const totalAmountSpan = document.getElementById('totalAmount');
+    const totalAmountInput = document.getElementById('totalAmountInput');
+
+    const packagePrices = {
+      "Grower Package": 319,
+      "Legacy Package": 407
+    };
+
+    function updateTotalCost() {
+      const selectedPackage = packageSelect.value;
+      const treeCount = parseInt(treeCountInput.value) || 0;
+      const pricePerTree = packagePrices[selectedPackage] || 0;
+      const totalCost = pricePerTree * treeCount;
+
+      totalAmountSpan.textContent = `₱${totalCost.toLocaleString()}`;
+      totalAmountInput.value = totalCost;
+    }
+
+    packageSelect.addEventListener('change', updateTotalCost);
+    treeCountInput.addEventListener('input', updateTotalCost);
+
+    // Initialize total cost on page load
+    updateTotalCost();
+  </script>
 </body>
 </html>

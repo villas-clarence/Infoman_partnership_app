@@ -539,3 +539,104 @@ footer {
         font-size: 1.5rem;
     }
 }
+
+/* Cart Button */
+.cart-button {
+    background-color: #4caf50;
+    border: none;
+    border-radius: 25px;
+    padding: 8px 16px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.cart-button:hover {
+    background-color: #388e3c;
+}
+
+/* Cart Count Badge */
+.cart-count {
+    background-color: #ef5350;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* Cart Dropdown */
+.cart-dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 280px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 12px;
+    z-index: 10000;
+    display: none;
+    flex-direction: column;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Cart Items List */
+.cart-items {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.cart-items li {
+    padding: 8px 6px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* Cart Total */
+.cart-total {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    text-align: right;
+}
+
+/* Cart Buttons */
+.btn-secondary, .btn-primary {
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary {
+    background-color: #ef5350;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #d32f2f;
+}
+
+.btn-primary {
+    background-color: #4caf50;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #388e3c;
+}

@@ -26,10 +26,12 @@ SELECT
     FROM registrant_livestock rl
     JOIN livestock l ON rl.livestock_id = l.livestock_id
     WHERE rl.registrant_id = r.registrant_id
-  ), '') AS livestock
+  ), '') AS livestock,
+  pay.payment_proof
 FROM registrants r
 LEFT JOIN registrant_packages rp ON r.registrant_id = rp.registrant_id
 LEFT JOIN packages p ON rp.package_id = p.package_id
+LEFT JOIN payments pay ON r.registrant_id = pay.registrant_id
 ";
 $result = $conn->query($sql);
 
