@@ -6,13 +6,13 @@ header("Content-Type: application/json");
 $conn = new mysqli("localhost", "root", "", "aniya_database");
 if ($conn->connect_error) {
   http_response_code(500);
-  echo json_encode(["error" => "Connection failed"]);
+  echo json_encode(["success" => false, "error" => "Connection failed"]);
   exit();
 }
 
 $data = json_decode(file_get_contents("php://input"), true);
 if (!$data || !isset($data['registrant_id'])) {
-  echo json_encode(["error" => "Invalid input"]);
+  echo json_encode(["success" => false, "error" => "Invalid input"]);
   exit();
 }
 
@@ -27,21 +27,46 @@ $tree_count = intval($data['tree_count'] ?? 0);
 $crops = $data['crops'] ?? [];
 $livestock = $data['livestock'] ?? [];
 
-$conn->query("UPDATE registrants SET full_name='$full_name', email='$email', mobile='$mobile', company_name='$company', role='$role' WHERE registrant_id=$id");
-$conn->query("UPDATE registrant_packages SET package_id=$package_id, tree_count=$tree_count WHERE registrant_id=$id");
+if (!$conn->query("UPDATE registrants SET full_name='$full_name', email='$email', mobile='$mobile', company_name='$company', role='$role' WHERE registrant_id=$id")) {
+  echo json_encode(["success" => false, "error" => "Failed to update registrants: " . $conn->error]);
+  $conn->close();
+  exit();
+}
 
-$conn->query("DELETE FROM registrant_crops WHERE registrant_id=$id");
+if (!$conn->query("UPDATE registrant_packages SET package_id=$package_id, tree_count=$tree_count WHERE registrant_id=$id")) {
+  echo json_encode(["success" => false, "error" => "Failed to update registrant_packages: " . $conn->error]);
+  $conn->close();
+  exit();
+}
+
+if (!$conn->query("DELETE FROM registrant_crops WHERE registrant_id=$id")) {
+  echo json_encode(["success" => false, "error" => "Failed to delete registrant_crops: " . $conn->error]);
+  $conn->close();
+  exit();
+}
 foreach ($crops as $crop_id) {
   $crop_id = intval($crop_id);
-  $conn->query("INSERT INTO registrant_crops (registrant_id, crop_id) VALUES ($id, $crop_id)");
+  if (!$conn->query("INSERT INTO registrant_crops (registrant_id, crop_id) VALUES ($id, $crop_id)")) {
+    echo json_encode(["success" => false, "error" => "Failed to insert registrant_crops: " . $conn->error]);
+    $conn->close();
+    exit();
+  }
 }
 
-$conn->query("DELETE FROM registrant_livestock WHERE registrant_id=$id");
+if (!$conn->query("DELETE FROM registrant_livestock WHERE registrant_id=$id")) {
+  echo json_encode(["success" => false, "error" => "Failed to delete registrant_livestock: " . $conn->error]);
+  $conn->close();
+  exit();
+}
 foreach ($livestock as $livestock_id) {
   $livestock_id = intval($livestock_id);
-  $conn->query("INSERT INTO registrant_livestock (registrant_id, livestock_id) VALUES ($id, $livestock_id)");
+  if (!$conn->query("INSERT INTO registrant_livestock (registrant_id, livestock_id) VALUES ($id, $livestock_id)")) {
+    echo json_encode(["success" => false, "error" => "Failed to insert registrant_livestock: " . $conn->error]);
+    $conn->close();
+    exit();
+  }
 }
 
-echo json_encode(["message" => "Registrant updated"]);
+echo json_encode(["success" => true, "message" => "Registrant updated"]);
 $conn->close();
 

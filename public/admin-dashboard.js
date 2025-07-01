@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>${row.mobile}</td>
           <td>${row.company_name || ''}</td>
           <td>${row.role || ''}</td>
-          <td>${row.package_name || ''}</td>
+          <td data-package-id="${row.package_id || 0}">${row.package_name || ''}</td>
           <td>${row.tree_count || 0}</td>
           <td>${row.crops || ''}</td>
           <td>${row.livestock || ''}</td>
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
           form.mobile.value = cells[2].textContent;
           form.company_name.value = cells[3]?.textContent || '';
           form.role.value = cells[4]?.textContent || '';
-          form.package_name.value = cells[5]?.textContent || '';
+          form.package_name.value = cells[5]?.getAttribute('data-package-id') || '';
           form.tree_count.value = cells[6]?.textContent || 0;
           form.crops.value = cells[7]?.textContent || '';
           form.livestock.value = cells[8]?.textContent || '';
@@ -107,10 +107,25 @@ document.addEventListener('DOMContentLoaded', () => {
       // Submit edit
       document.getElementById('editForm').addEventListener('submit', e => {
         e.preventDefault();
-        const formData = new FormData(e.target);
+
+        const form = e.target;
+        const data = {
+          registrant_id: parseInt(form.registrant_id.value),
+          full_name: form.full_name.value,
+          email: form.email.value,
+          mobile: form.mobile.value,
+          company_name: form.company_name.value,
+          role: form.role.value,
+          package_id: parseInt(form.package_name.value) || 0,
+          tree_count: parseInt(form.tree_count.value) || 0,
+          crops: form.crops.value ? form.crops.value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n)) : [],
+          livestock: form.livestock.value ? form.livestock.value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n)) : []
+        };
+
         fetch('update_registrants.php', {
           method: 'POST',
-          body: formData
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
         })
         .then(res => res.json())
         .then(res => {
@@ -125,22 +140,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
-      // Delete logic
-      document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          if (confirm('Delete this registrant?')) {
-            fetch('delete_registrants.php', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: 'registrant_id=' + btn.dataset.id
-            })
-            .then(res => res.json())
-            .then(res => {
-              if (res.success) location.reload();
-              else alert('Delete failed: ' + (res.error || 'Unknown error'));
-            });
-          }
-        });
+    // Delete logic
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (confirm('Delete this registrant?')) {
+          fetch('delete_registrants.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'registrant_id=' + btn.dataset.id
+          })
+          .then(res => res.json())
+          .then(res => {
+            if (res.success) location.reload();
+            else alert('Delete failed: ' + (res.error || 'Unknown error'));
+          });
+        }
       });
     });
+
+    // Export Excel logic
+    document.getElementById('exportExcel').addEventListener('click', () => {
+      const table = document.getElementById('registrantsTable');
+      const wb = XLSX.utils.table_to_book(table, { sheet: "Registrants" });
+      XLSX.writeFile(wb, 'registrants.xlsx');
+    });
+  });
 });
