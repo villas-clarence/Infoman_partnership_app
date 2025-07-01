@@ -1,85 +1,47 @@
 <?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "aniya_database";
+// update_registration.php
 
-$conn = new mysqli($host, $user, $password, $db);
+header("Content-Type: application/json");
+
+$conn = new mysqli("localhost", "root", "", "aniya_database");
 if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'error' => 'DB connection failed']);
-    exit();
+  http_response_code(500);
+  echo json_encode(["error" => "Connection failed"]);
+  exit();
 }
 
-$registrant_id = $_POST['registrant_id'];
-$full_name = $_POST['full_name'];
-$email = $_POST['email'];
-$mobile = $_POST['mobile'];
-$company = $_POST['company_name'];
-$role = $_POST['role'];
-$tree_count = isset($_POST['tree_count']) ? intval($_POST['tree_count']) : 0;
-$package_type = $_POST['package_type'] ?? '';
-
-$conn->begin_transaction();
-
-$stmt = $conn->prepare("UPDATE registrants SET full_name=?, email=?, mobile=?, company_name=?, role=? WHERE registrant_id=?");
-$stmt->bind_param("sssssi", $full_name, $email, $mobile, $company, $role, $registrant_id);
-
-$success = $stmt->execute();
-$stmt->close();
-
-if ($success) {
-    // Check if registrant_packages entry exists
-    $checkStmt = $conn->prepare("SELECT COUNT(*) FROM registrant_packages WHERE registrant_id = ?");
-    $checkStmt->bind_param("i", $registrant_id);
-    $checkStmt->execute();
-    $checkStmt->bind_result($count);
-    $checkStmt->fetch();
-    $checkStmt->close();
-
-    if ($count > 0) {
-        // Update existing entry with both tree_count and package_id
-        $pkgIdStmt = $conn->prepare("SELECT package_id FROM packages WHERE package_type = ?");
-        $pkgIdStmt->bind_param("s", $package_type);
-        $pkgIdStmt->execute();
-        $pkgIdStmt->bind_result($new_package_id);
-        $pkgIdStmt->fetch();
-        $pkgIdStmt->close();
-
-        $updateStmt = $conn->prepare("UPDATE registrant_packages SET tree_count = ?, package_id = ? WHERE registrant_id = ?");
-        $updateStmt->bind_param("iii", $tree_count, $new_package_id, $registrant_id);
-        $success = $updateStmt->execute();
-        $updateStmt->close();
-    } else {
-        // Fetch package_id for registrant or default
-        $pkgStmt = $conn->prepare("SELECT package_id FROM registrant_packages WHERE registrant_id = ? LIMIT 1");
-        $pkgStmt->bind_param("i", $registrant_id);
-        $pkgStmt->execute();
-        $pkgStmt->bind_result($package_id);
-        $pkgStmt->fetch();
-        $pkgStmt->close();
-
-        if (!$package_id) {
-            $defaultPkgStmt = $conn->prepare("SELECT package_id FROM packages LIMIT 1");
-            $defaultPkgStmt->execute();
-            $defaultPkgStmt->bind_result($package_id);
-            $defaultPkgStmt->fetch();
-            $defaultPkgStmt->close();
-        }
-
-        // Insert new entry with package_id
-        $insertStmt = $conn->prepare("INSERT INTO registrant_packages (registrant_id, package_id, tree_count) VALUES (?, ?, ?)");
-        $insertStmt->bind_param("iii", $registrant_id, $package_id, $tree_count);
-        $success = $insertStmt->execute();
-        $insertStmt->close();
-    }
+$data = json_decode(file_get_contents("php://input"), true);
+if (!$data || !isset($data['registrant_id'])) {
+  echo json_encode(["error" => "Invalid input"]);
+  exit();
 }
 
-if ($success) {
-    $conn->commit();
-    echo json_encode(['success' => true]);
-} else {
-    $conn->rollback();
-    echo json_encode(['success' => false, 'error' => $conn->error]);
+$id = intval($data['registrant_id']);
+$full_name = $conn->real_escape_string($data['full_name'] ?? '');
+$email = $conn->real_escape_string($data['email'] ?? '');
+$mobile = $conn->real_escape_string($data['mobile'] ?? '');
+$company = $conn->real_escape_string($data['company_name'] ?? '');
+$role = $conn->real_escape_string($data['role'] ?? '');
+$package_id = intval($data['package_id'] ?? 0);
+$tree_count = intval($data['tree_count'] ?? 0);
+$crops = $data['crops'] ?? [];
+$livestock = $data['livestock'] ?? [];
+
+$conn->query("UPDATE registrants SET full_name='$full_name', email='$email', mobile='$mobile', company_name='$company', role='$role' WHERE registrant_id=$id");
+$conn->query("UPDATE registrant_packages SET package_id=$package_id, tree_count=$tree_count WHERE registrant_id=$id");
+
+$conn->query("DELETE FROM registrant_crops WHERE registrant_id=$id");
+foreach ($crops as $crop_id) {
+  $crop_id = intval($crop_id);
+  $conn->query("INSERT INTO registrant_crops (registrant_id, crop_id) VALUES ($id, $crop_id)");
 }
 
+$conn->query("DELETE FROM registrant_livestock WHERE registrant_id=$id");
+foreach ($livestock as $livestock_id) {
+  $livestock_id = intval($livestock_id);
+  $conn->query("INSERT INTO registrant_livestock (registrant_id, livestock_id) VALUES ($id, $livestock_id)");
+}
+
+echo json_encode(["message" => "Registrant updated"]);
 $conn->close();
+

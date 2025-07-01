@@ -1,25 +1,37 @@
 <?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "aniya_database";
+header("Content-Type: application/json");
 
-$conn = new mysqli($host, $user, $password, $db);
+$conn = new mysqli("localhost", "root", "", "aniya_database");
 if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'error' => 'Connection failed']);
+  http_response_code(500);
+  echo json_encode(["success" => false, "error" => "Connection failed"]);
+  exit();
+}
+
+$registrant_id = intval($_POST['registrant_id'] ?? 0);
+if ($registrant_id === 0) {
+  echo json_encode(["success" => false, "error" => "Invalid registrant ID"]);
+  exit();
+}
+
+// Prepare and execute delete statements for related tables
+$tables = ['registrant_crops', 'registrant_livestock', 'registrant_packages', 'registrants'];
+
+foreach ($tables as $table) {
+  $stmt = $conn->prepare("DELETE FROM $table WHERE registrant_id = ?");
+  if (!$stmt) {
+    echo json_encode(["success" => false, "error" => "Prepare failed for $table: " . $conn->error]);
     exit();
+  }
+  $stmt->bind_param("i", $registrant_id);
+  if (!$stmt->execute()) {
+    echo json_encode(["success" => false, "error" => "Execution failed for $table: " . $stmt->error]);
+    $stmt->close();
+    exit();
+  }
+  $stmt->close();
 }
 
-$registrant_id = $_POST['registrant_id'];
+echo json_encode(["success" => true, "message" => "Registrant and related data deleted successfully"]);
 
-$stmt = $conn->prepare("DELETE FROM registrants WHERE registrant_id = ?");
-$stmt->bind_param("i", $registrant_id);
-
-if ($stmt->execute()) {
-    echo json_encode(['success' => true]);
-} else {
-    echo json_encode(['success' => false, 'error' => $stmt->error]);
-}
-
-$stmt->close();
 $conn->close();

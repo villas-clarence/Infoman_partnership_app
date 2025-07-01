@@ -3,24 +3,32 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => res.json())
     .then(data => {
       const tbody = document.getElementById('registrantsData');
-      const totalCount = document.getElementById('totalCount');
+      const totalCount = document.getElementById('totalRegistrants');
       const growerCount = document.getElementById('growerCount');
       const legacyCount = document.getElementById('legacyCount');
-      let grower = 0, legacy = 0;
+      const cropCount = document.getElementById('cropCount');
+      const livestockCount = document.getElementById('livestockCount');
+
+      const registrants = data.registrants || [];
+      const metrics = data.metrics || {};
+
+      let grower = metrics.grower || 0;
+      let legacy = metrics.legacy || 0;
 
       tbody.innerHTML = '';
 
-      data.forEach(row => {
-        if (row.package_type === 'Grower Package') grower++;
-        else if (row.package_type === 'Legacy Package') legacy++;
-
+      registrants.forEach(row => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${row.full_name}</td>
           <td>${row.email}</td>
           <td>${row.mobile}</td>
-          <td>${row.package_type || ''}</td>
+          <td>${row.company_name || ''}</td>
+          <td>${row.role || ''}</td>
+          <td>${row.package_name || ''}</td>
           <td>${row.tree_count || 0}</td>
+          <td>${row.crops || ''}</td>
+          <td>${row.livestock || ''}</td>
           <td>
             <button class="btn edit-btn" data-id="${row.registrant_id}">Edit</button>
             <button class="btn delete-btn" data-id="${row.registrant_id}">Delete</button>
@@ -29,9 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
         tbody.appendChild(tr);
       });
 
-      totalCount.textContent = data.length;
+      totalCount.textContent = registrants.length;
       growerCount.textContent = grower;
       legacyCount.textContent = legacy;
+      cropCount.textContent = metrics.crops || 0;
+      livestockCount.textContent = metrics.livestock || 0;
 
       new Chart(document.getElementById('packageChart'), {
         type: 'pie',
@@ -41,13 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      new Chart(document.getElementById('treeChart'), {
+      new Chart(document.getElementById('treeCountChart'), {
         type: 'bar',
         data: {
-          labels: data.map(row => row.full_name),
+          labels: registrants.map(row => row.full_name),
           datasets: [{
             label: 'Tree Count',
-            data: data.map(row => row.tree_count || 0),
+            data: registrants.map(row => row.tree_count || 0),
             backgroundColor: '#42a5f5'
           }]
         },
@@ -80,10 +90,18 @@ document.addEventListener('DOMContentLoaded', () => {
           form.mobile.value = cells[2].textContent;
           form.company_name.value = cells[3]?.textContent || '';
           form.role.value = cells[4]?.textContent || '';
-          form.package_type.value = cells[3]?.textContent || '';
-          form.tree_count.value = cells[4]?.textContent || cells[5]?.textContent || 0;
+          form.package_name.value = cells[5]?.textContent || '';
+          form.tree_count.value = cells[6]?.textContent || 0;
+          form.crops.value = cells[7]?.textContent || '';
+          form.livestock.value = cells[8]?.textContent || '';
           modal.style.display = 'flex';
         });
+      });
+
+      // Cancel edit modal
+      document.getElementById('cancelEdit').addEventListener('click', () => {
+        const modal = document.getElementById('editModal');
+        modal.style.display = 'none';
       });
 
       // Submit edit
@@ -96,8 +114,14 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(res => res.json())
         .then(res => {
-          if (res.success) location.reload();
-          else alert('Update failed: ' + (res.error || 'Unknown error'));
+          if (res.success) {
+            alert('Registrant updated successfully');
+            const modal = document.getElementById('editModal');
+            modal.style.display = 'none';
+            location.reload();
+          } else {
+            alert('Update failed: ' + (res.error || 'Unknown error'));
+          }
         });
       });
 

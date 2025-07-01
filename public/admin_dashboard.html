@@ -5,139 +5,885 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aniya Admin Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; background: #f4f7f6; }
-    .sidebar {
-      width: 230px; background: #2e7d32; color: white; height: 100vh; padding-top: 20px;
-      position: fixed;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .sidebar .brand { font-size: 1.5rem; text-align: center; margin-bottom: 30px; font-weight: bold; }
-    .sidebar nav ul { list-style: none; padding: 0; }
-    .sidebar nav ul li { margin: 20px 0; }
-    .sidebar nav ul li a {
-      color: white; text-decoration: none; padding: 10px 20px; display: flex;
+
+    :root {
+      --primary-color: #2e7d32;
+      --primary-light: #4caf50;
+      --primary-dark: #1b5e20;
+      --secondary-color: #42a5f5;
+      --danger-color: #ef5350;
+      --warning-color: #ff9800;
+      --success-color: #4caf50;
+      --background-color: #f8fafc;
+      --card-background: #ffffff;
+      --text-primary: #2d3748;
+      --text-secondary: #718096;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --border-radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--background-color);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .dashboard-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 2rem 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      z-index: 1000;
+    }
+
+    .sidebar.collapsed {
+      width: 80px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      font-size: 2rem;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 0;
+    }
+
+    .nav-item {
+      margin: 0.5rem 0;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      padding: 1rem 2rem;
+      gap: 1rem;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .nav-link.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--primary-light);
+    }
+
+    .nav-icon {
+      font-size: 1.25rem;
+      width: 1.5rem;
+      text-align: center;
+    }
+
+    /* Mobile toggle */
+    .sidebar-toggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1001;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 2rem;
+      transition: var(--transition);
+    }
+
+    .main-content.expanded {
+      margin-left: 80px;
+    }
+
+    /* Header */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
       align-items: center;
     }
-    .sidebar nav ul li a:hover { background: #1b5e20; }
 
-    .main-content {
-      margin-left: 230px; padding: 20px; width: calc(100% - 230px);
-    }
-
-    .metrics, .charts { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
-    .card {
-      background: white; padding: 20px; border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1); flex: 1; min-width: 180px; text-align: center;
-    }
-    .card h3 { color: #2e7d32; margin-bottom: 5px; }
-
-    canvas {
-      background: white; border-radius: 8px; padding: 10px; width: 600px; height: 400px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    table { width: 100%; background: white; border-collapse: collapse; }
-    th, td { padding: 10px; border: 1px solid #eee; }
-    th { background: #e8f5e9; color: #2e7d32; }
-
-    .btn { padding: 6px 10px; font-size: 0.9em; cursor: pointer; }
-    .edit-btn { background: #42a5f5; color: white; border: none; }
-    .delete-btn { background: #ef5350; color: white; border: none; margin-left: 5px; }
-
-    .modal {
-      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5); justify-content: center; align-items: center;
-    }
-
-    .modal-content {
-      background: white; padding: 20px; border-radius: 8px; width: 400px;
-    }
-
-    .modal-content input {
-      width: 100%; padding: 8px; margin: 8px 0;
+    /* Search Bar */
+    .search-container {
+      position: relative;
+      width: 300px;
     }
 
     .search-bar {
-      width: 300px; padding: 8px; margin-bottom: 20px;
-    }
-
-    .search-bar::placeholder {
-      color: #888;
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 3rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+      background: var(--card-background);
     }
 
     .search-bar:focus {
-      outline: none; border: 2px solid #2e7d32;
-      box-shadow: 0 0 5px rgba(46, 125, 50, 0.5);
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
     }
 
-    .countdown-box {
-      background: #fff3e0; padding: 10px 20px; border-left: 5px solid #fb8c00; border-radius: 5px;
-      font-weight: bold; color: #e65100; margin-bottom: 20px;
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+    }
+
+    /* Export Button */
+    .export-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .export-btn:hover {
+      background: #1976d2;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Countdown */
+    .countdown-container {
+      background: linear-gradient(135deg, var(--warning-color), #f57c00);
+      color: white;
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      margin-bottom: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .countdown-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .countdown-timer {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Metrics Cards */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .metric-card {
+      background: var(--card-background);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary-color);
+    }
+
+    .metric-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .metric-icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      opacity: 0.3;
+    }
+
+    /* Charts Section */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .chart-container {
+      background: var(--card-background);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .chart-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .chart-canvas {
+      width: 100% !important;
+      height: 300px !important;
+    }
+
+    /* Table Section */
+    .table-container {
+      background: var(--card-background);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+
+    .table-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .table-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .data-table th {
+      background: #f7fafc;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    .data-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+
+    .data-table tbody tr:hover {
+      background: #f7fafc;
+    }
+
+    /* Action Buttons */
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-sm {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .btn-edit {
+      background: var(--secondary-color);
+      color: white;
+    }
+
+    .btn-edit:hover {
+      background: #1976d2;
+      transform: translateY(-1px);
+    }
+
+    .btn-delete {
+      background: var(--danger-color);
+      color: white;
+    }
+
+    .btn-delete:hover {
+      background: #d32f2f;
+      transform: translateY(-1px);
+    }
+
+    .btn-delete:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-background);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.9);
+      transition: var(--transition);
+    }
+
+    .modal.show .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+    }
+
+    .modal-footer {
+      padding: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar-toggle {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.show {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+
+      .dashboard-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-container {
+        width: 100%;
+      }
+
+      .metrics-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+
+      .charts-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .table-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 0.5rem;
+      }
+
+      .metric-card {
+        padding: 1rem;
+      }
+
+      .chart-container {
+        padding: 1rem;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 0.5rem;
+      }
+    }
+
+    /* Loading States */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Notification Styles */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 1.5rem;
+      border-radius: var(--border-radius);
+      color: white;
+      font-weight: 600;
+      z-index: 3000;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 400px;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .notification-success {
+      background: var(--success-color);
+    }
+
+    .notification-error {
+      background: var(--danger-color);
+    }
+
+    .notification-warning {
+      background: var(--warning-color);
+    }
+
+    .notification-info {
+      background: var(--secondary-color);
+    }
+
+    .notification-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0;
+      margin-left: auto;
     }
   </style>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="brand">🌱 Aniya Admin</div>
-    <nav>
-      <ul>
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="documents.php">Documents</a></li>
-        <li><a href="payments.php">Payments</a></li>
-        <li><a href="logout.php">Logout</a></li>
-      </ul>
-    </nav>
-  </aside>
+  <div class="dashboard-layout">
+    <button class="sidebar-toggle" id="sidebarToggle">
+      <i class="fas fa-bars"></i>
+    </button>
 
-  <main class="main-content">
-    <input type="text" class="search-bar" id="searchBar" placeholder="Search by name or email..." title="Type a name or email to highlight matching rows"/>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🌱</div>
+        <span>Aniya Admin</span>
+      </div>
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-chart-line"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="documents.php" class="nav-link">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <span>Documents</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="payments.php" class="nav-link">
+              <i class="nav-icon fas fa-credit-card"></i>
+              <span>Payments</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="logout.php" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
 
-    <div class="countdown-box" id="countdown">Harvest starts in: <span id="harvestCountdown"></span></div>
+    <main class="main-content" id="mainContent">
+      <div class="dashboard-header">
+        <h1 class="page-title">Dashboard Overview</h1>
+        <div class="header-actions">
+          <div class="search-container">
+            <i class="search-icon fas fa-search"></i>
+            <input type="text" class="search-bar" id="searchBar" placeholder="Search registrants...">
+          </div>
+          <button class="export-btn" id="exportExcel">
+            <i class="fas fa-download"></i>
+            Export Excel
+          </button>
+        </div>
+      </div>
 
-    <div class="metrics">
-      <div class="card"><h3>Total Registrants</h3><p id="totalCount">0</p></div>
-      <div class="card"><h3>Grower</h3><p id="growerCount">0</p></div>
-      <div class="card"><h3>Legacy</h3><p id="legacyCount">0</p></div>
-    </div>
+      <div class="countdown-container">
+        <div class="countdown-title">🎯 Harvest Season Countdown</div>
+        <div class="countdown-timer" id="harvestCountdown">Loading...</div>
+      </div>
 
-    <div class="charts">
-      <canvas id="packageChart"></canvas>
-      <canvas id="treeChart"></canvas>
-    </div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <i class="metric-icon fas fa-users"></i>
+          <div class="metric-title">Total Registrants</div>
+          <div class="metric-value" id="totalRegistrants">0</div>
+        </div>
+        <div class="metric-card">
+          <i class="metric-icon fas fa-seedling"></i>
+          <div class="metric-title">Grower Package</div>
+          <div class="metric-value" id="growerCount">0</div>
+        </div>
+        <div class="metric-card">
+          <i class="metric-icon fas fa-tree"></i>
+          <div class="metric-title">Legacy Package</div>
+          <div class="metric-value" id="legacyCount">0</div>
+        </div>
+        <div class="metric-card">
+          <i class="metric-icon fas fa-leaf"></i>
+          <div class="metric-title">Total Crops</div>
+          <div class="metric-value" id="cropCount">0</div>
+        </div>
+        <div class="metric-card">
+          <i class="metric-icon fas fa-horse"></i>
+          <div class="metric-title">Total Livestock</div>
+          <div class="metric-value" id="livestockCount">0</div>
+        </div>
+      </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th><th>Email</th><th>Mobile</th><th>Package</th><th>Tree Count</th><th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="registrantsData"></tbody>
-    </table>
-  </main>
+      <div class="charts-grid">
+        <div class="chart-container">
+          <h3 class="chart-title">Package Distribution</h3>
+          <canvas id="packageChart" class="chart-canvas"></canvas>
+        </div>
+        <div class="chart-container">
+          <h3 class="chart-title">Top Tree Counts</h3>
+          <canvas id="treeCountChart" class="chart-canvas"></canvas>
+        </div>
+      </div>
 
-  <div class="modal" id="editModal">
-    <div class="modal-content">
-      <h3>Edit Registrant</h3>
-      <form id="editForm">
-        <input type="hidden" name="registrant_id" />
-        <input type="text" name="full_name" placeholder="Full Name" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <input type="text" name="mobile" placeholder="Mobile" required />
-        <input type="text" name="company_name" placeholder="Company" />
-        <input type="text" name="role" placeholder="Role" />
-        <select name="package_type" id="package_type" required>
-          <option value="">Select Package</option>
-          <option value="Grower Package">Grower Package</option>
-          <option value="Legacy Package">Legacy Package</option>
-        </select>
-        <input type="number" name="tree_count" placeholder="Tree Count" min="0" />
-        <button type="submit" class="btn edit-btn">Update</button>
-        <button type="button" class="btn delete-btn" onclick="document.getElementById('editModal').style.display='none'">Cancel</button>
-      </form>
-    </div>
+      <div class="table-container">
+        <div class="table-header">
+          <h3 class="table-title">Registrant Management</h3>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table" id="registrantsTable">
+            <thead>
+              <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Package</th>
+                <th>Trees</th>
+                <th>Crops</th>
+                <th>Livestock</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="registrantsData">
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Edit Registrant Modal -->
+      <div id="editModal" class="modal" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 3000;">
+        <div class="modal-content" style="background: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 100%;">
+          <h2>Edit Registrant</h2>
+          <form id="editForm">
+            <input type="hidden" name="registrant_id" id="registrant_id" />
+            <div>
+              <label for="full_name">Full Name:</label><br />
+              <input type="text" id="full_name" name="full_name" required style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+            </div>
+            <div>
+              <label for="email">Email:</label><br />
+              <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+            </div>
+            <div>
+              <label for="mobile">Mobile:</label><br />
+              <input type="text" id="mobile" name="mobile" required style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+            </div>
+            <div>
+              <label for="company_name">Company:</label><br />
+              <input type="text" id="company_name" name="company_name" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+            </div>
+            <div>
+              <label for="role">Role:</label><br />
+              <input type="text" id="role" name="role" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+            </div>
+            <div>
+              <label for="package_name">Package:</label><br />
+              <input type="text" id="package_name" name="package_name" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+            </div>
+            <div>
+              <label for="tree_count">Tree Count:</label><br />
+              <input type="number" id="tree_count" name="tree_count" required style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+            </div>
+            <div>
+              <label for="crops">Crops:</label><br />
+              <input type="text" id="crops" name="crops" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+            </div>
+            <div>
+              <label for="livestock">Livestock:</label><br />
+              <input type="text" id="livestock" name="livestock" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+            </div>
+            <div style="text-align: right;">
+              <button type="button" id="cancelEdit" style="margin-right: 10px; padding: 8px 16px;">Cancel</button>
+              <button type="submit" style="padding: 8px 16px;">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Additional inputs for package, crops, livestock -->
+      <datalist id="packageList">
+        <option value="1">Grower Package</option>
+        <option value="2">Legacy Package</option>
+      </datalist>
+
+      <datalist id="cropList">
+        <option value="1">Crop 1</option>
+        <option value="2">Crop 2</option>
+        <option value="3">Crop 3</option>
+      </datalist>
+
+      <datalist id="livestockList">
+        <option value="1">Livestock 1</option>
+        <option value="2">Livestock 2</option>
+        <option value="3">Livestock 3</option>
+      </datalist>
+
+    </main>
   </div>
 
   <script>
+    // Sidebar toggle functionality
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('show');
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+          sidebar.classList.remove('show');
+        }
+      }
+    });
+
+    // Countdown Timer
     const targetDate = new Date("2025-10-01T00:00:00");
     const countdownEl = document.getElementById("harvestCountdown");
 
@@ -146,7 +892,7 @@
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        countdownEl.textContent = "It's harvest time!";
+        countdownEl.textContent = "🎉 It's harvest time!";
         return;
       }
 
@@ -160,9 +906,15 @@
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    // Window resize handler
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('show');
+      }
+    });
   </script>
   <script src="admin-dashboard.js"></script>
 </body>
 </html>
-
 
