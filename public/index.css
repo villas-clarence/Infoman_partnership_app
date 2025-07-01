@@ -369,10 +369,104 @@ footer {
 .footer-links ul li a {
     color: #e6e6d4;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .footer-links ul li a:hover {
     text-decoration: underline;
+}
+
+/* Partner Farms Shadow Box Sections */
+.partner-item {
+    position: relative;
+}
+
+.partner-shadow-box {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #1a2f1a 0%, #0f1f0f 100%);
+    color: #a3c293;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #4caf50;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(76, 175, 80, 0.3);
+    min-width: 300px;
+    max-width: 400px;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.3s ease-out;
+    backdrop-filter: blur(10px);
+    margin-bottom: 15px;
+}
+
+.partner-shadow-box.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.partner-shadow-box::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: #4caf50;
+    z-index: 1002;
+}
+
+.partner-content h4 {
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    color: #6bcf6b;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid #4caf50;
+    padding-bottom: 8px;
+}
+
+.partner-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.partner-toggle {
+    position: relative;
+    padding-right: 20px;
+    transition: all 0.3s ease;
+}
+
+.partner-toggle:hover {
+    color: #6bcf6b;
+    text-shadow: 0 0 8px rgba(107, 207, 107, 0.5);
+}
+
+.partner-toggle::after {
+    content: "▼";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    color: #a3c293;
+}
+
+.partner-toggle.active::after {
+    transform: translateY(-50%) rotate(180deg);
+    color: #6bcf6b;
+}
+
+.partner-toggle.active {
+    color: #6bcf6b;
+    text-shadow: 0 0 8px rgba(107, 207, 107, 0.5);
 }
 
 /* Modal Styles */
@@ -547,6 +641,35 @@ footer {
 
     .modal-text {
         font-size: 1.1rem;
+    }
+
+    /* Mobile footer adjustments */
+    .footer-links ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer-links ul li {
+        width: 100%;
+    }
+
+    /* Mobile partner shadow boxes */
+    .partner-shadow-box {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 280px;
+        max-width: 90vw;
+        z-index: 1001;
+    }
+
+    .partner-shadow-box.active {
+        transform: translate(-50%, -50%);
+    }
+
+    .partner-shadow-box::before {
+        display: none;
     }
 }
 

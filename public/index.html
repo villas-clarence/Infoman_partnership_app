@@ -21,7 +21,7 @@
             <nav class="nav-menu">
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="#" onclick="openModal()">About</a></li>
+                    <li><a href="about.html">About</a></li>
                     <li><a href="service.html">Service</a></li>
                     <li><a href="mission.html">Mission</a></li>
                     <li><a href="vision.html">Vision</a></li>
@@ -74,7 +74,30 @@
         <div class="container footer-container">
             <div class="footer-links">
                 <ul>
-                    <li><a href="#farmlocations">Farm Locations</a></li>
+                
+                    <li class="partner-item">
+                        <a href="#" onclick="togglePartnerFarms('current')" class="partner-toggle">Current Partner Farms</a>
+                        <div id="currentPartnerFarms" class="partner-shadow-box">
+                            <div class="partner-content">
+                                <h4>Current Partner Farms</h4>
+                                <p>Farm To Cup Philippines Association (Philippines)<br>
+                                Coffea Real (Tarlac)<br>
+                                Waling-waling Coffee Farm (Tarlac)</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="partner-item">
+                        <a href="#" onclick="togglePartnerFarms('future')" class="partner-toggle">Future Partners</a>
+                        <div id="futurePartnerFarms" class="partner-shadow-box">
+                            <div class="partner-content">
+                                <h4>Future Partner Farms</h4>
+                                <p>Kape Bukel (Rizal)<br>
+                                Brookside Hills Leisure Farm (Cavite)<br>
+                                Unknown name (Negros Oriental)<br>
+                                Other 13 partner farms of Farm To Cup Philippines</p>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
             <p>© 2025 Coffee Clover. All rights reserved.</p>

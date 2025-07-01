@@ -7,8 +7,7 @@ $db = "aniya_database";
 
 $conn = new mysqli($host, $user, $password, $db);
 if ($conn->connect_error) {
-    http_response_code(500);
-    echo json_encode(["error" => "DB Connection Failed"]);
+    echo json_encode(['error' => 'DB connection failed']);
     exit();
 }
 
@@ -18,6 +17,8 @@ SELECT
     r.full_name,
     r.email,
     r.mobile,
+    r.company_name,
+    r.role,
     p.package_type,
     rp.tree_count
 FROM registrants r
@@ -27,39 +28,11 @@ ORDER BY r.created_at DESC
 ";
 
 $result = $conn->query($sql);
-$rows = [];
+$data = [];
 
-if ($result) {
-    while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;
-    }
+while ($row = $result->fetch_assoc()) {
+    $data[] = $row;
 }
 
-// Fetch counts
-$countData = [
-    "total" => count($rows),
-    "grower" => 0,
-    "legacy" => 0,
-    "crops" => 0,
-    "livestock" => 0,
-    "payments" => 0
-];
-
-foreach ($rows as $r) {
-    if ($r['package_type'] === 'Grower Package') $countData['grower']++;
-    elseif ($r['package_type'] === 'Legacy Package') $countData['legacy']++;
-}
-
-// Additional counts
-$countData['crops'] = $conn->query("SELECT COUNT(*) as c FROM crops")->fetch_assoc()['c'] ?? 0;
-$countData['livestock'] = $conn->query("SELECT COUNT(*) as c FROM livestock")->fetch_assoc()['c'] ?? 0;
-$countData['payments'] = $conn->query("SELECT COUNT(*) as c FROM payments")->fetch_assoc()['c'] ?? 0;
-
-$response = [
-    "registrants" => $rows,
-    "counts" => $countData
-];
-
-echo json_encode($response);
+echo json_encode($data);
 $conn->close();
-

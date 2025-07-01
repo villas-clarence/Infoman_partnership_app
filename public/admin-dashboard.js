@@ -2,90 +2,121 @@ document.addEventListener('DOMContentLoaded', () => {
   fetch('admin_dashboard.php')
     .then(res => res.json())
     .then(data => {
-      const { registrants, counts } = data;
-      const registrantsData = document.getElementById('registrantsData');
-      const totalRegistrants = document.getElementById('totalRegistrants');
+      const tbody = document.getElementById('registrantsData');
+      const totalCount = document.getElementById('totalCount');
       const growerCount = document.getElementById('growerCount');
       const legacyCount = document.getElementById('legacyCount');
-      const cropCount = document.getElementById('cropCount');
-      const livestockCount = document.getElementById('livestockCount');
-      const paymentCount = document.getElementById('paymentCount');
+      let grower = 0, legacy = 0;
 
-      totalRegistrants.textContent = registrants.length;
-      growerCount.textContent = counts.grower;
-      legacyCount.textContent = counts.legacy;
-      cropCount.textContent = counts.crops;
-      livestockCount.textContent = counts.livestock;
-      paymentCount.textContent = counts.payments;
+      tbody.innerHTML = '';
 
-      registrants.forEach(row => {
+      data.forEach(row => {
+        if (row.package_type === 'Grower Package') grower++;
+        else if (row.package_type === 'Legacy Package') legacy++;
+
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${row.full_name}</td>
           <td>${row.email}</td>
           <td>${row.mobile}</td>
-          <td>${row.package_type}</td>
+          <td>${row.package_type || ''}</td>
           <td>${row.tree_count || 0}</td>
           <td>
-            <a href="edit_registration.php?id=${row.registrant_id}" class="edit-btn">Edit</a>
-            <a href="delete_registration.php?id=${row.registrant_id}" class="delete-btn">Delete</a>
+            <button class="btn edit-btn" data-id="${row.registrant_id}">Edit</button>
+            <button class="btn delete-btn" data-id="${row.registrant_id}">Delete</button>
           </td>
         `;
-        registrantsData.appendChild(tr);
+        tbody.appendChild(tr);
       });
 
-      // Chart: Package Distribution
-      new Chart(document.getElementById('packageChart').getContext('2d'), {
+      totalCount.textContent = data.length;
+      growerCount.textContent = grower;
+      legacyCount.textContent = legacy;
+
+      new Chart(document.getElementById('packageChart'), {
         type: 'pie',
         data: {
-          labels: ['Grower Package', 'Legacy Package'],
-          datasets: [{
-            data: [counts.grower, counts.legacy],
-            backgroundColor: ['#66bb6a', '#ffa726']
-          }]
+          labels: ['Grower', 'Legacy'],
+          datasets: [{ data: [grower, legacy], backgroundColor: ['#66bb6a', '#ffa726'] }]
         }
       });
 
-      // Chart: Tree Count
-      new Chart(document.getElementById('treeCountChart').getContext('2d'), {
+      new Chart(document.getElementById('treeChart'), {
         type: 'bar',
         data: {
-          labels: registrants.map(row => row.full_name),
+          labels: data.map(row => row.full_name),
           datasets: [{
             label: 'Tree Count',
-            data: registrants.map(row => row.tree_count || 0),
+            data: data.map(row => row.tree_count || 0),
             backgroundColor: '#42a5f5'
           }]
         },
         options: {
-          responsive: true,
-          plugins: { legend: { display: false } },
           scales: { y: { beginAtZero: true } }
         }
       });
 
-      // Search functionality
-      document.getElementById('searchBar').addEventListener('input', function () {
-        const keyword = this.value.toLowerCase();
+      // Search logic
+      const search = document.getElementById('searchBar');
+      search.addEventListener('input', () => {
+        const value = search.value.toLowerCase();
         document.querySelectorAll('#registrantsData tr').forEach(row => {
-          const match = row.textContent.toLowerCase().includes(keyword);
+          const match = row.textContent.toLowerCase().includes(value);
           row.style.display = match ? '' : 'none';
-          row.style.backgroundColor = match && keyword !== '' ? '#ffff99' : '';
+          row.style.backgroundColor = match && value ? '#fff8dc' : '';
         });
       });
 
-      // Export to Excel
-      document.getElementById('exportExcel').addEventListener('click', () => {
-        const wb = XLSX.utils.book_new();
-        const wsData = [
-          ['Name', 'Email', 'Mobile', 'Package', 'Tree Count'],
-          ...registrants.map(row => [row.full_name, row.email, row.mobile, row.package_type, row.tree_count || 0])
-        ];
-        const ws = XLSX.utils.aoa_to_sheet(wsData);
-        XLSX.utils.book_append_sheet(wb, ws, 'Registrants');
-        XLSX.writeFile(wb, 'registrants.xlsx');
+      // Edit logic
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const row = e.target.closest('tr');
+          const modal = document.getElementById('editModal');
+          const form = document.getElementById('editForm');
+          const cells = row.querySelectorAll('td');
+          form.registrant_id.value = btn.dataset.id;
+          form.full_name.value = cells[0].textContent;
+          form.email.value = cells[1].textContent;
+          form.mobile.value = cells[2].textContent;
+          form.company_name.value = cells[3]?.textContent || '';
+          form.role.value = cells[4]?.textContent || '';
+          form.package_type.value = cells[3]?.textContent || '';
+          form.tree_count.value = cells[4]?.textContent || cells[5]?.textContent || 0;
+          modal.style.display = 'flex';
+        });
       });
-    })
-    .catch(err => console.error('Fetch error:', err));
-});
 
+      // Submit edit
+      document.getElementById('editForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        fetch('update_registrants.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(res => res.json())
+        .then(res => {
+          if (res.success) location.reload();
+          else alert('Update failed: ' + (res.error || 'Unknown error'));
+        });
+      });
+
+      // Delete logic
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (confirm('Delete this registrant?')) {
+            fetch('delete_registrants.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: 'registrant_id=' + btn.dataset.id
+            })
+            .then(res => res.json())
+            .then(res => {
+              if (res.success) location.reload();
+              else alert('Delete failed: ' + (res.error || 'Unknown error'));
+            });
+          }
+        });
+      });
+    });
+});
