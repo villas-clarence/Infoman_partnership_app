@@ -40,8 +40,32 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Form submission handling
 document.getElementById('contact-form')?.addEventListener('submit', function(e) {
     e.preventDefault();
+
+    const form = this;
+    const formData = new FormData(form);
     const formMessage = document.getElementById('form-message');
-    formMessage.textContent = 'Thank you for your message! We will get back to you soon.';
-    formMessage.style.color = '#2d7a2d';
-    this.reset();
+
+    formMessage.textContent = 'Sending message...';
+    formMessage.style.color = '#555';
+
+    fetch('contact.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            formMessage.textContent = data.success;
+            formMessage.style.color = '#2d7a2d';
+            form.reset();
+        } else {
+            formMessage.textContent = data.error || 'Submission failed.';
+            formMessage.style.color = 'red';
+        }
+    })
+    .catch(error => {
+        formMessage.textContent = 'Something went wrong.';
+        formMessage.style.color = 'red';
+        console.error('Error:', error);
+    });
 });
