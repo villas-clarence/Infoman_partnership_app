@@ -1,121 +1,128 @@
-const modal = document.getElementById('popupModal');
-const popupMessage = document.getElementById('popupMessage');
-const closeModalBtn = document.getElementById('closeModal');
-const form = document.getElementById('partnershipForm');
-const input = document.getElementById('userNameInput');
-const tbody = document.querySelector('#partnershipTable tbody');
-
-closeModalBtn.onclick = () => modal.style.display = 'none';
-window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
-function showPopup(msg) {
-  popupMessage.textContent = msg;
-  modal.style.display = 'block';
+function logout() {
+    if (confirm("Are you sure you want to log out?")) {
+        alert("You have been logged out.");
+        window.location.href = "login.html"; // Adjust to your login page URL
+    }
 }
 
-function fetchPartnerships() {
-  fetch('partnership.php')
-    .then(res => res.json())
-    .then(data => {
-      tbody.innerHTML = '';
-      data.forEach(item => {
-        const row = document.createElement('tr');
-        row.dataset.id = item.id;
-        row.innerHTML = `
-          <td>${item.id}</td>
-          <td contenteditable="false">${item.user_name}</td>
-          <td>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
-          </td>
-        `;
-        row.querySelector('.edit-btn').onclick = () => enableEdit(row);
-        row.querySelector('.delete-btn').onclick = () => deleteEntry(item.id);
-        tbody.appendChild(row);
-      });
+const countdownEl = document.getElementById("countdown");
+const harvestDate = new Date("2025-12-01T00:00:00").getTime();
+
+const timer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = harvestDate - now;
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownEl.innerHTML = distance < 0
+        ? "🌟 Coffee beans are ready!"
+        : `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}, 1000);
+
+async function fetchPartners() {
+    const res = await fetch("partnership.php");
+    const data = await res.json();
+    return data;
+}
+
+// Farm Updates Chart
+let farmUpdatesChart;
+function renderFarmUpdatesChart() {
+    const ctx = document.getElementById("farmUpdatesChart").getContext("2d");
+    if (farmUpdatesChart) farmUpdatesChart.destroy(); // Destroy existing chart to prevent overlap
+    farmUpdatesChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["Sprouting Stage", "Growing Strong"],
+            datasets: [{
+                label: "Progress (%)",
+                data: [30, 70], // Hypothetical progress percentages
+                backgroundColor: ["#6bcf6b", "#2e8b57"],
+                borderColor: ["#ffffff", "#ffffff"],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: "Progress (%)"
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true
+                }
+            }
+        }
     });
 }
 
-function enableEdit(row) {
-  const nameCell = row.children[1];
-  nameCell.contentEditable = true;
-  nameCell.focus();
-  const actionCell = row.children[2];
-  actionCell.innerHTML = '';
+// Tree Name Chart
+let treeNameChart;
+async function renderTreeNameChart() {
+    const data = await fetchPartners();
+    const ctx = document.getElementById("treeNameChart").getContext("2d");
+    if (treeNameChart) treeNameChart.destroy(); // Destroy existing chart to prevent overlap
 
-  const saveBtn = document.createElement('button');
-  saveBtn.textContent = 'Save';
-  saveBtn.className = 'save-btn';
-  saveBtn.onclick = () => saveEdit(row);
-  actionCell.appendChild(saveBtn);
+    // Count occurrences of each tree name
+    const nameCounts = data.reduce((acc, row) => {
+        acc[row.user_name] = (acc[row.user_name] || 0) + 1;
+        return acc;
+    }, {});
+    const labels = Object.keys(nameCounts);
+    const counts = Object.values(nameCounts);
 
-  const cancelBtn = document.createElement('button');
-  cancelBtn.textContent = 'Cancel';
-  cancelBtn.className = 'cancel-btn';
-  cancelBtn.onclick = fetchPartnerships;
-  actionCell.appendChild(cancelBtn);
+    treeNameChart = new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: labels.length > 0 ? labels : ["No Trees"],
+            datasets: [{
+                data: counts.length > 0 ? counts : [1],
+                backgroundColor: labels.length > 0 ? ["#6bcf6b", "#2e8b57", "#4caf50"] : ["#ccc"]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: "right"
+                }
+            }
+        }
+    });
+
+    document.getElementById("treePartnerName").textContent = data.length > 0 ? data[0].user_name : "Tree Partner";
 }
 
-function saveEdit(row) {
-  const id = row.dataset.id;
-  const newName = row.children[1].textContent.trim();
-  if (!newName) return showPopup('Name cannot be empty.');
-
-  const formData = new FormData();
-  formData.append('action', 'update');
-  formData.append('id', id);
-  formData.append('user_name', newName);
-
-  fetch('partnership.php', { method: 'POST', body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        showPopup(data.success);
-        fetchPartnerships();
-      } else {
-        showPopup(data.error);
-      }
+async function submitPartner() {
+    const name = document.getElementById("partnerName").value.trim();
+    if (!name) return alert("Please enter a name.");
+    const formData = new FormData();
+    formData.append("action", "create");
+    formData.append("user_name", name);
+    const res = await fetch("partnership.php", {
+        method: "POST",
+        body: formData
     });
+    const result = await res.json();
+    if (result.success) {
+        document.getElementById("partnerName").value = "";
+        renderTreeNameChart();
+    } else {
+        alert(result.error);
+    }
 }
 
-function deleteEntry(id) {
-  if (!confirm('Delete this entry?')) return;
-
-  const formData = new FormData();
-  formData.append('action', 'delete');
-  formData.append('id', id);
-
-  fetch('partnership.php', { method: 'POST', body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        showPopup(data.success);
-        fetchPartnerships();
-      } else {
-        showPopup(data.error);
-      }
-    });
-}
-
-form.onsubmit = function (e) {
-  e.preventDefault();
-  const name = input.value.trim();
-  if (!name) return showPopup('Name is required.');
-
-  const formData = new FormData();
-  formData.append('action', 'create');
-  formData.append('user_name', name);
-
-  fetch('partnership.php', { method: 'POST', body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        showPopup(data.success);
-        input.value = '';
-        fetchPartnerships();
-      } else {
-        showPopup(data.error);
-      }
-    });
-};
-
-fetchPartnerships();
+// Initialize charts
+renderFarmUpdatesChart();
+renderTreeNameChart();
