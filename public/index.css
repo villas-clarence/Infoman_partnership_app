@@ -29,27 +29,23 @@ body::before {
 
 @keyframes slideshowBackground {
     0% {
+        background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/IMG_8667.jpeg');
+        opacity: 1;
+    }
+    25% {
         background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/aniya.jpeg');
         opacity: 1;
     }
-    22.5% {
-        background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/aniya.jpeg');
+    50% {
+        background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/IMG_8667.jpeg');
         opacity: 1;
     }
-    27.5% {
-        background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/farm.jpeg');
-        opacity: 1;
-    }
-    72.5% {
-        background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/farm.jpeg');
-        opacity: 1;
-    }
-    77.5% {
+    75% {
         background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/aniya.jpeg');
         opacity: 1;
     }
     100% {
-        background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/aniya.jpeg');
+        background-image: linear-gradient(rgba(27, 58, 27, 0.6), rgba(163, 194, 147, 0.6)), url('../assets/IMG_8667.jpeg');
         opacity: 1;
     }
 }
@@ -89,23 +85,25 @@ header {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-wrap: nowrap;
 }
 
 .logo-img {
-    width: 20px;
-    height: 20px;
-    width: auto;
+    width: 40px;
+    height: auto;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-    margin-bottom: 30px;
+    margin-bottom: 0;
     margin-right: 12px;
+    vertical-align: middle;
 }
 
 .logo-text {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Georgia', serif;
     font-weight: 700;
     font-size: 1.8rem;
     color: #e6e4d4;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    font-style: italic;
 }
 
 .nav-toggle {
@@ -209,6 +207,95 @@ header {
     justify-content: center;
     align-items: center;
     gap: 50px;
+}
+
+/* Aniya Farm Section */
+.aniya-farm-section {
+    margin-top: 40px;
+    background: linear-gradient(135deg, #4caf50, #a3c293);
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.aniya-farm-section:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.6);
+}
+
+.section-divider {
+    border: none;
+    height: 10px;
+    width: 60%;
+    background: linear-gradient(135deg, #4caf50, #a3c293);
+    margin: 40px auto 30px auto;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    animation: ombreGlow 3s ease-in-out infinite alternate;
+}
+
+.aniya-farm-text {
+    max-width: 600px;
+    margin: auto;
+}
+
+.aniya-farm-image img {
+    max-width: 200px;
+    height: auto;
+    border-radius: 12px;
+}
+
+@keyframes ombreGlow {
+    0% {
+        filter: brightness(0.8);
+        transform: scaleX(1);
+    }
+    50% {
+        filter: brightness(1.2);
+        transform: scaleX(1.05);
+    }
+    100% {
+        filter: brightness(0.8);
+        transform: scaleX(1);
+    }
+}
+
+.aniya-farm-container {
+    display: flex;
+    gap: 20px;
+}
+
+.aniya-farm-text {
+    flex: 1;
+}
+
+.aniya-farm-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #4caf50, #a3c293);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.aniya-farm-image img {
+    max-width: 200px;
+    height: auto;
+    border-radius: 12px;
+}
+
+.aniya-farm-image img {
+    max-width: 70%;
+    height: auto;
+    border-radius: 12px;
 }
 
 .hero-container {

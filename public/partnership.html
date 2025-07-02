@@ -13,12 +13,21 @@
 
 <header>
   <h1>🌿 Aniya's Partner Dashboard</h1>
-  <div class="nav-links">
-    <button onclick="logout()">Log Out</button>
-  </div>
 </header>
 
-<div class="dashboard-grid">
+  <div class="dashboard-grid">
+  <!-- Left Navigation -->
+  <nav class="left-nav">
+    <ul>
+      <li><a href="#" class="active">My Trees</a></li>
+      <li>
+        <a href="updates_partnership.html" class="updates-link">Updates</a>
+      </li>
+      <li><a href="#">Settings</a></li>
+      <li><a href="#" onclick="logout()">Log Out</a></li>
+    </ul>
+  </nav>
+
   <!-- ID Card Panel -->
   <div class="card id-card">
     <h2>📋 My ID Card</h2>
@@ -32,17 +41,20 @@
   </div>
 
   <!-- Countdown, Updates, and Partnership Interaction Panel -->
-  <div class="card enhanced-border">
+    <div class="card enhanced-border">
     <h2>🌱 Coffee Beans Readiness</h2>
     <div class="countdown" id="countdown"></div>
 
-    <h3 style="margin-top: 2rem;">📸 Latest Updates from the Farm</h3>
-    <canvas id="farmUpdatesChart" style="max-height: 300px;"></canvas>
+    <!-- Removed Latest Updates from the Farm text and chart -->
+    <!-- <h3 style="margin-top: 2rem;">📸 Latest Updates from the Farm</h3> -->
+    <!-- <canvas id="farmUpdatesChart" style="max-height: 300px;"></canvas> -->
 
     <h3 style="margin-top: 2rem;">🌳 Manage Your Tree Name</h3>
     <input type="text" id="partnerName" placeholder="Enter your tree name...">
-    <button onclick="submitPartner()">Add</button>
+    <button onclick="submitPartner()" style="margin-left: 0.5rem;">Add</button>
     <canvas id="treeNameChart" style="max-height: 300px; margin-top: 1.5rem;"></canvas>
+
+<a href="service.html" class="upgrade-button">Upgrade to Grower or Legacy</a>
   </div>
 </div>
 

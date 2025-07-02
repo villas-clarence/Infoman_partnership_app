@@ -44,8 +44,11 @@ header {
 
 .logo-img {
     width: 40px;
-    height: 40px;
+    height: auto;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    margin-bottom: 0;
+    margin-right: 12px;
+    vertical-align: middle;
 }
 
 .logo-img img {
@@ -55,11 +58,12 @@ header {
 }
 
 .logo-text {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Georgia', serif;
     font-weight: 700;
     font-size: 1.8rem;
     color: #e6e4d4;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    font-style: italic;
 }
 
 .nav-toggle {
@@ -247,6 +251,7 @@ header {
     text-justify: inter-word;
     margin-bottom: 20px;
     hyphens: auto;
+    text-indent: 2em;
 }
 
 /* Footer */

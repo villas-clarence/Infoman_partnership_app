@@ -5,6 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>About - Aniya</title>
     <link rel="stylesheet" href="about.css" />
+    <style>
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        #farm-to-cup-ph {
+            background-color: #d4edda;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 2rem;
+            text-indent: 2em;
+            animation: fadeInUp 1s ease forwards;
+        }
+        #farm-to-cup-ph .farm-to-cup-image {
+            flex: 1;
+        }
+        #farm-to-cup-ph .farm-to-cup-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+        #farm-to-cup-ph .farm-to-cup-text {
+            flex: 2;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -38,14 +72,15 @@
     <main class="main-content">
         <section id="about">
             <h2>About Aniya</h2>
-            <p>Aniya lets anyone farm no land, no experience needed. Through a simple online dashboard, 
-                you can grow real coffee trees, crops, or even livestock on actual farmland 
-                in Sitio Dueg, Tarlac, Philippines.</p>
+            <p>Aniya is a web-enabled agri-tech platform that allows anyone—wherever they are—to plant real
+        coffee trees, support real Filipino farmers, and participate in sustainable agriculture. By
+        leveraging regenerative farming principles and modern technology, Aniya bridges the gap
+        between everyday people and real-world impact in farming.</p>
             
             <!-- Image Gallery -->
             <div class="image-gallery">
                 <div class="image-item">
-                    <img src="../assets/image1.jpeg" alt="Farm View 1">
+                    <img src="../assets/farm_image1.jpeg" alt="Farm View 1">
                 </div>
                 <div class="image-item">
                     <img src="../assets/image2.jpeg" alt="Farm View 2">
@@ -55,9 +90,10 @@
                 </div>
             </div>
             
-            <p>This project is built and supported by The Four-Leaf Clover Coffee and Clover Coffee 
-                Reserves in partnership with Farm to Cup Philippines, with land and operations 
-                based in Sitio Dueg, San Clemente, Tarlac.</p>
+            <p>Rooted in transparency, inclusion, and environmental healing, Aniya is more than just a
+            platform—it’s a movement. Through our partnership with Farm To Cup Philippines, and a
+            regenerative farm estate in Sitio Dueg, San Clemente, Tarlac, we are building a model that
+            connects tech-driven accessibility with soil-rooted sustainability.</p>
             <p>We make it easy to start, track your farm's progress, receive updates 
                 with photos, and even share in the harvest. Whether you're living in the 
                 city or just want to make a difference, Aniya helps you connect to the 
@@ -65,8 +101,23 @@
             <p>"Aniya" comes from the Filipino words "ani" (harvest) and "niya" 
                 (yours), meaning the harvest is yours.</p>
         </section>
-    </main>
 
+        <hr class="page-breaker" />
+
+        <section id="farm-to-cup-ph" style="display: flex; flex-wrap: wrap; background-color: #d4edda; padding: 20px; border-radius: 12px; gap: 20px; margin-top: 2rem; text-indent: 2em; animation: fadeInUp 1s ease forwards;">
+            <div class="farm-to-cup-image" style="flex: 1 1 300px; max-width: 300px;">
+                <img src="../assets/Farm to Cup PH.jpg" alt="Farm To Cup Philippines" style="width: 100%; height: auto; border-radius: 12px;" />
+            </div>
+            <div class="farm-to-cup-text" style="flex: 2 1 400px; min-width: 300px;">
+                <h2>About Farm To Cup Philippines</h2>
+                <p>At Farm To Cup Philippines, we’re reimagining what it means to grow and educate through coffee.</p>
+                <p>Rooted in the belief that knowledge and farming go hand in hand, Farm To Cup combines hands-on agriculture with real opportunities for learning and livelihood. We work directly with Filipino communities to grow coffee that is both high-quality and community-driven — while also empowering future growers through education.</p>
+                <p>As an official training hub in partnership with TESDA, Gintong Aral Skills Development Academy, and PNC-TVI, we’ve hosted free community-based training workshops and helped shape national coffee curricula. With support from international partners like the US Department of Agriculture, PhilCAFE, ACDI/VOCA, and World Coffee Research, we continue to grow our capacity to lead, train, and serve.</p>
+                <p>Whether on the farm or in the classroom, everything we do is grounded in our vision of People, Planet, and Prosperity. We believe that a better future for Philippine coffee starts with empowered farmers, educated communities, and sustainable practices that last.</p>
+            </div>
+        </section>
+
+    </main>
     <footer>
         <div class="container footer-container">
             <div class="footer-links">

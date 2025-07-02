@@ -63,9 +63,44 @@ header h1 {
 
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 200px 1fr 2fr;
     gap: 2rem;
     padding: 2rem;
+}
+
+.left-nav {
+    background: #f3f5f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+}
+
+.left-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.left-nav ul li {
+    margin-bottom: 1rem;
+}
+
+.left-nav ul li a {
+    text-decoration: none;
+    color: #1b3a1b;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.left-nav ul li a:hover,
+.left-nav ul li a.active {
+    background-color: #6bcf6b;
+    color: white;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6);
 }
 
 .card {
@@ -128,9 +163,27 @@ footer {
 /* Enhanced Border Styles with White-Green Background */
 .enhanced-border {
     border: 4px solid transparent;
-    background: linear-gradient(45deg, #ffffff, #6bcf6b) padding-box,stat:1; 
-                linear-gradient(45deg, #ffffff, #6bcf6b) border-box;
+    background: linear-gradient(45deg, #ffffff, #6bcf6b) padding-box, linear-gradient(45deg, #ffffff, #6bcf6b) border-box;
     border-radius: 12px;
+}
+
+.upgrade-button {
+    margin-top: 20px;
+    background: linear-gradient(135deg, #6bcf6b, #4caf50);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upgrade-button:hover {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    box-shadow: 0 6px 16px rgba(56, 142, 60, 0.8);
 }
 
 @media (max-width: 768px) {
