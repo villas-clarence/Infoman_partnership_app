@@ -17,25 +17,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
       tbody.innerHTML = '';
 
-      registrants.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${row.full_name}</td>
-          <td>${row.email}</td>
-          <td>${row.mobile}</td>
-          <td>${row.company_name || ''}</td>
-          <td>${row.role || ''}</td>
-          <td data-package-id="${row.package_id || 0}">${row.package_name || ''}</td>
-          <td>${row.tree_count || 0}</td>
-          <td>${row.crops || ''}</td>
-          <td>${row.livestock || ''}</td>
-          <td>
-            <button class="btn edit-btn" data-id="${row.registrant_id}">Edit</button>
-            <button class="btn delete-btn" data-id="${row.registrant_id}">Delete</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
+registrants.forEach(row => {
+  console.log('Payment proof:', row.payment_proof);
+  const tr = document.createElement('tr');
+const paymentReceiptCell = row.payment_proof
+    ? `<a href="${row.payment_proof}" target="_blank" rel="noopener noreferrer">View Receipt</a>`
+    : 'No Receipt';
+  tr.innerHTML = `
+    <td>${row.full_name}</td>
+    <td>${row.email}</td>
+    <td>${row.mobile}</td>
+    <td>${row.company_name || ''}</td>
+    <td>${row.role || ''}</td>
+    <td data-package-id="${row.package_id || 0}">${row.package_name || ''}</td>
+    <td>${row.tree_count || 0}</td>
+    <td>${row.crops || ''}</td>
+    <td>${row.livestock || ''}</td>
+    <td>${paymentReceiptCell}</td>
+    <td>
+      <button class="btn edit-btn" data-id="${row.registrant_id}">Edit</button>
+      <button class="btn delete-btn" data-id="${row.registrant_id}">Delete</button>
+    </td>
+  `;
+  tbody.appendChild(tr);
+});
 
       totalCount.textContent = registrants.length;
       growerCount.textContent = grower;
