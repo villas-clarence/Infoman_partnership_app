@@ -20,7 +20,6 @@ body {
     justify-content: space-between;
 }
 
-/* Header */
 header {
     background: linear-gradient(135deg, #0f3d0f 0%, #6bcf6b 100%);
     box-shadow: 0 4px 16px rgba(0,0,0,0.2);
@@ -39,32 +38,32 @@ header {
 .logo-container {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 20px; /* Increased gap for better separation */
     justify-content: flex-start;
-    width: 200px;
+    flex-wrap: nowrap; /* Prevent wrapping */
 }
 
 .logo-img {
-    width: 40px;
-    height: 40px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-    margin-bottom: 0;
-    margin-right: 12px;
-    vertical-align: middle;
+    width: 60px; /* Increased size for better visibility */
+    height: auto;
+    flex-shrink: 0; /* Prevent logo from shrinking */
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
-.logo-text {
-    line-height: 40px;
-    padding-left: 4px;
+.logo-img img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Remove inline spacing */
 }
 
 .logo-text {
     font-family: 'Georgia', serif;
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: 2rem; /* Slightly larger for emphasis */
     color: #e6e4d4;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     font-style: italic;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .nav-toggle {
@@ -93,13 +92,8 @@ header {
     transition: all 0.3s ease;
 }
 
-.hamburger::before {
-    top: -8px;
-}
-
-.hamburger::after {
-    top: 8px;
-}
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
 
 .nav-menu {
     display: flex;
@@ -143,24 +137,17 @@ header {
     padding: 8px 20px;
     border-radius: 20px;
     transition: all 0.3s ease;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
 }
 
-.login-link {
-    border: 2px solid #6bcf6b;
-}
-
-.signup-link {
-    background: #4caf50;
-    color: #fff;
-}
+.login-link { border: 2px solid #6bcf6b; }
+.signup-link { background: #4caf50; color: #fff; }
 
 .auth-links a:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Main Content */
 .main-content {
     max-width: 1400px;
     margin: 40px auto;
@@ -189,7 +176,6 @@ header {
     text-indent: 2em;
 }
 
-/* Package and Subscription Sections */
 .package-section, .subscription-section {
     background: #fff;
     border-radius: 12px;
@@ -204,7 +190,8 @@ header {
 
 .section-title {
     font-size: 1.8rem;
-    margin-bottom: 20px;
+    margin-bottom: 20 Neville Chamberlain
+    20px;
     color: #1b3a1b;
     font-weight: 600;
 }
@@ -216,7 +203,6 @@ header {
     font-style: italic;
 }
 
-/* Section Content */
 .section-content {
     display: flex;
     gap: 30px;
@@ -233,7 +219,6 @@ header {
     min-width: 400px;
 }
 
-/* Tables */
 .package-table, .subscription-table {
     width: 100%;
     border-collapse: collapse;
@@ -259,13 +244,6 @@ header {
 
 .package-table tr:hover, .subscription-table tr:hover {
     background: rgba(200, 230, 201, 0.5);
-}
-
-/* Plan Items */
-.plan-details {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
 }
 
 .plan-item {
@@ -318,7 +296,6 @@ header {
     color: #1b3a1b;
 }
 
-/* Button Container */
 .button-container {
     display: flex;
     gap: 15px;
@@ -343,7 +320,6 @@ header {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Modal Styles */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -374,14 +350,8 @@ header {
 }
 
 @keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+    from { opacity: 0; transform: translateY(-50px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .modal-header {
@@ -428,7 +398,6 @@ header {
     text-align: justify;
 }
 
-/* Footer */
 footer {
     background: #2f4f2f;
     color: #e6e4d4;
@@ -454,7 +423,6 @@ footer {
     color: #4caf50;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
     .section-content {
         flex-direction: column;
@@ -532,6 +500,18 @@ footer {
     .modal-text {
         font-size: 1.1rem;
     }
+
+    .logo-container {
+        gap: 15px; /* Reduced gap for smaller screens */
+    }
+
+    .logo-img {
+        width: 50px; /* Slightly smaller logo for mobile */
+    }
+
+    .logo-text {
+        font-size: 1.8rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -547,12 +527,15 @@ footer {
         font-size: 1.2rem;
     }
 
+    .logo-img {
+        width: 40px; /* Further reduced for small screens */
+    }
+
     .logo-text {
         font-size: 1.5rem;
     }
 }
 
-/* Cart Button */
 .cart-button {
     background-color: #4caf50;
     border: none;
@@ -570,7 +553,6 @@ footer {
     background-color: #388e3c;
 }
 
-/* Cart Count Badge */
 .cart-count {
     background-color: #ef5350;
     border-radius: 50%;
@@ -580,7 +562,6 @@ footer {
     color: white;
 }
 
-/* Cart Dropdown */
 .cart-dropdown {
     position: absolute;
     top: 40px;
@@ -598,7 +579,6 @@ footer {
     overflow-y: auto;
 }
 
-/* Cart Items List */
 .cart-items {
     list-style: none;
     padding: 0;
@@ -614,7 +594,6 @@ footer {
     color: #333;
 }
 
-/* Cart Total */
 .cart-total {
     font-weight: 600;
     font-size: 1rem;
@@ -622,7 +601,6 @@ footer {
     text-align: right;
 }
 
-/* Cart Buttons */
 .btn-secondary, .btn-primary {
     width: 100%;
     padding: 10px 0;

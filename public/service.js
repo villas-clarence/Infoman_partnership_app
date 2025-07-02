@@ -21,32 +21,30 @@ function togglePlan(element) {
 
 function openModal() {
     document.getElementById('aboutModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal(event) {
     if (event && event.target !== event.currentTarget) return;
     document.getElementById('aboutModal').style.display = 'none';
-    document.body.style.overflow = 'auto'; // Restore scrolling
+    document.body.style.overflow = 'auto';
 }
 
-// Close modal when pressing Escape key
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeModal();
     }
 });
 
-// Toggle mobile navigation
 document.querySelector('.nav-toggle').addEventListener('click', function() {
     document.querySelector('.nav-menu').classList.toggle('active');
     const hamburger = this.querySelector('.hamburger');
     hamburger.classList.toggle('active');
 });
 
-// Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        WarnerMedia
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
@@ -58,14 +56,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add toggle functionality to plan items
 document.querySelectorAll('.plan-item .toggle-text').forEach(toggle => {
     toggle.addEventListener('click', function() {
         togglePlan(this.parentElement);
     });
 });
 
-// Cart functionality
 const cart = [];
 const cartItemsEl = document.getElementById('cartItems');
 const cartTotalEl = document.getElementById('cartTotal');
@@ -92,7 +88,6 @@ function updateCartUI() {
     cartTotalEl.textContent = total.toFixed(2);
     cartCountEl.textContent = cart.length;
 
-    // Add event listeners for checkboxes to update total price
     document.querySelectorAll('.cart-item-checkbox').forEach(checkbox => {
         checkbox.addEventListener('change', () => {
             let newTotal = 0;
@@ -129,7 +124,6 @@ cartButton.addEventListener('click', () => {
     }
 });
 
-// Remove selected items button functionality
 const removeSelectedBtn = document.getElementById('removeSelectedBtn');
 removeSelectedBtn.addEventListener('click', () => {
     const toRemove = [];
@@ -141,7 +135,6 @@ removeSelectedBtn.addEventListener('click', () => {
             }
         }
     });
-    // Remove items in reverse order to avoid index shift
     toRemove.sort((a, b) => b - a);
     toRemove.forEach(idx => {
         cart.splice(idx, 1);

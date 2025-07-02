@@ -20,7 +20,6 @@ body {
     justify-content: space-between;
 }
 
-/* Header */
 header {
     background: linear-gradient(135deg, #0f3d0f 0%, #6bcf6b 100%);
     box-shadow: 0 4px 16px rgba(0,0,0,0.2);
@@ -39,31 +38,33 @@ header {
 .logo-container {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 20px; /* Increased for better separation */
+    flex-wrap: nowrap;
 }
 
 .logo-img {
-    width: 40px;
-    height: auto;
+    width: 60px; /* Increased for balanced visibility */
+    height: 60%;
+    flex-shrink: 0; /* Prevent shrinking */
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-    margin-bottom: 0;
-    margin-right: 12px;
-    vertical-align: middle;
 }
 
 .logo-img img {
-    width: 100%;
-    height: 100%;
+    max-width: 110%; /* Ensure logo stays within container */
+    height: 115%;
     object-fit: contain;
+    display: block; /* Remove inline spacing */
+    
 }
 
 .logo-text {
     font-family: 'Georgia', serif;
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: #e6e4d4;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     font-style: italic;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .nav-toggle {
@@ -180,7 +181,6 @@ header {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Main Content */
 .main-content {
     max-width: 1000px;
     margin: 40px auto;
@@ -206,10 +206,9 @@ header {
     color: #1b3a1b;
     font-weight: 700;
     font-family: 'Poppins', sans-serif;
-    transition: none; /* Remove transition for the heading */
+    transition: none;
 }
 
-/* Image Gallery Styles */
 .image-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -254,7 +253,6 @@ header {
     text-indent: 2em;
 }
 
-/* Footer */
 footer {
     background: #2f4f2f;
     color: #e6e4d4;
@@ -273,7 +271,6 @@ footer p {
     opacity: 0.8;
 }
 
-/* Header scroll effect classes */
 header.header-hidden {
     transform: translateY(-100%);
     transition: transform 0.3s ease;
@@ -284,7 +281,6 @@ header.header-scrolled {
     transition: background 0.3s ease;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .header-container {
         position: relative;
@@ -356,7 +352,15 @@ header.header-scrolled {
 
     #about h2 {
         font-size: 2rem;
-        transition: none; /* Remove transition for the heading in mobile view */
+        transition: none;
+    }
+
+    .logo-container {
+        gap: 15px; /* Adjusted for mobile */
+    }
+
+    .logo-img {
+        width: 150px; /* Reduced for mobile */
     }
 
     .logo-text {
@@ -376,11 +380,19 @@ header.header-scrolled {
 @media (max-width: 480px) {
     #about h2 {
         font-size: 1.8rem;
-        transition: none; /* Remove transition for the heading in smaller mobile view */
+        transition: none;
     }
 
     #about p {
         font-size: 1rem;
+    }
+
+    .logo-container {
+        gap: 10px; /* Further reduced for small screens */
+    }
+
+    .logo-img {
+        width: 40px; /* Further reduced for small screens */
     }
 
     .logo-text {
