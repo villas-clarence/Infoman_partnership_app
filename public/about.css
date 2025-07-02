@@ -9,6 +9,7 @@ body {
     position: relative;
     min-height: 100vh;
     overflow-x: hidden;
+    box-sizing: border-box; /* Prevent padding from causing overlap */
 }
 
 .container {
@@ -38,33 +39,33 @@ header {
 .logo-container {
     display: flex;
     align-items: center;
-    gap: 20px; /* Increased for better separation */
+    gap: 20px;
     flex-wrap: nowrap;
 }
 
 .logo-img {
-    width: 60px; /* Increased for balanced visibility */
-    height: 60%;
-    flex-shrink: 0; /* Prevent shrinking */
+    width: 60px;
+    max-height: 60px; /* Constrain height to prevent vertical overlap */
+    height: auto;
+    flex-shrink: 0;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
 .logo-img img {
-    max-width: 110%; /* Ensure logo stays within container */
-    height: 115%;
+    max-width: 100%;
+    height: auto;
     object-fit: contain;
-    display: block; /* Remove inline spacing */
-    
+    display: block;
 }
 
 .logo-text {
     font-family: 'Georgia', serif;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: #e6e4d4;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     font-style: italic;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
 }
 
 .nav-toggle {
@@ -253,6 +254,59 @@ header {
     text-indent: 2em;
 }
 
+#farm-to-cup-ph {
+    background-color: #d4edda;
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 30px; /* Increased gap to prevent overlap */
+    margin-top: 2rem;
+    flex-wrap: wrap; /* Allow wrapping to prevent horizontal overlap */
+    animation: fadeInUp 1s ease forwards;
+}
+
+#farm-to-cup-ph .farm-to-cup-image {
+    flex: 1 1 250px;
+    min-width: 200px;
+    max-height: 300px; /* Limit image height to prevent vertical overlap */
+}
+
+#farm-to-cup-ph .farm-to-cup-image img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%; /* Scale proportionally */
+    border-radius: 12px;
+}
+
+#farm-to-cup-ph .farm-to-cup-text {
+    flex: 2 1 400px;
+    min-width: 250px;
+}
+
+#farm-to-cup-ph .farm-to-cup-text h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #1b3a1b;
+    font-weight: 700;
+}
+
+#farm-to-cup-ph .farm-to-cup-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #1b3a1b;
+    text-indent: 2em;
+    margin-bottom: 20px;
+}
+
+.page-breaker {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, #4caf50, #a3c293);
+    margin: 40px 0;
+}
+
 footer {
     background: #2f4f2f;
     color: #e6e4d4;
@@ -279,6 +333,17 @@ header.header-hidden {
 header.header-scrolled {
     background: rgba(15, 61, 15, 0.95);
     transition: background 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 768px) {
@@ -356,11 +421,11 @@ header.header-scrolled {
     }
 
     .logo-container {
-        gap: 15px; /* Adjusted for mobile */
+        gap: 15px;
     }
 
     .logo-img {
-        width: 150px; /* Reduced for mobile */
+        width: 50px;
     }
 
     .logo-text {
@@ -375,6 +440,27 @@ header.header-scrolled {
     .image-item img {
         height: 200px;
     }
+
+    #farm-to-cup-ph {
+        flex-direction: column;
+        padding: 25px;
+        gap: 20px;
+    }
+
+    #farm-to-cup-ph .farm-to-cup-image {
+        flex: 1 1 auto;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    #farm-to-cup-ph .farm-to-cup-text {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    #farm-to-cup-ph .farm-to-cup-text h2 {
+        font-size: 1.8rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -388,11 +474,11 @@ header.header-scrolled {
     }
 
     .logo-container {
-        gap: 10px; /* Further reduced for small screens */
+        gap: 10px;
     }
 
     .logo-img {
-        width: 40px; /* Further reduced for small screens */
+        width: 40px;
     }
 
     .logo-text {
@@ -405,5 +491,18 @@ header.header-scrolled {
 
     .image-item img {
         height: 180px;
+    }
+
+    #farm-to-cup-ph {
+        padding: 20px;
+        gap: 15px;
+    }
+
+    #farm-to-cup-ph .farm-to-cup-text h2 {
+        font-size: 1.6rem;
+    }
+
+    #farm-to-cup-ph .farm-to-cup-text p {
+        font-size: 1rem;
     }
 }
