@@ -9,6 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const cropCount = document.getElementById('cropCount');
       const livestockCount = document.getElementById('livestockCount');
 
+      // Logout confirmation popup elements
+      const logoutLink = document.getElementById('logoutLink');
+      const logoutConfirmPopup = document.getElementById('logoutConfirmPopup');
+
+      // Removed logout popup event listener to allow direct logout link navigation
+      // if (logoutLink && logoutConfirmPopup) {
+      //   logoutLink.addEventListener('click', (e) => {
+      //     e.preventDefault();
+      //     logoutConfirmPopup.style.display = 'flex';
+      //   });
+      // }
+
       const registrants = data.registrants || [];
       const metrics = data.metrics || {};
 
