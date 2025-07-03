@@ -21,10 +21,10 @@
     <ul>
       <li><a href="#" class="active">My Trees</a></li>
       <li>
-        <a href="updates_partnership.html" class="updates-link">Updates</a>
+        <a href="https://drive.google.com/drive/folders/1k8tpAVR_h-hwp2WLeI5hhlXJYC2KLdMA?usp=drive_link" class="updates-link" target="_blank" rel="noopener noreferrer">Updates</a>
       </li>
       <li><a href="#">Settings</a></li>
-      <li><a href="#" onclick="logout()">Log Out</a></li>
+      <li><a href="login.html" id="logoutLink">Log Out</a></li>
     </ul>
   </nav>
 
@@ -61,6 +61,14 @@
 <footer>
   © 2025 Aniya | Empowering Sustainable Farming
 </footer>
+
+<!-- Logout Confirmation Pop-up -->
+<div id="logoutConfirmPopup" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 5000; width: 320px; text-align: center;">
+  <p style="font-size: 1.1rem; margin-bottom: 20px;">Are you sure you want to log out?</p>
+  <button id="confirmLogoutBtn" style="background-color: var(--danger-color); color: rgb(215, 72, 112); border: none; padding: 10px 20px; border-radius: 8px; margin-right: 10px; cursor: pointer;">Log Out</button>
+  <button id="cancelLogoutBtn" style="background-color: #ccc; color: black; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">Cancel</button>
+</div>
 
 </body>
 </html>
