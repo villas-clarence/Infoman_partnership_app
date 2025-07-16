@@ -740,6 +740,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="update_admin_dashboard.html" class="nav-link">
+              <i class="nav-icon fas fa-upload"></i>
+              <span>Upload Updates</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="https://drive.google.com/drive/folders/1ekxc5rmlNTpDU6ibhg13o0gBLHaUYICJ?usp=drive_link" target="_blank" class="nav-link">
               <i class="nav-icon fas fa-file-alt"></i>
               <span>Documents</span>
@@ -749,6 +755,18 @@
             <a href="https://drive.google.com/drive/folders/1stUGhOd8cKw-f9B2g_RHyDmaRn2efuNe?usp=sharing" target="_blank" class="nav-link">
               <i class="nav-icon fas fa-credit-card"></i>
               <span>Payments</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-seedling"></i>
+              <span>Tree & Farm Asset</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <span>Financial Tracking</span>
             </a>
           </li>
 <li class="nav-item">
@@ -769,6 +787,11 @@
             <i class="search-icon fas fa-search"></i>
             <input type="text" class="search-bar" id="searchBar" placeholder="Search registrants...">
           </div>
+          <select id="packageFilter" style="margin-left: 1rem; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;">
+            <option value="all">All Packages</option>
+            <option value="grower">Grower Package</option>
+            <option value="legacy">Legacy Package</option>
+          </select>
           <button class="export-btn" id="exportExcel">
             <i class="fas fa-download"></i>
             Export Excel
@@ -801,6 +824,11 @@
           <i class="metric-icon fas fa-leaf"></i>
           <div class="metric-title">Total Crops</div>
           <div class="metric-value" id="cropCount">0</div>
+        </div>
+        <div class="metric-card">
+          <i class="metric-icon fas fa-tree"></i>
+          <div class="metric-title">Total Trees</div>
+          <div class="metric-value" id="treeCount">0</div>
         </div>
         <div class="metric-card">
           <i class="metric-icon fas fa-horse"></i>
@@ -873,20 +901,35 @@
               <input type="text" id="role" name="role" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
             </div>
             <div>
-              <label for="package_name">Package:</label><br />
-              <input type="text" id="package_name" name="package_name" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+              <label for="package_select">Package:</label><br />
+              <select id="package_select" name="package_select" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                <option value="">Select Package</option>
+                <option value="1">Grower Package</option>
+                <option value="2">Legacy Package</option>
+              </select>
+              <input type="hidden" id="package_id" name="package_id" />
             </div>
             <div>
               <label for="tree_count">Tree Count:</label><br />
               <input type="number" id="tree_count" name="tree_count" required style="width: 100%; padding: 8px; margin-bottom: 10px;" />
             </div>
             <div>
-              <label for="crops">Crops:</label><br />
-              <input type="text" id="crops" name="crops" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+              <label for="crops_select">Crops:</label><br />
+              <select id="crops_select" name="crops_select" multiple style="width: 100%; padding: 8px; margin-bottom: 10px; height: 100px;">
+                <option value="1">Papaya</option>
+                <option value="2">Saging (Banana)</option>
+                <option value="3">Kamoteng Kahoy (Cassava)</option>
+                <option value="4">Sili (Chili)</option>
+                <option value="5">Pineapple</option>
+              </select>
             </div>
             <div>
-              <label for="livestock">Livestock:</label><br />
-              <input type="text" id="livestock" name="livestock" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+              <label for="livestock_select">Livestock:</label><br />
+              <select id="livestock_select" name="livestock_select" multiple style="width: 100%; padding: 8px; margin-bottom: 10px; height: 100px;">
+                <option value="1">Pigs</option>
+                <option value="2">Goats</option>
+                <option value="3">Chickens</option>
+              </select>
             </div>
             <div style="text-align: right;">
               <button type="button" id="cancelEdit" style="margin-right: 10px; padding: 8px 16px;">Cancel</button>

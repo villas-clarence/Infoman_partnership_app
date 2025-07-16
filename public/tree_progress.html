@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tree Progress and Impact Tracker - Coffee Clover</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #2e7d32, #a3c293 100%);
+      min-height: 100vh;
+      color: #1a1a1a;
+      overflow-x: hidden;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, rgba(124, 234, 102, 0.9), rgba(44, 113, 63, 0.9)),
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      animation: slideInUp 0.8s ease-out;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 2rem;
+      animation: slideInUp 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .main-content {
+      background: white;
+      border-radius: 24px;
+      margin: -3rem auto 0;
+      position: relative;
+      z-index: 3;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .progress-section {
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .progress-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .progress-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, #10b981, #059669);
+      border-radius: 2px;
+    }
+
+    .progress-tracker {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .progress-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 2px;
+      z-index: 1;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #059669);
+      border-radius: 2px;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0%;
+    }
+
+    .stage {
+      position: relative;
+      z-index: 2;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: white;
+      border: 4px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .stage:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .stage.active {
+      border-color: #10b981;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .stage.completed {
+      border-color: #10b981;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+    }
+
+    .stage-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stage-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .content-section {
+      padding: 4rem 2rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .table-container {
+      margin-bottom: 4rem;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      background: white;
+    }
+
+    .table-header {
+      background: linear-gradient(135deg, #1e293b, #334155);
+      color: white;
+      padding: 1.5rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #374151;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      color: #4b5563;
+      font-weight: 500;
+    }
+
+    tr:hover {
+      background: #f8fafc;
+    }
+
+    .metric-highlight {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .equivalents {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .equivalent-item {
+      background: #f0f9ff;
+      color: #0369a1;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid #e0f2fe;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    .stat-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .footer {
+      background: #1e293b;
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .footer-text {
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .progress-tracker {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      
+      .progress-line {
+        display: none;
+      }
+      
+      .stage {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .loading-shimmer {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">🌱 Tree Impact Tracker</h1>
+      <p class="hero-subtitle">Track your coffee trees' journey and environmental impact</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="main-content">
+      <div class="progress-section">
+        <h2 class="progress-title">Growth Progress</h2>
+        <div class="progress-tracker">
+          <div class="progress-line">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="stage active" data-stage="planted" data-progress="0">
+            <div class="stage-icon">🌱</div>
+            <div class="stage-text">Planted</div>
+          </div>
+          <div class="stage" data-stage="growing" data-progress="50">
+            <div class="stage-icon">🌿</div>
+            <div class="stage-text">Growing</div>
+          </div>
+          <div class="stage" data-stage="harvest" data-progress="100">
+            <div class="stage-icon">☕</div>
+            <div class="stage-text">Harvest</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="section-title">Environmental Impact</h2>
+        <p class="section-subtitle">See how your coffee trees are making a difference for our planet</p>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🌍</div>
+            <div class="stat-value" id="totalTrees">800</div>
+            <div class="stat-label">Total Trees</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💨</div>
+            <div class="stat-value" id="co2Absorbed">26.6 kg</div>
+            <div class="stat-label">CO₂ Absorbed/Year</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🚗</div>
+            <div class="stat-value" id="carEquivalent">3.5 days</div>
+            <div class="stat-label">Car Emissions Offset</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🏭</div>
+            <div class="stat-value" id="offsetPercent">0.58%</div>
+            <div class="stat-label">Annual Car Offset</div>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <div class="table-header">
+            🚗 Vehicle Emissions Impact
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Area</th>
+                  <th>Trees</th>
+                  <th>CO₂ Absorbed</th>
+                  <th>Car Offset %</th>
+                  <th>Driving Time</th>
+                </tr>
+              </thead>
+              <tbody id="vehicleTable">
+                <tr>
+                  <td>0.25 ha</td>
+                  <td>200</td>
+                  <td><span class="metric-highlight">6.65 kg</span></td>
+                  <td>0.14%</td>
+                  <td>~13 hours</td>
+                </tr>
+                <tr>
+                  <td>0.50 ha</td>
+                  <td>400</td>
+                  <td><span class="metric-highlight">13.3 kg</span></td>
+                  <td>0.29%</td>
+                  <td>~1 day</td>
+                </tr>
+                <tr>
+                  <td>0.75 ha</td>
+                  <td>600</td>
+                  <td><span class="metric-highlight">19.95 kg</span></td>
+                  <td>0.43%</td>
+                  <td>~2 days</td>
+                </tr>
+                <tr>
+                  <td>1.00 ha</td>
+                  <td>800</td>
+                  <td><span class="metric-highlight">26.6 kg</span></td>
+                  <td>0.58%</td>
+                  <td>~3.5 days</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <div class="table-header">
+            🌍 Real-World Impact Equivalents
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Area</th>
+                  <th>Trees</th>
+                  <th>CO₂ Absorbed</th>
+                  <th>Equivalent Impact</th>
+                </tr>
+              </thead>
+              <tbody id="equivalentsTable">
+                <tr>
+                  <td>0.25 ha</td>
+                  <td>200</td>
+                  <td><span class="metric-highlight">6.65 kg</span></td>
+                  <td>
+                    <div class="equivalents">
+                      <span class="equivalent-item">🔋 Phone charging (3 months)</span>
+                      <span class="equivalent-item">✈️ Flight (33 km)</span>
+                      <span class="equivalent-item">⛽ Gasoline (2.75L)</span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>0.50 ha</td>
+                  <td>400</td>
+                  <td><span class="metric-highlight">13.3 kg</span></td>
+                  <td>
+                    <div class="equivalents">
+                      <span class="equivalent-item">🔋 Phone charging (6 months)</span>
+                      <span class="equivalent-item">✈️ Flight (65 km)</span>
+                      <span class="equivalent-item">⛽ Gasoline (5.5L)</span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>0.75 ha</td>
+                  <td>600</td>
+                  <td><span class="metric-highlight">19.95 kg</span></td>
+                  <td>
+                    <div class="equivalents">
+                      <span class="equivalent-item">🔋 Phone charging (9 months)</span>
+                      <span class="equivalent-item">✈️ Flight (98 km)</span>
+                      <span class="equivalent-item">⛽ Gasoline (8.25L)</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-content">
+      <h3 class="footer-title">🌿 Aniya</h3>
+      <p class="footer-text">Empowering Sustainable Farming • Making Every Tree Count</p>
+    </div>
+  </div>
+
+  <script>
+    const stages = document.querySelectorAll('.stage');
+    const progressFill = document.getElementById('progressFill');
+    
+    // Data for different stages
+    const stageData = {
+      planted: { trees: 200, co2: 6.65, carDays: "13 hours", percent: "0.14%" },
+      growing: { trees: 500, co2: 16.6, carDays: "2 days", percent: "0.36%" },
+      harvest: { trees: 800, co2: 26.6, carDays: "3.5 days", percent: "0.58%" }
+    };
+
+    function updateProgress(targetStage) {
+      const targetElement = document.querySelector(`[data-stage="${targetStage}"]`);
+      const progress = parseInt(targetElement.dataset.progress);
+      
+      // Update progress bar
+      progressFill.style.width = `${progress}%`;
+      
+      // Update stage states
+      stages.forEach((stage, index) => {
+        const stageProgress = parseInt(stage.dataset.progress);
+        stage.classList.remove('active', 'completed');
+        
+        if (stage.dataset.stage === targetStage) {
+          stage.classList.add('active');
+        } else if (stageProgress < progress) {
+          stage.classList.add('completed');
+        }
+      });
+      
+      // Update stats with animation
+      updateStats(targetStage);
+    }
+
+    function updateStats(stage) {
+      const data = stageData[stage];
+      
+      animateValue('totalTrees', parseInt(document.getElementById('totalTrees').textContent), data.trees);
+      animateValue('co2Absorbed', parseFloat(document.getElementById('co2Absorbed').textContent), data.co2, ' kg');
+      
+      setTimeout(() => {
+        document.getElementById('carEquivalent').textContent = data.carDays;
+        document.getElementById('offsetPercent').textContent = data.percent;
+      }, 500);
+    }
+
+    function animateValue(elementId, start, end, suffix = '') {
+      const element = document.getElementById(elementId);
+      const duration = 1000;
+      const startTime = performance.now();
+      
+      function animate(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = start + (end - start) * easeOutQuart;
+        
+        if (suffix === ' kg') {
+          element.textContent = current.toFixed(1) + suffix;
+        } else {
+          element.textContent = Math.round(current) + suffix;
+        }
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      }
+      
+      requestAnimationFrame(animate);
+    }
+
+    // Add click handlers
+    stages.forEach(stage => {
+      stage.addEventListener('click', () => {
+        updateProgress(stage.dataset.stage);
+      });
+    });
+
+    // Add smooth scrolling for better UX
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Initialize with planted stage
+    updateProgress('planted');
+    
+    // Add intersection observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'slideInUp 0.6s ease-out forwards';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.stat-card, .table-container').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

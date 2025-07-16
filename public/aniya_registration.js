@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+ener("DOMContentLoaded", () => {
   fetch("admin_dashboard.php")
     .then((res) => {
       console.log("Fetch response status:", res.status);
@@ -6,6 +6,61 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then((data) => {
       console.log("Fetched data:", data);
+
+      // New code to handle checkout data and pricing for livestocks
+      const checkoutDataJSON = localStorage.getItem('checkoutData');
+      if (checkoutDataJSON) {
+        const checkoutData = JSON.parse(checkoutDataJSON);
+        const items = checkoutData.items || [];
+        const totalPrice = checkoutData.totalPrice || 0;
+
+        // Prices per animal for livestocks
+        const livestockPrices = {
+          "Goat Intercropping": 5000,
+          "Pig Intercropping": 16000
+        };
+
+        // Compute livestock totals and display price per animal
+        items.forEach(item => {
+          if (item.name === "Goat Intercropping") {
+            item.pricePerAnimal = livestockPrices["Goat Intercropping"];
+            item.totalCost = item.pricePerAnimal * item.quantity;
+          } else if (item.name === "Pig Intercropping") {
+            item.pricePerAnimal = livestockPrices["Pig Intercropping"];
+            item.totalCost = item.pricePerAnimal * item.quantity;
+          }
+        });
+
+        // Example: Display the livestock pricing info in the console (to be replaced with UI updates)
+      console.log("Checkout Livestock Items with Pricing:", items);
+
+      // Update the frontend UI to display price per animal and totals
+      const livestockTotalCostDiv = document.getElementById('livestockTotalCost');
+      if (livestockTotalCostDiv) {
+        let totalLivestockCost = 0;
+        items.forEach(item => {
+          if (item.pricePerAnimal && item.quantity) {
+            totalLivestockCost += item.pricePerAnimal * item.quantity;
+          }
+        });
+        livestockTotalCostDiv.textContent = `Total Livestock Cost: ₱${totalLivestockCost.toLocaleString()}`;
+
+        // Update combined total cost in the form
+        const totalAmountSpan = document.getElementById('totalAmount');
+        const totalAmountInput = document.getElementById('totalAmountInput');
+        if (totalAmountSpan && totalAmountInput) {
+          // Get current package total from the form
+          let packageTotal = 0;
+          const packageTotalText = totalAmountSpan.textContent.replace(/[^\d]/g, '');
+          if (packageTotalText) {
+            packageTotal = parseInt(packageTotalText);
+          }
+          const combinedTotal = packageTotal + totalLivestockCost;
+          totalAmountSpan.textContent = `₱${combinedTotal.toLocaleString()}`;
+          totalAmountInput.value = combinedTotal;
+        }
+      }
+      }
       const registrants = data.registrants || [];
       const metrics = data.metrics || {};
       const tableBody = document.getElementById("registrantsData");

@@ -4,80 +4,626 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Contact - Aniya</title>
-    <link rel="stylesheet" href="contact.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            color: #f5f1e7;
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .dropdown-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+        }
+
+        .dropdown-menu a {
+            color: #333;
+            padding: 0.75rem 1rem;
+            display: block;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Auth Links */
+        .auth-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .login-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .login-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .signup-link {
+            color: #4a7c59;
+            background-color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .signup-link:hover {
+            background-color: #f8f9fa;
+        }
+
+
+
+        /* Mobile Navigation */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        #contact {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        #contact h2 {
+            color: #4a7c59;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        #contact > p {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-form h3,
+        .contact-info h3 {
+            color: #4a7c59;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .styled-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .styled-input:focus {
+            outline: none;
+            border-color: #4a7c59;
+        }
+
+        textarea.styled-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn-primary {
+            background-color: #4a7c59;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5f47;
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .contact-info .info-item {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .contact-info .info-item strong {
+            color: #4a7c59;
+        }
+
+        .contact-info .info-item a {
+            color: #4a7c59;
+            text-decoration: none;
+        }
+
+        .contact-info .info-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            max-width: 900px;
+            width: 80vw;
+            max-height: 70vh;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .modal-sidebar {
+            flex: 1;
+            border-right: 1px solid #e0e0e0;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .modal-sidebar ul {
+            list-style: none;
+        }
+
+        .modal-tab {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            background: none;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-tab:hover,
+        .modal-tab.active {
+            background-color: #f8f9fa;
+            color: #4a7c59;
+        }
+
+        .modal-content-body {
+            flex: 3;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .modal-tab-content {
+            display: none;
+        }
+
+        .modal-tab-content.active {
+            display: block;
+        }
+
+        .modal-tab-content h3 {
+            color: #4a7c59;
+            margin-bottom: 1rem;
+        }
+
+        .modal-tab-content ul {
+            margin-left: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            color: #f5f1e7;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #4a7c59;
+                flex-direction: column;
+                padding: 1rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-menu.active {
+                transform: translateX(0);
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .auth-links {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .modal-content {
+                width: 95vw;
+                max-height: 80vh;
+                flex-direction: column;
+            }
+
+            .modal-sidebar {
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container header-container">
-            <div class="logo-container">
-                <div class="logo-img">
-                    <img src="../assets/farmtocupr.png" alt="aniyalogo">
-                </div>
-                <span class="logo-text">Aniya</span>
+<header>
+    <div class="header-container">
+        <div class="logo-container">
+            <div class="logo-img">
+                <img src="../assets/farmtocupr.png" alt="Farm to Cup Philippines Logo" style="height: 40px; width: auto;">
             </div>
-            <button class="nav-toggle" aria-label="Toggle navigation">
-                <span class="hamburger"></span>
-            </button>
-            <nav class="nav-menu">
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="service.html">Service</a></li>
-                    <li><a href="mission.html">Mission</a></li>
-                    <li><a href="vision.html">Vision</a></li>
-                    <li><a href="contact.html" class="active">Contact</a></li>
-                </ul>
-                <div class="auth-links">
-                    <a href="login.html" class="login-link">Log In</a>
-                    <a href="signup.html" class="signup-link">Sign Up</a>
-                </div>
-            </nav>
+            <span class="logo-text">Aniya</span>
         </div>
-    </header>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <span class="hamburger"></span>
+        </button>
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">About ▼</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="about/mission.html">Mission and Vision</a></li>
+                        <li><a href="about/story.html">Story Behind Aniya</a></li>
+                        <li><a href="about/founding_team.html">Founding Team</a></li>
+                        <li><a href="about/partners.html">Partners and Cooperatives</a></li>
+                    </ul>
+                </li>
+                <li><a href="service.html">Service</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="auth-links">
+                <a href="login.html" class="login-link">Log In</a>
+                <a href="signup.html" class="signup-link">Sign Up</a>
+            </div>
+        </nav>
+    </div>
+</header>
 
-    <main class="main-content">
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <p>We're here to help you connect with Aniya and answer any questions about our farming initiatives. Reach out to us!</p>
-            <div class="contact-container">
-                <div class="contact-form">
-                    <h3>Send Us a Message</h3>
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" placeholder="Your Name" required class="styled-input" />
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="Your Email" required class="styled-input" />
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" placeholder="Your Message" required class="styled-input"></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary">Send Message</button>
-                    </form>
-                    <p id="form-message" class="form-message"></p>
+<main class="main-content">
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>We're here to help you connect with Aniya and answer any questions about our farming initiatives. Reach out to us!</p>
+        <div class="contact-container">
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required class="styled-input" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required class="styled-input" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Your Message" required class="styled-input"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
+                <div id="form-message" class="form-message"></div>
+            </div>
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <div class="info-item">
+                    <strong>Email:</strong> <a href="mailto:support@aniya.com">support@aniya.com</a>
                 </div>
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <div class="info-item">
-                        <strong>Email:</strong> <a href="mailto:support@aniya.com">support@aniya.com</a>
-                    </div>
-                    <div class="info-item">
-                        <strong>Phone:</strong> <a href="tel:+639123456789">+63 912 345 6789</a>
-                    </div>
-                    <div class="info-item">
-                        <strong>Address:</strong> Sitio Dueg, San Clemente, Tarlac, Philippines
-                    </div>
+                <div class="info-item">
+                    <strong>Phone:</strong> <a href="tel:+639123456789">+63 912 345 6789</a>
+                </div>
+                <div class="info-item">
+                    <strong>Address:</strong> Sitio Dueg, San Clemente, Tarlac, Philippines
                 </div>
             </div>
-        </section>
-    </main>
-            </div>
-            <p>© 2025 Aniya. All rights reserved.</p>
         </div>
-    </footer>
-    <script src="contact.js"></script>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2025 Aniya. All rights reserved.</p>
+    </div>
+</footer>
+
+<div id="aboutModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-sidebar">
+            <ul>
+                <li><button class="modal-tab active" onclick="showTab('mission')">Mission and Vision</button></li>
+                <li><button class="modal-tab" onclick="showTab('story')">Story Behind Aniya</button></li>
+                <li><button class="modal-tab" onclick="showTab('founding')">Founding Team</button></li>
+                <li><button class="modal-tab" onclick="showTab('partners')">Partners and Cooperatives</button></li>
+            </ul>
+        </div>
+        <div class="modal-content-body">
+            <div id="mission" class="modal-tab-content active">
+                <h3>Mission and Vision</h3>
+               
+            </div>
+            <div id="story" class="modal-tab-content">
+                <h3>Story Behind Aniya</h3>
+            </div>
+            <div id="founding" class="modal-tab-content">
+                <h3>Founding Team</h3>
+                <p>This page will introduce the founding team of Aniya.</p>
+            </div>
+            <div id="partners" class="modal-tab-content">
+                <h3>Partners and Cooperatives</h3>
+                <p>This page will list the partners and cooperatives associated with Aniya.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Mobile Navigation Toggle
+    document.querySelector('.nav-toggle').addEventListener('click', function() {
+        document.querySelector('.nav-menu').classList.toggle('active');
+    });
+
+    // About Dropdown functionality
+    document.querySelector('.dropdown-toggle').addEventListener('click', function(e) {
+        e.preventDefault();
+        const modal = document.getElementById('aboutModal');
+        modal.style.display = 'flex';
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('aboutModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+        }
+    });
+
+    // Tab switching functionality
+    function showTab(tabId) {
+        // Hide all tab contents
+        const tabs = document.querySelectorAll('.modal-tab-content');
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Remove active class from all buttons
+        const buttons = document.querySelectorAll('.modal-tab');
+        buttons.forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Show selected tab and mark button as active
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // Contact form submission
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const messageDiv = document.getElementById('form-message');
+        messageDiv.style.display = 'block';
+        messageDiv.className = 'form-message success';
+        messageDiv.textContent = 'Thank you for your message! We will get back to you soon.';
+        
+        // Reset form
+        this.reset();
+        
+        // Hide message after 5 seconds
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 5000);
+    });
+</script>
 </body>
-</html>
+</html>              

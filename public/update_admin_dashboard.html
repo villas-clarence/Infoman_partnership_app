@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aniya Admin Dashboard</title>
+  <link rel="stylesheet" href="update_admin_dashboard.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>Quarterly Updates Dashboard</h1>
+      <p>Manage quarterly updates and sync with partnership dashboard</p>
+      <div class="status-bar">
+        <span class="db-status connected"><i data-lucide="database"></i> Connected</span>
+        <span class="last-sync">Last Sync: <span id="lastSyncTime"></span></span>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="tabs">
+      <button class="tab-button active" data-tab="create">Create Update</button>
+      <button class="tab-button" data-tab="manage">Manage Updates</button>
+      <button class="tab-button" data-tab="sync">Partnership Sync</button>
+    </nav>
+
+    <!-- Create Update -->
+    <section id="create" class="tab-content active">
+      <form id="updateForm">
+      <div class="form-group">
+          <label><i data-lucide="user"></i> Assign to User</label>
+          <select id="userSelect" required>
+          <option value="">-- Select a registrant --</option>
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label>Status</label>
+          <select id="statusSelect">
+            <option value="Planted">Planted</option>
+            <option value="Growing">Growing</option>
+            <option value="Ready">Ready</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label><i data-lucide="message-square"></i> Update Note</label>
+          <textarea id="noteInput" placeholder="Describe progress..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label><i data-lucide="camera"></i> Upload Photos</label>
+          <input type="file" id="photoInput" multiple accept="image/*" />
+          <div id="photoPreview"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Remarks</label>
+          <textarea id="remarksInput" placeholder="Additional comments..."></textarea>
+        </div>
+
+        <button type="submit" id="submitBtn">
+          <i data-lucide="send"></i> Save & Sync
+        </button>
+      </form>
+
+      <div class="preview">
+        <h3><i data-lucide="eye"></i> Live Preview</h3>
+        <div id="previewBox">
+          <p><strong>Status:</strong> <span id="previewStatus"></span></p>
+          <p><strong>Note:</strong> <span id="previewNote">—</span></p>
+          <p><strong>Assigned to:</strong> <span id="previewUser">—</span></p>
+          <div id="previewImages" class="img-preview-box"></div>
+          <p><strong>Remarks:</strong> <span id="previewRemarks">—</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Manage Updates -->
+    <section id="manage" class="tab-content">
+      <div class="filter">
+        <label for="statusFilter"><i data-lucide="filter"></i> Filter by Status:</label>
+        <select id="statusFilter">
+          <option value="all">All</option>
+          <option value="Planted">Planted</option>
+          <option value="Growing">Growing</option>
+          <option value="Ready">Ready</option>
+        </select>
+      </div>
+      <div id="updatesList"></div>
+    </section>
+
+    <!-- Partnership Sync -->
+    <section id="sync" class="tab-content">
+      <div id="partnershipsList"></div>
+    </section>
+  </div>
+
+  <script src="update_admin_dashboard.js"defer></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Tree Updates</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #2d5a27 0%, #5a8a4a 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(45deg, #2d5a27, #4a7c59);
+      color: white;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+    }
+    .header-content { position: relative; z-index: 1; }
+    .header h1 {
+      font-size: 2.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+    .tree-icon { font-size: 1.2em; }
+    .user-info {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .user-details { display: flex; align-items: center; gap: 15px; }
+    .user-avatar {
+      width: 50px; height: 50px; border-radius: 50%;
+      background: linear-gradient(45deg, #f39c12, #e67e22);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: bold; font-size: 18px;
+      border: 3px solid rgba(255,255,255,0.3);
+    }
+    .user-name { font-size: 1.2em; font-weight: 600; }
+    .tree-id { font-size: 0.9em; opacity: 0.9; }
+    .investment-status { text-align: right; }
+    .investment-amount { font-size: 1.1em; font-weight: 600; color: #f39c12; }
+    .investment-date { font-size: 0.9em; opacity: 0.8; }
+    .content { padding: 40px; }
+    .investment-summary {
+      background: linear-gradient(45deg, #f8f9fa, #e8f5e8);
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      border: 1px solid #d4edda;
+    }
+    .summary-title {
+      font-size: 1.3em; font-weight: 600;
+      color: #2d5a27; margin-bottom: 15px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 15px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .stat-value { font-size: 1.5em; font-weight: 600; color: #2d5a27; }
+    .stat-label { font-size: 0.9em; color: #6c757d; margin-top: 5px; }
+
+    .updates-timeline { position: relative; }
+    .updates-timeline::before {
+      content: ''; position: absolute;
+      left: 30px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #2d5a27, #5a8a4a);
+    }
+    .update-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding-left: 80px;
+    }
+    .update-item::before {
+      content: '';
+      position: absolute;
+      left: 21px; top: 25px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: white;
+      border: 4px solid;
+      z-index: 2;
+    }
+    .update-item.planted::before { border-color: #f39c12; }
+    .update-item.growing::before { border-color: #27ae60; }
+    .update-item.ready::before { border-color: #3498db; }
+
+    .update-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #f1f3f4;
+    }
+    .update-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    .update-header {
+      background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+      padding: 20px;
+      border-bottom: 1px solid #dee2e6;
+    }
+    .status-badge {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .status-badge.planted { background: #fff3cd; color: #856404; }
+    .status-badge.growing { background: #d4edda; color: #155724; }
+    .status-badge.ready { background: #d1ecf1; color: #0c5460; }
+
+    .update-timestamp {
+      color: #6c757d;
+      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .update-body { padding: 25px; }
+    .update-note {
+      color: #495057;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      font-size: 1em;
+    }
+    .update-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .update-image {
+      width: 100%; height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .update-image:hover { transform: scale(1.05); }
+    .update-remarks {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      color: #6c757d;
+      font-size: 0.95em;
+      font-style: italic;
+      border-left: 4px solid #2d5a27;
+    }
+    .no-updates {
+      text-align: center;
+      color: #6c757d;
+      font-size: 1.2em;
+      padding: 60px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2em; }
+      .content { padding: 20px; }
+      .user-info { flex-direction: column; text-align: center; }
+      .investment-status { text-align: center; }
+      .update-item { padding-left: 60px; }
+      .updates-timeline::before { left: 20px; }
+      .update-item::before { left: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-content">
+        <h1><i data-lucide="tree-pine" class="tree-icon"></i> My Tree Investment</h1>
+        <div class="user-info">
+          <div class="user-details">
+            <div class="user-avatar">JD</div>
+            <div>
+              <div class="user-name">Loading...</div>
+              <div class="tree-id">Tree ID: ...</div>
+            </div>
+          </div>
+          <div class="investment-status">
+            <div class="investment-amount">...</div>
+            <div class="investment-date">...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div id="dynamicContent">
+        <p style="text-align:center; padding:50px; color:gray;">Loading updates...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <img id="modalImage" class="modal-image" alt="View">
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    fetch('php/get_registrant_profile.php')
+      .then(res => res.json())
+      .then(data => {
+        document.querySelector('.user-name').textContent = data.full_name;
+        document.querySelector('.tree-id').textContent = 'Tree ID: ' + data.tree_id;
+        document.querySelector('.investment-amount').textContent = '$' + data.amount;
+        document.querySelector('.investment-date').textContent = 'Planted: ' + data.investment_date;
+
+        const updates = data.updates.map(update => {
+          const status = update.status.toLowerCase();
+          const photos = update.photo_urls.map(url =>
+            `<img src="${url}" class="update-image" onclick="openModal(this)">`).join('');
+          return `
+            <div class="update-item ${status}">
+              <div class="update-card">
+                <div class="update-header">
+                  <div class="status-badge ${status}"><i data-lucide="sprout"></i> ${status}</div>
+                  <div class="update-timestamp"><i data-lucide="clock"></i> ${update.update_date}</div>
+                </div>
+                <div class="update-body">
+                  <div class="update-note">${update.notes}</div>
+                  <div class="update-images">${photos}</div>
+                  <div class="update-remarks">Field status: ${status}</div>
+                </div>
+              </div>
+            </div>`;
+        }).join('');
+
+        document.getElementById('dynamicContent').innerHTML = `
+          <div class="investment-summary">
+            <div class="summary-title"><i data-lucide="bar-chart-3"></i> Investment Progress</div>
+            <div class="summary-stats">
+              <div class="stat-item"><div class="stat-value">${data.updates.length}</div><div class="stat-label">Total Updates</div></div>
+              <div class="stat-item"><div class="stat-value">${data.current_status}</div><div class="stat-label">Current Status</div></div>
+              <div class="stat-item"><div class="stat-value">${data.days_since}</div><div class="stat-label">Days Since Planting</div></div>
+            </div>
+          </div>
+          <div class="updates-timeline">${updates || '<div class="no-updates">No updates available yet.</div>'}</div>
+        `;
+        lucide.createIcons();
+      })
+      .catch(err => {
+        document.getElementById('dynamicContent').innerHTML = '<div class="no-updates">Failed to load updates.</div>';
+        console.error(err);
+      });
+
+    function openModal(img) {
+      document.getElementById('modalImage').src = img.src;
+      document.getElementById('imageModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>

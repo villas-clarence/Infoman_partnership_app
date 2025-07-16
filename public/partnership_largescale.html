@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniya's Partner Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="partnership_largescale.js"></script>
+    <style>
+        .bg-gradient-green {
+            background: linear-gradient(135deg, #4f7942 0%, #6b8e56 100%);
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+        .icon-lg {
+            width: 48px;
+            height: 48px;
+        }
+        .sidebar-icon {
+            width: 16px;
+            height: 16px;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            transition: transform 0.2s ease;
+        }
+        .timeline-dot {
+            position: relative;
+        }
+        .timeline-dot:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            width: 2px;
+            height: 40px;
+            background: #e5e7eb;
+            transform: translateX(-50%);
+        }
+        .timeline-dot.active:not(:last-child)::after {
+            background: #4f7942;
+        }
+    </style>
+</head>
+<body class="bg-gradient-green min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white flex items-center justify-center gap-3">
+                <svg class="icon-lg" viewBox="0 0 24 24">
+                    <path d="M12 2L2 22h20L12 2z" fill="currentColor" stroke="none"/>
+                    <path d="M12 6v10M8 10h8" stroke="white" stroke-width="2"/>
+                </svg>
+                Aniya's Partner Dashboard
+            </h1>
+        </div>
+
+        <div class="flex gap-6">
+            <!-- Sidebar -->
+            <div class="w-80 bg-white rounded-2xl shadow-sm p-6">
+                <div class="space-y-4">
+            <button onclick="showTab('overview')" class="sidebar-btn w-full text-left p-4 rounded-xl font-semibold transition-all bg-green-800 text-white shadow-lg hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="overview-btn" aria-selected="true" role="tab" tabindex="0">
+                        <svg class="sidebar-icon inline mr-3" viewBox="0 0 24 24">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Portfolio Overview
+                    </button>
+                    
+                    <button onclick="showTab('timeline')" class="sidebar-btn w-full text-left p-4 rounded-xl font-semibold transition-all text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="timeline-btn" aria-selected="false" role="tab" tabindex="-1">
+                        <svg class="sidebar-icon inline mr-3" viewBox="0 0 24 24">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        Farm Timeline
+                    </button>
+                    
+                    <button onclick="showTab('intercropping')" class="sidebar-btn w-full text-left p-4 rounded-xl font-semibold transition-all text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="intercropping-btn" aria-selected="false" role="tab" tabindex="-1">
+                        <svg class="sidebar-icon inline mr-3" viewBox="0 0 24 24">
+                            <path d="M7 20l4-16m6 16l4-16M6 9h14M4 15h14"/>
+                        </svg>
+                        Intercropping Management
+                    </button>
+                    
+                    <button onclick="showTab('forecast')" class="sidebar-btn w-full text-left p-4 rounded-xl font-semibold transition-all text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="forecast-btn" aria-selected="false" role="tab" tabindex="-1">
+                        <svg class="sidebar-icon inline mr-3" viewBox="0 0 24 24">
+                            <polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/>
+                            <polyline points="17,6 23,6 23,12"/>
+                        </svg>
+                        Harvest Forecast
+                    </button>
+                    
+                    <button onclick="showTab('expenses')" class="sidebar-btn w-full text-left p-4 rounded-xl font-semibold transition-all text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="expenses-btn" aria-selected="false" role="tab" tabindex="-1">
+                        <svg class="sidebar-icon inline mr-3" viewBox="0 0 24 24">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                        Expense Log
+                    </button>
+                    
+                    <button onclick="showTab('updates')" class="sidebar-btn w-full text-left p-4 rounded-xl font-semibold transition-all text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="updates-btn" aria-selected="false" role="tab" tabindex="-1">
+                        <svg class="sidebar-icon inline mr-3" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12,6 12,12 16,14"/>
+                        </svg>
+                        Update Requests
+                    </button>
+                    
+                    <button onclick="showTab('esg')" class="sidebar-btn w-full text-left p-4 rounded-xl font-semibold transition-all text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="esg-btn" aria-selected="false" role="tab" tabindex="-1">
+                        <svg class="sidebar-icon inline mr-3" viewBox="0 0 24 24">
+                            <path d="M21 12l-7-7v4a6 6 0 0 0-6 6 6 6 0 0 0 6 6v4l7-7z"/>
+                        </svg>
+                        ESG Impact
+                    </button>
+                    
+                    <button onclick="showTab('documents')" class="sidebar-btn w-full text-left p-4 rounded-xl font-semibold transition-all text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="documents-btn" aria-selected="false" role="tab" tabindex="-1">
+                        <svg class="sidebar-icon inline mr-3" viewBox="0 0 24 24">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                        Document Portal
+                    </button>
+                    
+                    <button onclick="showTab('community')" class="sidebar-btn w-full text-left p-4 rounded-xl font-semibold transition-all text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50" id="community-btn" aria-selected="false" role="tab" tabindex="-1">
+                        <svg class="sidebar-icon inline mr-3" viewBox="0 0 24 24">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        Community Wall
+                    </button>
+                    
+                    <div class="pt-4 border-t">
+                        <button class="w-full text-left p-4 rounded-xl text-gray-700 hover:bg-gray-50">
+                            <svg class="sidebar-icon inline mr-3" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                            </svg>
+                            Settings
+                        </button>
+                        <button class="w-full text-left p-4 rounded-xl text-gray-700 hover:bg-gray-50">
+                            <svg class="sidebar-icon inline mr-3" viewBox="0 0 24 24">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16,17 21,12 16,7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                            Log Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="flex-1">
+                <!-- Overview Tab -->
+                <div id="overview-tab" class="tab-content">
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-green-700 rounded-2xl p-6 text-white">
+                                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                    <svg class="icon mr-2" viewBox="0 0 24 24">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                    Portfolio Overview
+                                </h3>
+                                <div class="space-y-4">
+                                    <div class="bg-green-600 rounded-lg p-4">
+                                        <div class="flex justify-between items-center">
+                                            <h4 class="font-medium">Coffee Trees</h4>
+                                            <span class="text-green-200">25 units</span>
+                                        </div>
+                                        <div class="flex justify-between text-sm text-green-200 mt-2">
+                                            <span>Status: Healthy</span>
+                                            <span>Yield: 150kg/year</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-green-600 rounded-lg p-4">
+                                        <div class="flex justify-between items-center">
+                                            <h4 class="font-medium">Livestock</h4>
+                                            <span class="text-green-200">5 units</span>
+                                        </div>
+                                        <div class="flex justify-between text-sm text-green-200 mt-2">
+                                            <span>Status: Good</span>
+                                            <span>Yield: 2L milk/day</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-green-600 rounded-lg p-4">
+                                        <div class="flex justify-between items-center">
+                                            <h4 class="font-medium">Corn Crops</h4>
+                                            <span class="text-green-200">100 units</span>
+                                        </div>
+                                        <div class="flex justify-between text-sm text-green-200 mt-2">
+                                            <span>Status: Growing</span>
+                                            <span>Yield: 500kg/season</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-2xl shadow-sm p-6">
+                                <h3 class="text-xl font-semibold mb-4 flex items-center text-gray-800">
+                                    <svg class="icon mr-2 text-green-700" viewBox="0 0 24 24">
+                                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+                                        <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                                    </svg>
+                                    Investment Distribution
+                                </h3>
+                                <div class="h-64">
+                                    <canvas id="investmentChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="bg-white rounded-2xl shadow-sm p-6 text-center card-hover">
+                                <svg class="icon-lg text-green-700 mx-auto mb-3" viewBox="0 0 24 24">
+                                    <path d="M21 12l-7-7v4a6 6 0 0 0-6 6 6 6 0 0 0 6 6v4l7-7z"/>
+                                </svg>
+                                <h4 class="text-2xl font-bold text-gray-800">2.5t</h4>
+                                <p class="text-gray-600">CO₂ Absorbed</p>
+                            </div>
+                            <div class="bg-white rounded-2xl shadow-sm p-6 text-center card-hover">
+                                <svg class="icon-lg text-green-700 mx-auto mb-3" viewBox="0 0 24 24">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                                <h4 class="text-2xl font-bold text-gray-800">8</h4>
+                                <p class="text-gray-600">Jobs Created</p>
+                            </div>
+                            <div class="bg-white rounded-2xl shadow-sm p-6 text-center card-hover">
+                                <svg class="icon-lg text-green-700 mx-auto mb-3" viewBox="0 0 24 24">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <h4 class="text-2xl font-bold text-gray-800">3.2</h4>
+                                <p class="text-gray-600">Hectares Managed</p>
+                            </div>
+                            <div class="bg-white rounded-2xl shadow-sm p-6 text-center card-hover">
+                                <svg class="icon-lg text-green-700 mx-auto mb-3" viewBox="0 0 24 24">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                                <h4 class="text-2xl font-bold text-gray-800">85%</h4>
+                                <p class="text-gray-600">Biodiversity Score</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Tab -->
+                <div id="timeline-tab" class="tab-content hidden">
+                    <div class="bg-white rounded-2xl shadow-sm p-6">
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center text-gray-800">
+                            <svg class="icon mr-3 text-green-700" viewBox="0 0 24 24">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            Farm Timeline - Coffee Crop
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="timeline-dot active w-12 h-12 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-bold">
+                                    ✓
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-center">
+                                        <h4 class="font-semibold text-gray-800">Seed</h4>
+                                        <span class="text-sm text-gray-600">04/16/2025</span>
+                                    </div>
+                                    <p class="text-gray-600 mt-1">Seeds planted in prepared soil</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="timeline-dot active w-12 h-12 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-bold">
+                                    ✓
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-center">
+                                        <h4 class="font-semibold text-gray-800">Nursery</h4>
+                                        <span class="text-sm text-gray-600">05/20/2025</span>
+                                    </div>
+                                    <p class="text-gray-600 mt-1">Seedlings transferred to nursery</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="timeline-dot active w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold">
+                                    ○
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-center">
+                                        <h4 class="font-semibold text-gray-800">Planted</h4>
+                                        <span class="text-sm text-gray-600">07/15/2025</span>
+                                    </div>
+                                    <p class="text-gray-600 mt-1">Young plants established in field</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="timeline-dot w-12 h-12 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center font-bold">
+                                    ◦
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-center">
+                                        <h4 class="font-semibold text-gray-800">Mature</h4>
+                                        <span class="text-sm text-gray-600">12/01/2025</span>
+                                    </div>
+                                    <p class="text-gray-600 mt-1">First harvest expected</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Intercropping Tab -->
+                <div id="intercropping-tab" class="tab-content hidden">
+                    <div class="bg-white rounded-2xl shadow-sm p-6">
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center text-gray-800">
+                            <svg class="icon mr-3 text-green-700" viewBox="0 0 24 24">
+                                <path d="M7 20l4-16m6 16l4-16M6 9h14M4 15h14"/>
+                            </svg>
+                            Intercropping Management
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div class="border rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Primary Crop: Coffee</h4>
+                                    <p class="text-gray-600">25 plants, 3 years old</p>
+                                    <div class="mt-2 bg-green-100 rounded p-2">
+                                        <span class="text-green-700 text-sm">Status: Healthy growth</span>
+                                    </div>
+                                </div>
+                                <div class="border rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Secondary Crop: Banana</h4>
+                                    <p class="text-gray-600">10 plants, providing shade</p>
+                                    <div class="mt-2 bg-yellow-100 rounded p-2">
+                                        <span class="text-yellow-700 text-sm">Status: Fruiting season</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="border rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Companion Plants</h4>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• Legumes (nitrogen fixing)</li>
+                                        <li>• Herbs (pest control)</li>
+                                        <li>• Ground cover plants</li>
+                                    </ul>
+                                </div>
+                                <div class="border rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Benefits</h4>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• 30% increase in yield</li>
+                                        <li>• Natural pest management</li>
+                                        <li>• Improved soil health</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forecast Tab -->
+                <div id="forecast-tab" class="tab-content hidden">
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-2xl shadow-sm p-6">
+                            <h3 class="text-2xl font-semibold mb-6 flex items-center text-gray-800">
+                                <svg class="icon mr-3 text-green-700" viewBox="0 0 24 24">
+                                    <polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/>
+                                    <polyline points="17,6 23,6 23,12"/>
+                                </svg>
+                                Harvest Forecast & Profit Projection
+                            </h3>
+                            <div class="h-80">
+                                <canvas id="forecastChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-white rounded-2xl shadow-sm p-6 text-center card-hover">
+                                <svg class="icon-lg text-green-700 mx-auto mb-3" viewBox="0 0 24 24">
+                                    <polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/>
+                                    <polyline points="17,6 23,6 23,12"/>
+                                </svg>
+                                <h4 class="text-2xl font-bold text-gray-800">₱324,000</h4>
+                                <p class="text-gray-600">Projected Annual Income</p>
+                            </div>
+                            <div class="bg-white rounded-2xl shadow-sm p-6 text-center card-hover">
+                                <svg class="icon-lg text-green-700 mx-auto mb-3" viewBox="0 0 24 24">
+                                    <line x1="12" y1="20" x2="12" y2="10"/>
+                                    <line x1="18" y1="20" x2="18" y2="4"/>
+                                    <line x1="6" y1="20" x2="6" y2="16"/>
+                                </svg>
+                                <h4 class="text-2xl font-bold text-gray-800">1,420kg</h4>
+                                <p class="text-gray-600">Expected Total Harvest</p>
+                            </div>
+                            <div class="bg-white rounded-2xl shadow-sm p-6 text-center card-hover">
+                                <svg class="icon-lg text-green-700 mx-auto mb-3" viewBox="0 0 24 24">
+                                    <line x1="12" y1="1" x2="12" y2="23"/>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                </svg>
+                                <h4 class="text-2xl font-bold text-gray-800">35%</h4>
+                                <p class="text-gray-600">Profit Margin</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expenses Tab -->
+                <div id="expenses-tab" class="tab-content hidden">
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-2xl shadow-sm p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-2xl font-semibold flex items-center text-gray-800">
+                                    <svg class="icon mr-3 text-green-700" viewBox="0 0 24 24">
+                                        <line x1="12" y1="1" x2="12" y2="23"/>
+                                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                    </svg>
+                                    Expense Breakdown
+                                </h3>
+                                <button class="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition-colors">
+                                    <svg class="icon inline mr-2" viewBox="0 0 24 24">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="7,10 12,15 17,10"/>
+                                        <line x1="12" y1="15" x2="12" y2="3"/>
+                                    </svg>

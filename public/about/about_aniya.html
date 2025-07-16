@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aniya - Sustainable Agriculture Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="about.css" />
+</head>
+  <body>
+    <nav class="sticky-nav" aria-label="Section navigation">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="#agri-tech">Agri-Tech Platform</a></li>
+        <li><a href="#movement">Movement for Change</a></li>
+        <li><a href="#etymology">Etymology</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#cta">Get Involved</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <!-- Header -->
+      <div class="header" style="text-align: center;">
+        <h1 class="logo" style="font-style: italic;">Aniya</h1>
+        <p class="subtitle">Sustainable Agriculture • Real Impact • Filipino Farmers</p>
+      </div>
+      <!-- Content sections -->
+      <div class="content-section">
+        <div class="card" id="agri-tech">
+          <div class="card-content">
+            <h2>Web-Enabled Agri-Tech Platform</h2>
+            <p>
+              Aniya is a revolutionary platform that allows anyone—wherever they are—to plant real 
+              coffee trees, support real Filipino farmers, and participate in sustainable agriculture. 
+              By leveraging regenerative farming principles and modern technology, we bridge the gap 
+              between everyday people and real-world impact in farming.
+            </p>
+          </div>
+        </div>
+
+        <div class="card" id="movement">
+          <div class="card-content">
+            <h2>A Movement for Change</h2>
+            <p>
+              Rooted in transparency, inclusion, and environmental healing, Aniya is more than just a 
+              platform—it’s a movement. Through our partnership with Farm To Cup Philippines and a 
+              regenerative farm estate in Sitio Dueg, San Clemente, Tarlac, we are building a model 
+              that connects tech-driven accessibility with soil-rooted sustainability.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin: 30px 0;">
+        <div class="card">
+          <div class="card-content">
+            <h2>The Aniya Farm</h2>
+            <p>
+              Aniya’s pilot operations are anchored in the mountain farms of Tarlac, Philippines—between
+              800 to 1000 meters above sea level—where we grow high-elevation coffee alongside other
+              potential intercrops.
+            </p>
+            <p>
+              Each hectare supports up to 800 coffee trees and sustains four rural families through
+              meaningful employment. The land is managed in partnership with Farm To Cup Philippines
+              and Coffea ReAL, a farming collective rooted in transparency, spiritual stewardship, and land
+              care.
+            </p>
+            <p>Farming practices include:</p>
+            <ul>
+              <li>Agroforestry: planting coffee under shade trees and fruit-bearing crops</li>
+              <li>Permaculture: designing self-sustaining, regenerative farm systems</li>
+              <li>Soil regeneration: composting, minimal tillage, and cover cropping</li>
+              <li>Intercropping (Legacy users only): vegetable, fruits and livestock integrations.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script>
+    // Create animated particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Initialize particles when page loads
+    window.addEventListener('load', createParticles);
+
+    // Add smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+  // Add intersection observer for animations
+  // Removed duplicate observer declarations to fix block-scoped variable redeclaration errors
+  </script>
+ 
+
+
+      <!-- Image gallery -->
+      </div>
+    </div>
+
+    </div>
+
+    </div>
+
+    <div class="gallery" id="gallery" style="margin: 0 30px 30px 30px;">
+      <div class="image-card" tabindex="0" aria-label="Coffee Farm in Tarlac">
+        <img src="../../assets/image3.jpeg" alt="Coffee Farm in Tarlac" />
+        <figcaption>Coffee Farm in Tarlac</figcaption>
+      </div>
+      <div class="image-card" tabindex="0" aria-label="Regenerative Agriculture">
+        <img src="../../assets/image2.jpeg" alt="Regenerative Agriculture" />
+        <figcaption>Regenerative Agriculture</figcaption>
+      </div>
+    </div>
+
+    <div class="card etymology" id="etymology" style="margin: 0 30px 30px 30px;">
+      <div class="card-content">
+        <p class="etymology-text">
+          "Aniya" comes from the Filipino words "ani" (harvest) and "niya" (yours)<br>
+          <strong>— meaning, the harvest is yours (Ani niya to Aniya)</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section" id="cta" style="margin: 0 30px 30px 30px;">
+      <h2 style="color: #2a3a1a; font-size: 2rem; margin-bottom: 20px; font-weight: 600;">
+        Ready to Make a Difference?
+      </h2>
+      <p style="color: #3a4a1a; font-size: 1.1rem; margin-bottom: 30px;">
+        Join our mission to transform agriculture and support Filipino farmers
+      </p>
+      <a href="../signup.html" class="cta-button" role="button" aria-label="Start Your Journey">Start Your Journey</a>
+    </div>
+  </div>
+
+
+  <script>
+    // Create animated particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Initialize particles when page loads
+    window.addEventListener('load', createParticles);
+
+    // Add smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Add intersection observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.card, .image-card').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+  
+
+ 
+</body>
+</html>
+</body>
+</html>
+

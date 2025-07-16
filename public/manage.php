@@ -71,7 +71,7 @@ $result = $conn->query("SELECT * FROM partnerships ORDER BY id DESC");
 </head>
 <body>
 
-    <a href="partnership.html" class="back-btn">← Back to Partnership Page</a>
+    <a href="partnership_smallscale.html" class="back-btn">← Back to Partnership Page</a>
 
     <h2>🌿 Partnership Records</h2>
 

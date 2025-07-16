@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Our Vision - Aniya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .home-button {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: #e6e6d4;
+            background-color: #4caf50;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
+            transition: background-color 0.3s ease;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            margin-bottom: 0;
+            display: inline-block;
+        }
+        .home-button:hover {
+            background-color: #3a9a3a;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2a3a1a;
+            background: linear-gradient(135deg, #2f4f2f 0%, #4caf50 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(74,124,89,0.05) 0%, transparent 50%);
+            animation: floatingOrbs 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes floatingOrbs {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, -15px) rotate(90deg); }
+            50% { transform: translate(-5px, 10px) rotate(180deg); }
+            75% { transform: translate(-10px, -5px) rotate(270deg); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            background: #f9fbe7;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #4caf50, #2f4f2f);
+            border-radius: 20px;
+            animation: fadeInUp 0.8s ease-out, gentleFloat 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            color: #e6e6d4;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 8s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(0.5deg); }
+            50% { transform: translateY(0px) rotate(0deg); }
+            75% { transform: translateY(5px) rotate(-0.5deg); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.3); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.5); }
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: #d9e6b8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vision-statement {
+            background: #f9fbe7;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both, breathe 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            color: #2a3a1a;
+        }
+
+        .vision-statement::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(74,124,89,0.1), transparent);
+            animation: slideAccent 6s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes slideAccent {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .vision-statement h2 {
+            font-size: 2rem;
+            color: #2a3a1a;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vision-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #4a6b2a;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mission-intro {
+            background: linear-gradient(135deg, #4caf50 0%, #2f4f2f 100%);
+            color: #e6e6d4;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both, pulse 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-intro::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: ripple 4s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+            50% { box-shadow: 0 25px 50px rgba(139,69,19,0.3); }
+        }
+
+        @keyframes ripple {
+            0% { width: 0; height: 0; opacity: 1; }
+            100% { width: 300px; height: 300px; opacity: 0; transform: translate(-50%, -50%); }
+        }
+
+        .mission-intro h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .mission-intro p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .pillar {
+            background: #f9fbe7;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out both;
+            position: relative;
+            overflow: hidden;
+            color: #2a3a1a;
+        }
+
+        .pillar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(74,124,89,0.05), transparent);
+            transition: left 0.6s ease;
+            z-index: 0;
+        }
+
+        .pillar:hover::before {
+            left: 100%;
+        }
+
+        .pillar:nth-child(1) { animation-delay: 0.6s; }
+        .pillar:nth-child(2) { animation-delay: 0.8s; }
+        .pillar:nth-child(3) { animation-delay: 1s; }
+
+        .pillar:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .pillar-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: bounceIcon 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes bounceIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .pillar h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pillar p {
+            color: #4a5568;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .people { border-top: 4px solid #4caf50; }
+        .planet { border-top: 4px solid #2f4f2f; }
+        .prosperity { 
+            border-top: 4px solid #7caf5f; 
+            text-align: center;
+        }
+
+        .closing {
+            background: linear-gradient(135deg, #4caf50 0%, #2f4f2f 100%);
+            color: #e6e6d4;
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.8s ease-out 1.2s both, gentleFloat 8s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .closing::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #4caf50, #2f4f2f, #7caf5f);
+            border-radius: 22px;
+            opacity: 0;
+            animation: borderGlow 4s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.3; }
+        }
+
+        .closing h3 {
+            font-size: 1.8rem;
+            color: #e6e6d4;
+            margin-bottom: 1rem;
+        }
+
+        .closing p {
+            font-size: 1.1rem;
+            color: #d9e6b8;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .vision-statement {
+                padding: 2rem;
+            }
+            
+            .pillars {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .brand-name {
+            background: linear-gradient(135deg, #48bb78 0%, #8b4513 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            animation: colorShift 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes colorShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="home-button">Home</a>
+    <div class="container">
+        <div class="hero">
+            <h1>Our Vision</h1>
+            <p class="subtitle">Making farming accessible to everyone, everywhere</p>
+        </div>
+
+        <div class="vision-statement">
+            <h2>We believe farming should not be exclusive.</h2>
+            <p class="vision-text">
+                It should be a shared opportunity. <span class="brand-name">Aniya</span> exists to make farming accessible to everyone.
+            </p>
+            <p class="vision-text">
+                Whether you're a student, professional, or a global citizen—Aniya allows you to be part of a 
+                farming movement that restores the land, uplifts communities, and creates future-forward 
+                agricultural systems.
+            </p>
+        </div>
+
+        <div class="mission-intro">
+            <h3>Our Mission</h3>
+            <p>Grounded in People, Planet, Prosperity</p>
+        </div>
+
+        <div class="pillars">
+            <div class="pillar people">
+                <span class="pillar-icon">👥</span>
+                <h3>People</h3>
+                <p>
+                    We restore dignity to Filipino farmers by providing long-term livelihood and creating a space 
+                    where their work is valued by a broader global community.
+                </p>
+            </div>
+
+            <div class="pillar planet">
+                <span class="pillar-icon">🌎</span>
+                <h3>Planet</h3>
+                <p>
+                    By shifting toward regenerative farming systems, we repair the soil, increase biodiversity, and 
+                    help store carbon—creating ecological stability, not just economic profit.
+                </p>
+            </div>
+
+            <div class="pillar prosperity">
+                <span class="pillar-icon">💰</span>
+                <h3>Prosperity</h3>
+                <p>
+                    We believe in inclusive growth. Whether you plant ten trees or two hundred, you're sharing in a 
+                    model of prosperity that values sustainability over short-term gain.
+                </p>
+            </div>
+        </div>
+
+        <div class="closing">
+            <h3>Join the Movement</h3>
+            <p>
+                Together, we're not just growing crops—we're cultivating a future where farming is accessible, 
+                sustainable, and transformative for communities worldwide.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

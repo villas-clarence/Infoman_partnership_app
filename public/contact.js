@@ -48,7 +48,7 @@ document.getElementById('contact-form')?.addEventListener('submit', function(e) 
     formMessage.textContent = 'Sending message...';
     formMessage.style.color = '#555';
 
-    fetch('contact.php', {
+    fetch('php/contact.php', {
         method: 'POST',
         body: formData
     })

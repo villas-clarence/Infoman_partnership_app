@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Partner Dashboard - Coffee Clover</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-green: #2d5a3d;
+            --secondary-green: #4a7c59;
+            --accent-green: #90c695;
+            --light-green: #e8f5e8;
+            --cream: #f8f6f0;
+            --dark-green: #1a3d2e;
+            --text-dark: #2c3e2d;
+            --text-light: #6b7280;
+            --white: #ffffff;
+            --danger-color: #ef4444;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f6f0 0%, #e8f5e8 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+
+        /* Left Navigation */
+        .left-nav {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(45, 90, 61, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .left-nav ul {
+            list-style: none;
+        }
+
+        .left-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .left-nav a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .left-nav a:hover {
+            background: var(--light-green);
+            color: var(--primary-green);
+            transform: translateX(5px);
+        }
+
+        .left-nav a.active {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(45, 90, 61, 0.3);
+        }
+
+        .left-nav a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 20px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(45, 90, 61, 0.1);
+            border: 1px solid rgba(45, 90, 61, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(45, 90, 61, 0.15);
+        }
+
+        .card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        /* ID Card Styles */
+        .id-card {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: white;
+            position: relative;
+        }
+
+        .id-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .id-card h2 {
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .id-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .id-info-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .id-info-item label {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .id-info-item span {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .map-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .map-container img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .location-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .coordinates {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
+            color: white;
+            position: relative;
+        }
+
+        .timeline h2 {
+            color: white;
+        }
+
+        .timeline-content {
+            position: relative;
+            padding-top: 2rem;
+        }
+
+        .timeline-stages {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--accent-green);
+            width: 50%;
+            border-radius: 1px;
+        }
+
+        .stage {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .stage-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .stage.completed .stage-icon {
+            background: var(--accent-green);
+        }
+
+        .stage.current .stage-icon {
+            background: white;
+            color: var(--primary-green);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .stage-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stage-desc {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            max-width: 120px;
+        }
+
+        /* Dashboard Panel */
+        .dashboard-panel {
+            position: relative;
+        }
+
+        .countdown {
+            background: linear-gradient(135deg, var(--light-green) 0%, #f0f9ff 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 2px solid var(--accent-green);
+        }
+
+        .countdown-text {
+            font-size: 1.1rem;
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .countdown-time {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .tree-management {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(144, 198, 149, 0.1);
+        }
+
+        .input-group button {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-group button:hover {
+            background: linear-gradient(135deg, var(--secondary-green) 0%, var(--primary-green) 100%);
+            transform: translateY(-2px);
+        }
+
+        .upgrade-button {
+            display: block;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-green) 0%, #7ab67f 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .upgrade-button:hover {
+            background: linear-gradient(135deg, #7ab67f 0%, var(--accent-green) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(144, 198, 149, 0.3);
+        }
+
+        /* Chart Styles */
+        #treeNameChart {
+            max-height: 300px;
+            margin-top: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-green);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--accent-green);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .popup-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        .popup-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .popup-button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .popup-button.danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .popup-button.danger:hover {
+            background: #dc2626;
+        }
+
+        .popup-button.cancel {
+            background: #e5e7eb;
+            color: var(--text-dark);
+        }
+
+        .popup-button.cancel:hover {
+            background: #d1d5db;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .left-nav {
+                position: static;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .id-info {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-stages {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .timeline-line {
+                display: none;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌿 Aniya's Partner Dashboard</h1>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Left Navigation -->
+        <nav class="left-nav">
+            <ul>
+                <li><a href="#" class="active">My Trees</a></li>
+                <li>
+                    <a href="update_partnership_smallscale.html" class="updates-link" target="_blank" rel="noopener noreferrer">Updates</a>
+                </li>
+                <li><a href="tree_progress.html">Tree Progress and Impact Tracker</a></li>
+                <li><a href="#" id="downloadCertificateLink">Download Certificate</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="login.html" id="logoutLink">Log Out</a></li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            <!-- ID Card Panel -->
+            <div class="card id-card">
+                <h2>🆔 My ID Card</h2>
+                <div class="id-info">
+<div class="id-info-item">
+    <label>Name</label>
+    <span id="partnerName" style="margin-left: 0.5rem; font-weight: 600; font-size: 1.1rem; display: inline-block;"></span>
+</div>
+                    <div class="id-info-item">
+                        <label>Date of Birth</label>
+                        <span>04/16/2025</span>
+                    </div>
+                    <div class="id-info-item" id="uniqueIdContainer" style="display:block;">
+                        <label>Unique ID</label>
+                        <span id="uniqueId">Loading...</span>
+                    </div>
+                    <div class="id-info-item">
+                        <label>Country</label>
+                        <span>🇵🇭 Philippines</span>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <img src="../assets/partneship_image.jpeg" alt="Coffee Tree Location" />
+                    <div class="location-info">
+                        📍 <span>Sitio Dueg, Tarlac, Philippines</span>
+                    </div>
+                    <div class="coordinates">
+                        28°0'50.29"N 85°17'22.34"E
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Panel -->
+            <div class="card timeline">
+                <h2>📅 My Timeline</h2>
+                <p style="opacity: 0.8; margin-bottom: 2rem;">The important moments in your tree's life.</p>
+                <div class="timeline-content">
+                    <div class="timeline-stages">
+                        <div class="timeline-line">
+                            <div class="timeline-progress"></div>
+                        </div>
+                        <div class="stage completed">
+                            <div class="stage-icon">🌱</div>
+                            <div class="stage-title">Seed</div>
+                            <div class="stage-desc">It all starts with a tiny seed, nice and warm in the soil.</div>
+                        </div>
+                        <div class="stage current">
+                            <div class="stage-icon">🌿</div>
+                            <div class="stage-title">Nursery</div>
+                            <div class="stage-desc">Your seedling is big enough to be welcomed into one of our nurseries.</div>
+                        </div>
+                        <div class="stage">
+                            <div class="stage-icon">🌳</div>
+                            <div class="stage-title">Planted</div>
+                            <div class="stage-desc">Ready to be planted in the field.</div>
+                        </div>
+                        <div class="stage">
+                            <div class="stage-icon">📸</div>
+                            <div class="stage-title">Photo</div>
+                            <div class="stage-desc">First photo of your tree.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Panel -->
+            <div class="card dashboard-panel full-width">
+                <h2>🌱 Coffee Beans Readiness</h2>
+                <div class="countdown">
+                    <div class="countdown-text">Time until harvest:</div>
+                    <div class="countdown-time" id="countdown">Loading...</div>
+                </div>
+
+                <div class="tree-management">
+                    <h3>🌳 Manage Your Tree Name</h3>
+                    <div class="input-group">
+                        <input type="text" id="partnerName" placeholder="Enter your tree name...">
+                        <button id="addTreeNameButton">Add Tree Name</button>
+                    </div>
+                    <div id="partnershipList" style="margin-top: 1rem;"></div>
+                <!-- Removed chart canvas as per request -->
+                </div>
+
+                <a href="service.html" class="upgrade-button">
+                    🚀 Upgrade to Grower or Legacy Plan
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 Aniya | Empowering Sustainable Farming | Contact: 
+        <a href="mailto:support@aniyaph.info">support@aniyaph.info</a>
+    </footer>
+
+    <!-- Logout Confirmation Pop-up -->
+    <div id="logoutConfirmPopup" style="display:none;" class="popup-overlay">
+        <div class="popup-content">
+            <p>Are you sure you want to log out?</p>
+            <div class="popup-buttons">
+                <button id="confirmLogoutBtn" class="popup-button danger">Log Out</button>
+                <button id="cancelLogoutBtn" class="popup-button cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function updateCountdown() {
+        const harvestDate = new Date('2025-12-31T00:00:00');
+        const now = new Date();
+        const difference = harvestDate - now;
+
+        if (difference > 0) {
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        } else {
+            document.getElementById('countdown').textContent = 'Harvest time!';
+        }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
+<script>
+          document.addEventListener('DOMContentLoaded', function () {
+    fetch('php/get_registrant_profile.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.custom_id) {
+                document.getElementById('uniqueId').textContent = data.custom_id;
+                document.getElementById('partnerName').textContent = data.full_name;
+            } else {
+                document.getElementById('uniqueId').textContent = 'N/A';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching profile:', error);
+            document.getElementById('uniqueId').textContent = 'N/A';
+        });
+});
+</script>
+          <script>
+        // Logout functionality
+        document.getElementById('logoutLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('logoutConfirmPopup').style.display = 'flex';
+        });
+
+        document.getElementById('cancelLogoutBtn').addEventListener('click', function() {
+            document.getElementById('logoutConfirmPopup').style.display = 'none';
+        });
+
+        document.getElementById('confirmLogoutBtn').addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+
+        // Certificate download
+        document.getElementById('downloadCertificateLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Certificate download functionality would be implemented here.');
+        });
+
+        // Enter key support for tree name input
+        document.getElementById('partnerName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                submitPartner();
+            }
+        });
+    </script>
+</body>
+</html>

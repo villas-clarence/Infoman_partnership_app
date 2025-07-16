@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Our Founders - Aniya Philippines</title>
+    <link rel="stylesheet" href="../about/about.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <style>
+        /* Additional styling to align with theme colors */
+        body {
+            background: linear-gradient(135deg, #2f4f2f, #6bcf6b);
+            color: #e6e6d4;
+            font-family: 'Poppins', sans-serif;
+        }
+        .header {
+            background: linear-gradient(135deg, #4caf50, #7eb883);
+            color: #e6e6d4;
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(0.5deg); }
+            50% { transform: translateY(0px) rotate(0deg); }
+            75% { transform: translateY(5px) rotate(-0.5deg); }
+        }
+        .header h1 {
+            position: relative;
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+            animation: gentleFloat 6s ease-in-out infinite;
+        }
+        .header .subtitle {
+            font-size: 1.25rem;
+            color: #d9e6b8;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.2s ease-out both;
+        }
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #7eb883;
+            color: #e6e6d4;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .home-button:hover {
+            background-color: #90c695;
+        }
+        .founders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+        .founder-card {
+            background: #3a6a3a;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #e6e6d4;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .founder-card.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .founder-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .founder-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #d4e6d4;
+        }
+        .founder-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #a3c293;
+            font-style: italic;
+        }
+        .founder-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #cde6cd;
+            text-align: justify;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #90c695 0%, #7eb883 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            -moz-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+        .company-mention {
+            font-style: italic;
+            color: #a3c293;
+            font-weight: 600;
+        }
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #2f4f2f;
+            color: #2e7d32;
+            margin-top: 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            .header p {
+                font-size: 1.1rem;
+            }
+            .founders-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 10px;
+            }
+            .founder-card {
+                padding: 20px;
+            }
+            .founder-name {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function toggleAboutDropdown(event) {
+            event.preventDefault();
+            const dropdownMenu = event.currentTarget.nextElementSibling;
+            const isVisible = dropdownMenu.style.display === 'block';
+            dropdownMenu.style.display = isVisible ? 'none' : 'block';
+            event.currentTarget.setAttribute('aria-expanded', !isVisible);
+        }
+        // Close dropdown if clicked outside
+        window.addEventListener('click', function(event) {
+            const dropdowns = document.querySelectorAll('.dropdown-menu');
+            dropdowns.forEach(menu => {
+                if (!menu.contains(event.target) && !menu.previousElementSibling.contains(event.target)) {
+                    menu.style.display = 'none';
+                    menu.previousElementSibling.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+    </script>
+
+        <div class="header">
+            <a href="../index.html" class="home-button" aria-label="Home">Home</a>
+            <h1>Our Founders</h1>
+            <p class="subtitle">Meet the passionate team driving Aniya's mission forward</p>
+        </div>
+        <div class="founders-grid">
+            <div class="founder-card">
+                <img src="../assets/Aidrian Fatallar.jpeg" alt="Aidrian Fatallar" style="width: 100%; border-radius: 16px 16px 0 0; margin-bottom: 15px;" onerror="this.onerror=null;this.src='../assets/Aidrian Fatallar.jpg'">
+                <h2 class="founder-name">Aidrian Fatallar</h2>
+                <div class="founder-title">Founder & CEO of Aniya Philippines</div>
+                <div class="founder-description">
+                    <p>At just <span class="highlight">19 years old</span>, Aidrian launched his first coffee venture, <span class="company-mention">The Four-Leaf Clover Coffee</span>, driven by his deep admiration for local Filipino coffee and the communities that grow it.</p>
+                    <p>That early experience opened his eyes to a systemic issue: a broken link between everyday consumers and the farmers who make their morning brews possible. Aidrian's passion has always extended beyond profit — he believes in <span class="highlight">purpose-driven entrepreneurship</span> and in building platforms that uplift others.</p>
+                    <p>With Aniya, he's reimagining how people engage with agriculture, bringing tech, storytelling, and shared impact together. For Aidrian, this isn't just a business — it's a <span class="highlight">movement to redefine farming for the next generation</span>.</p>
+                </div>
+            </div>
+
+            <div class="founder-card">
+                <img src="../assets/Mark Codog.jpeg" alt="Mark Andrie Codog" style="width: 100%; border-radius: 16px 16px 0 0; margin-bottom: 15px;" onerror="this.onerror=null;this.src='../assets/Mark Codog.jpg'">
+                <h2 class="founder-name">Mark Andrie Codog</h2>
+                <div class="founder-title">Co-founder & Tech Lead, Aniya Philippines</div>
+                <div class="founder-description">
+                    <p>Mark is not only one of the original baristas at <span class="company-mention">The Four-Leaf Clover Coffee</span> but also a passionate IT student who sees <span class="highlight">technology as a tool for positive change</span>.</p>
+                    <p>His dual love for coffee and systems design made him the perfect co-founder to lead Aniya's digital platform. From building backend frameworks to ensuring the user experience feels simple and human, Mark's technical vision ensures Aniya's mission is not only inspiring but <span class="highlight">scalable</span>.</p>
+                    <p>His work bridges tradition with innovation — enabling people to <span class="highlight">access real farms with just a few clicks</span>.</p>
+                </div>
+            </div>
+
+            <div class="founder-card">
+                <img src="../assets/Eli Natividad.jpeg" alt="Eli Natividad" style="width: 100%; border-radius: 16px 16px 0 0; margin-bottom: 15px;" onerror="this.onerror=null;this.src='../assets/Eli Natividad.jpg'">
+                <h2 class="founder-name">Eli Natividad</h2>
+                <div class="founder-title">Co-founder & Farm Director, Aniya Philippines</div>
+                <div class="founder-description">
+                    <p>Eli brings over a <span class="highlight">decade of hands-on experience</span> in farming, agroforestry, and sustainable land development. As the founder of <span class="company-mention">Farm To Cup Philippines</span>, his leadership has helped smallholder farmers increase productivity while staying rooted in environmental responsibility.</p>
+                    <p>Eli is the <span class="highlight">heart of Aniya's farming operations</span>. He ensures that every tree planted is not just grown — but nurtured in alignment with regenerative principles.</p>
+                    <p>For Eli, Aniya is a tool that connects <span class="highlight">the future of farming with the wisdom of the land</span>.</p>
+                </div>
+            </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p style="color: #2e7d32; font-weight: 700;">Together, we're cultivating a sustainable future for Filipino agriculture</p>
+        </div>
+    </div>
+    <script src="./about_founders_interactive.js"></script>
+</body>
+</html>

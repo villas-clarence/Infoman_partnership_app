@@ -133,12 +133,6 @@
       border-radius: 15px;
       margin-bottom: 1.5rem;
       background: rgba(232, 245, 232, 0.3);
-      transition: all 0.3s ease;
-    }
-
-    fieldset:hover {
-      border-color: #a5d6a7;
-      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.1);
     }
 
     legend {
@@ -146,19 +140,6 @@
       padding: 0 1rem;
       color: #2d5a3d;
       font-size: 1.1rem;
-    }
-
-    .total {
-      background: linear-gradient(135deg, #4CAF50, #66BB6A);
-      color: white;
-      padding: 1.2rem 1.5rem;
-      border-radius: 15px;
-      font-weight: 600;
-      font-size: 1.3rem;
-      text-align: center;
-      margin: 1.5rem 0;
-      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
     }
 
     .checkbox-group, .radio-group {
@@ -177,26 +158,8 @@
       padding: 0.8rem 1rem;
       border: 2px solid #e8f5e8;
       border-radius: 10px;
-      transition: all 0.3s ease;
       background: rgba(255, 255, 255, 0.7);
       margin: 0;
-    }
-
-    .checkbox-group label:hover,
-    .radio-group label:hover {
-      border-color: #4CAF50;
-      background: rgba(76, 175, 80, 0.05);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
-    }
-
-    .checkbox-group input[type="checkbox"],
-    .radio-group input[type="radio"] {
-      margin-right: 0.8rem;
-      cursor: pointer;
-      width: 20px;
-      height: 20px;
-      accent-color: #4CAF50;
     }
 
     input[type="file"] {
@@ -208,9 +171,15 @@
       transition: all 0.3s ease;
     }
 
-    input[type="file"]:hover {
-      border-color: #4CAF50;
-      background: rgba(76, 175, 80, 0.05);
+    .total {
+      background: linear-gradient(135deg, #4CAF50, #66BB6A);
+      color: white;
+      padding: 1.2rem 1.5rem;
+      border-radius: 15px;
+      font-weight: 600;
+      font-size: 1.3rem;
+      text-align: center;
+      margin: 1.5rem 0;
     }
 
     .agreement-checkbox {
@@ -222,28 +191,6 @@
       border: 2px solid #c8e6c9;
       border-radius: 15px;
       margin: 2rem 0;
-      transition: all 0.3s ease;
-    }
-
-    .agreement-checkbox:hover {
-      border-color: #4CAF50;
-      background: rgba(76, 175, 80, 0.05);
-    }
-
-    .agreement-checkbox input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      margin: 0;
-      accent-color: #4CAF50;
-      cursor: pointer;
-    }
-
-    .agreement-checkbox label {
-      margin: 0;
-      font-weight: 500;
-      color: #2d5a3d;
-      cursor: pointer;
-      line-height: 1.5;
     }
 
     button[type="submit"] {
@@ -257,19 +204,6 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    button[type="submit"]:hover {
-      background: linear-gradient(135deg, #45a049, #3d8b40);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-    }
-
-    button[type="submit"]:active {
-      transform: translateY(0);
     }
 
     .required {
@@ -278,44 +212,12 @@
     }
 
     @media (max-width: 768px) {
-      body {
-        padding: 1rem 0.5rem;
-      }
-
-      form {
-        padding: 1.5rem;
-      }
-
-      .header h1 {
-        font-size: 2rem;
-      }
-
       .checkbox-group, .radio-group {
         grid-template-columns: 1fr;
       }
     }
+  
 
-    /* Loading animation */
-    .loading {
-      display: none;
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .spinner {
-      border: 4px solid #e8f5e8;
-      border-top: 4px solid #4CAF50;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
   </style>
 </head>
 <body>
@@ -326,40 +228,37 @@
     </div>
 
     <form action="reg_submit.php" method="POST" enctype="multipart/form-data">
+      <!-- PERSONAL INFO -->
       <div class="form-section">
         <div class="section-title">
           <div class="section-icon">👤</div>
           Personal Information
         </div>
-        
+
         <label>
           <span class="label-text">Full Name <span class="required">*</span></span>
-          <input type="text" name="fullName" required placeholder="Enter your full name">
+          <input type="text" name="full_name" required placeholder="Enter your full name">
         </label>
-        
-        <label>
-          <span class="label-text">Email Address <span class="required">*</span></span>
-          <input type="email" name="email" required placeholder="your.email@example.com">
-        </label>
-        
+
+
         <label>
           <span class="label-text">Mobile Number <span class="required">*</span></span>
           <input type="text" name="mobile" required placeholder="+63 900 000 0000">
         </label>
-        
+
         <label>
           <span class="label-text">Company Name</span>
-          <input type="text" name="company" placeholder="Your company (optional)">
+          <input type="text" name="company_name" placeholder="Your company (optional)">
         </label>
-        
+
         <label>
           <span class="label-text">Role</span>
           <input type="text" name="role" placeholder="Your role/position (optional)">
         </label>
-        
+
         <label>
           <span class="label-text">Preferred Contact Method <span class="required">*</span></span>
-          <select name="contactMethod" required>
+          <select name="contact_method" required>
             <option value="">Select contact method</option>
             <option value="SMS">SMS</option>
             <option value="Email">Email</option>
@@ -368,150 +267,112 @@
         </label>
       </div>
 
+      <!-- PACKAGE -->
       <div class="form-section">
         <div class="section-title">
           <div class="section-icon">📦</div>
           Package Selection
         </div>
-        
+
         <label>
           <span class="label-text">Package Type <span class="required">*</span></span>
-          <select name="package" required>
+          <select name="package_type" id="packageTypeSelect" required>
             <option value="">Select package type</option>
-            <option value="Grower Package">Grower Package</option>
-            <option value="Legacy Package">Legacy Package</option>
+            <option value="Grower">Grower Package</option>
+            <option value="Legacy">Legacy Package</option>
           </select>
         </label>
-        
+
         <label>
           <span class="label-text">How many trees would you like to plant? <span class="required">*</span></span>
-          <input type="number" name="treeCount" id="treeCount" min="10" required placeholder="Minimum 10 trees">
+          <input type="number" name="tree_count" id="treeCount" min="10" required placeholder="Minimum 10 trees">
         </label>
-        
+
         <div class="total">
           Total Cost: <span id="totalAmount">₱0</span>
         </div>
-        <input type="hidden" name="totalAmount" id="totalAmountInput">
+        <input type="hidden" name="total_amount" id="totalAmountInput">
       </div>
 
-      <fieldset>
-        <legend>🌾 Intercropping Options</legend>
-        <div class="radio-group">
-          <label><input type="radio" name="intercropping" value="Yes"> Yes, I want intercropping</label>
-          <label><input type="radio" name="intercropping" value="No"> No intercropping needed</label>
-        </div>
-        
-        <div style="margin-top: 1.5rem;">
-          <strong style="color: #2d5a3d; margin-bottom: 1rem; display: block;">🥬 Available Crops</strong>
-          <div class="checkbox-group">
-            <label><input type="checkbox" name="crops[]" value="Papaya"> Papaya</label>
-            <label><input type="checkbox" name="crops[]" value="Saging"> Saging (Banana)</label>
-            <label><input type="checkbox" name="crops[]" value="Kamoteng Kahoy"> Kamoteng Kahoy (Cassava)</label>
-            <label><input type="checkbox" name="crops[]" value="Sili"> Sili (Chili)</label>
-            <label><input type="checkbox" name="crops[]" value="Pineapple"> Pineapple</label>
-          </div>
-        </div>
-        
-        <div style="margin-top: 1.5rem;">
-          <strong style="color: #2d5a3d; margin-bottom: 1rem; display: block;">🐄 Available Livestock</strong>
-          <div class="checkbox-group">
-            <label><input type="checkbox" name="livestock[]" value="Pigs"> Pigs</label>
-            <label><input type="checkbox" name="livestock[]" value="Goats"> Goats</label>
-            <label><input type="checkbox" name="livestock[]" value="Chickens"> Chickens</label>
-          </div>
-        </div>
-      </fieldset>
-
+      <!-- CERTIFICATE AND OPTIONS -->
       <div class="form-section">
-        <div class="section-title">
-          <div class="section-icon">📜</div>
-          Certificate & Options
-        </div>
-        
         <label>
           <span class="label-text">Name on Tree Certificate</span>
-          <input type="text" name="certificateName" placeholder="Name to appear on certificate (optional)">
+          <input type="text" name="certificate_name" placeholder="Name to appear on certificate (optional)">
         </label>
 
         <fieldset>
           <legend>📊 Dashboard Setup</legend>
           <div class="radio-group">
-            <label><input type="radio" name="dashboard" value="Yes"> Yes, set up my dashboard</label>
-            <label><input type="radio" name="dashboard" value="No"> No dashboard needed</label>
+            <label><input type="radio" name="dashboard_pref" value="Yes"> Yes</label>
+            <label><input type="radio" name="dashboard_pref" value="No"> No</label>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend>🎁 Gift Option</legend>
+          <legend>🏱 Gift Option</legend>
           <div class="radio-group">
-            <label><input type="radio" name="gift" value="Yes"> Yes, this is a gift</label>
-            <label><input type="radio" name="gift" value="No"> No, for personal use</label>
+            <label><input type="radio" name="gift_pref" value="Yes"> Yes</label>
+            <label><input type="radio" name="gift_pref" value="No"> No</label>
           </div>
         </fieldset>
 
         <fieldset>
           <legend>🔔 Notification Preferences</legend>
           <div class="checkbox-group">
-            <label><input type="checkbox" name="notification[]" value="email"> Email notifications</label>
-            <label><input type="checkbox" name="notification[]" value="sms"> SMS notifications</label>
-            <label><input type="checkbox" name="notification[]" value="none"> No notifications</label>
+            <label><input type="checkbox" name="notification_pref[]" value="email"> Email</label>
+            <label><input type="checkbox" name="notification_pref[]" value="sms"> SMS</label>
+            <label><input type="checkbox" name="notification_pref[]" value="none"> None</label>
           </div>
         </fieldset>
       </div>
 
+      <!-- PAYMENT -->
       <div class="form-section">
-        <div class="section-title">
-          <div class="section-icon">💳</div>
-          Payment Information
-        </div>
+        <div class="section-title"><div class="section-icon">💳</div>Payment Information</div>
 
         <fieldset>
           <legend>Payment Method</legend>
           <div class="radio-group">
-            <label><input type="radio" name="paymentMethod" value="GCash"> GCash</label>
-            <label><input type="radio" name="paymentMethod" value="Bank Transfer"> Bank Transfer</label>
+            <label><input type="radio" name="payment_method" value="GCash"> GCash</label>
+            <label><input type="radio" name="payment_method" value="Bank Transfer"> Bank Transfer</label>
           </div>
         </fieldset>
 
         <label>
           <span class="label-text">Upload Proof of Payment</span>
-          <input type="file" name="paymentProof" accept="image/*">
+          <input type="file" name="payment_proof" accept="image/*">
         </label>
-
-        <fieldset>
-          <legend>📹 Zoom Call with CEO</legend>
-          <div class="radio-group">
-            <label><input type="radio" name="zoomCall" value="Yes"> Yes, I'd like a call</label>
-            <label><input type="radio" name="zoomCall" value="No"> No call needed</label>
-          </div>
-        </fieldset>
       </div>
 
+      <!-- ZOOM -->
+      <fieldset>
+        <legend>📹 Zoom Call with CEO</legend>
+        <div class="radio-group">
+          <label><input type="radio" name="zoom_call" value="Yes"> Yes</label>
+          <label><input type="radio" name="zoom_call" value="No"> No</label>
+        </div>
+      </fieldset>
+
+      <!-- AGREEMENT -->
       <div class="agreement-checkbox">
         <input type="checkbox" name="agreement" id="agreement" required>
-        <label for="agreement">
-          I agree to Aniya's terms and conditions and confirm that all details provided are correct. I understand my commitment to sustainable tree planting and environmental conservation.
-        </label>
+        <label for="agreement">I agree to Aniya’s terms and confirm the information is correct.</label>
       </div>
 
       <button type="submit">🌱 Complete Registration</button>
-      
-      <div class="loading" id="loadingDiv">
-        <div class="spinner"></div>
-        <p>Processing your registration...</p>
-      </div>
     </form>
   </div>
 
   <script>
-    const packageSelect = document.querySelector('select[name="package"]');
+    const packageSelect = document.querySelector('select[name="package_type"]');
     const treeCountInput = document.getElementById('treeCount');
     const totalAmountSpan = document.getElementById('totalAmount');
     const totalAmountInput = document.getElementById('totalAmountInput');
 
     const packagePrices = {
-      "Grower Package": 319,
-      "Legacy Package": 407
+      "Grower": 319,
+      "Legacy": 407
     };
 
     function updateTotalCost() {
@@ -519,15 +380,12 @@
       const treeCount = parseInt(treeCountInput.value) || 0;
       const pricePerTree = packagePrices[selectedPackage] || 0;
       const totalCost = pricePerTree * treeCount;
-
       totalAmountSpan.textContent = `₱${totalCost.toLocaleString()}`;
       totalAmountInput.value = totalCost;
     }
 
     packageSelect.addEventListener('change', updateTotalCost);
     treeCountInput.addEventListener('input', updateTotalCost);
-
-    // Initialize total cost on page load
     updateTotalCost();
   </script>
 </body>

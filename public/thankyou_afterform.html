@@ -24,7 +24,13 @@
     }
     h1 { color: #2e8b57; margin-bottom: 1rem; }
     p { font-size: 1.1rem; color: #444; margin-bottom: 2rem; }
-    .btn-group a {
+    .custom-id {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #2e8b57;
+      margin-bottom: 2rem;
+    }
+    .btn-group a, .btn-group button {
       display: inline-block;
       margin: 0 0.5rem;
       padding: 0.75rem 1.5rem;
@@ -34,8 +40,10 @@
       border-radius: 6px;
       font-size: 1rem;
       transition: background 0.3s ease;
+      border: none;
+      cursor: pointer;
     }
-    .btn-group a:hover {
+    .btn-group a:hover, .btn-group button:hover {
       background-color: #256d45;
     }
   </style>
@@ -44,10 +52,30 @@
   <div class="thank-you-container">
     <h1>🎉 Thank You!</h1>
     <p>Your registration with Aniya has been successfully submitted.</p>
+    <div class="custom-id" id="customIdDisplay">Your Unique ID: <span id="uniqueId">Loading...</span></div>
     <div class="btn-group">
-      <a href="partnership.html">Go to Partnership Dashboard</a>
-      <a href="aniya_registration_form.html">Edit Registration</a>
+      <a href="partnership_smallscale.html">Go to Partnership Dashboard</a>
+      <button id="editRegistrationBtn">Edit Registration</button>
     </div>
   </div>
+
+  <script>
+    // Display the unique ID from localStorage
+    const editRegistrant = localStorage.getItem('editRegistrant');
+    if (editRegistrant) {
+      const registrant = JSON.parse(editRegistrant);
+      document.getElementById('uniqueId').textContent = registrant.custom_id || 'N/A';
+    } else {
+      document.getElementById('uniqueId').textContent = 'N/A';
+    }
+
+    document.getElementById('editRegistrationBtn').addEventListener('click', () => {
+      if (editRegistrant) {
+        window.location.href = 'aniya_registration_form.html';
+      } else {
+        alert('No registration data found to edit.');
+      }
+    });
+  </script>
 </body>
 </html>

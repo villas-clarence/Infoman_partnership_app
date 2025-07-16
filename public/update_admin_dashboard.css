@@ -1,0 +1,101 @@
+body {
+  font-family: sans-serif;
+  background: #f0f4f8;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+header h1 {
+  margin-bottom: 5px;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+.db-status {
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.db-status.connected {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.tab-button {
+  padding: 10px;
+  border: none;
+  background: #e2e8f0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.tab-button.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+textarea, select, input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+button[type="submit"] {
+  background: #2563eb;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.preview {
+  margin-top: 30px;
+}
+
+.img-preview-box img {
+  width: 100px;
+  margin: 5px;
+  border-radius: 5px;
+}

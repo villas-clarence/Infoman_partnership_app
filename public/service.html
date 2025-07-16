@@ -4,138 +4,662 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Service - Coffee Clover</title>
-    <link rel="stylesheet" href="service.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f6f0;
+            color: #2c3e2d;
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            color: #f5f1e7;
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f8f6f0;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #90c695;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font: inherit;
+            color: #e6e6d4;
+            padding: 0;
+            margin: 0;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .dropdown-toggle:hover {
+            color: #4caf50;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1001;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.3s ease;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+            color: #4caf50;
+        }
+
+        .auth-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .login-link, .signup-link {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .login-link {
+            color: white;
+            border: 2px solid white;
+        }
+
+        .login-link:hover {
+            background-color: white;
+            color: #2d5a3d;
+        }
+
+        .signup-link {
+            background-color: #90c695;
+            color: #2d5a3d;
+        }
+
+        .signup-link:hover {
+            background-color: #7ab67f;
+        }
+
+        .cart-container {
+            position: relative;
+        }
+
+        .cart-button {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid white;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cart-button:hover {
+            background-color: white;
+            color: #2d5a3d;
+        }
+
+        .cart-count {
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        .cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 320px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 10px;
+        }
+
+        .cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cart-items li {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #2d5a3d;
+        }
+
+        .cart-items li:last-child {
+            border-bottom: none;
+        }
+
+        .cart-total {
+            padding: 1rem;
+            border-top: 2px solid #eee;
+            font-weight: bold;
+            color: #2d5a3d;
+            text-align: center;
+        }
+
+        .empty-cart {
+            padding: 2rem;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 3rem 0;
+        }
+
+        #service {
+            background: linear-gradient(135deg, #f8f6f0 0%, #ffffff 100%);
+            padding: 3rem 0;
+            border-radius: 20px;
+            margin: 2rem 0;
+        }
+
+        #service h2 {
+            text-align: center;
+            color: #2d5a3d;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .service-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .package-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(45, 90, 61, 0.1);
+            border: 1px solid #e8e8e8;
+        }
+
+        .section-title {
+            color: #2d5a3d;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .package-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .package-table th {
+            background: linear-gradient(135deg, #4a7c59 0%, #2d5a3d 100%);
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .package-table td {
+            padding: 2rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: top;
+        }
+
+        .package-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .package-table tr:hover {
+            background-color: #f5f8f5;
+            transition: background-color 0.3s ease;
+        }
+
+        .package-table strong {
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+
+        .package-table ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .package-table li {
+            margin: 0.5rem 0;
+            color: #555;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #90c695 0%, #7ab67f 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(144, 198, 149, 0.3);
+        }
+
+        .add-to-cart-btn:hover {
+            background: linear-gradient(135deg, #7ab67f 0%, #6ba570 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(144, 198, 149, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2d5a3d 0%, #4a7c59 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #4a7c59 0%, #2d5a3d 100%);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f8f6f0;
+            color: #2d5a3d;
+            border: 2px solid #2d5a3d;
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-secondary:hover {
+            background: #2d5a3d;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .package-table {
+                font-size: 0.9rem;
+            }
+
+            .package-table th,
+            .package-table td {
+                padding: 1rem 0.5rem;
+            }
+
+            #service h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .add-to-cart-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .cart-dropdown {
+                width: 280px;
+            }
+        }
+
+        /* Quantity Input Styles */
+        .quantity-input {
+            width: 60px;
+            padding: 0.5rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 600;
+            margin: 0 0.5rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .quantity-btn {
+            background: #2d5a3d;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .quantity-btn:hover {
+            background: #4a7c59;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            margin: 1rem 0;
+            text-align: center;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container header-container">
-            <div class="logo-container">
-                <div class="logo-img">
-                    <img src="../assets/farmtocupr.png" alt="Farm to Cup Philippines Logo">
-                </div>
-                <span class="logo-text">Aniya</span>
+<header>
+    <div class="container header-container">
+        <div class="logo-container">
+            <div class="logo-img">
+                <img src="../assets/farmtocupr.png" alt="Farm to Cup Philippines Logo" style="height: 40px; width: auto;">
             </div>
-            <button class="nav-toggle" aria-label="Toggle navigation">
-                <span class="hamburger"></span>
-            </button>
-            <nav class="nav-menu">
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="service.html" class="active">Service</a></li>
-                    <li><a href="mission.html">Mission</a></li>
-                    <li><a href="vision.html">Vision</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-                <div class="auth-links">
-                    <a href="login.html" class="login-link">Log In</a>
-                    <a href="signup.html" class="signup-link">Sign Up</a>
-                </div>
-                <div class="cart-container">
-                    <button id="cartButton" class="cart-button" aria-label="Cart">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 4h13M17 17a2 2 0 11-4 0 2 2 0 014 0zm-6 0a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                        <span id="cartCount" class="cart-count">0</span>
-                    </button>
-                    <div id="cartDropdown" class="cart-dropdown" style="display:none;">
-                        <ul id="cartItems" class="cart-items"></ul>
-                        <div class="cart-total">
-                            Total: ₱<span id="cartTotal">0</span>
-                        </div>
-                        <button id="removeSelectedBtn" class="btn-secondary">Remove Selected</button>
-                        <button id="checkoutBtn" class="btn-primary" onclick="window.location.href='aniya_registration_form.html'">Checkout</button>
-                    </div>
-                </div>
-            </nav>
+            <span class="logo-text">Aniya</span>
         </div>
-    </header>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <span class="hamburger"></span>
+        </button>
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">About ▼</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="about/mission.html">Mission and Vision</a></li>
+                        <li><a href="about/story.html">Story Behind Aniya</a></li>
+                        <li><a href="about/founding_team.html">Founding Team</a></li>
+                        <li><a href="about/partners.html">Partners and Cooperatives</a></li>
+                    </ul>
+                </li>
+                <li><a href="service.html" class="active">Service</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="auth-links">
+                <a href="login.html" class="login-link">Log In</a>
+                <a href="signup.html" class="signup-link">Sign Up</a>
+            </div>
+            <div class="cart-container">
+                <button id="headerCartButton" class="cart-button" aria-label="Toggle cart">
+                    🛒 Cart
+                    <span id="headerCartCount" class="cart-count" style="display: none;">0</span>
+                </button>
+                <div id="headerCartDropdown" class="cart-dropdown" style="display:none;">
+                    <ul id="headerCartItems" class="cart-items"></ul>
+                    <div class="cart-total">
+                        Total: ₱<span id="headerCartTotal">0.00</span>
+                    </div>
+                    <button id="headerRemoveSelectedBtn" class="btn-secondary">Remove Selected</button>
+                    <button id="headerCheckoutBtn" class="btn-primary">Checkout</button>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
     
     <main class="main-content">
+        <div class="success-message" id="successMessage">
+            Item added to cart successfully!
+        </div>
+        
         <section id="service">
-            <h2>Plan Selection & Payment Integration</h2>
-            <div class="service-main">
-                <div class="package-section">
-                    <h3 class="section-title">One-time Farming Packages</h3>
-                    <div class="section-content">
-                        <div class="table-container">
-                            <table class="package-table">
-                                <thead>
-                                    <tr>
-                                        <th>Package</th>
-                                        <th>Cost</th>
-                                        <th>Details</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Grower Plan</td>
-                                        <td>₱319 per tree</td>
-                                        <td>Ideal for 10–199 trees, fully planted and maintained</td>
-                                        <td><button class="add-to-cart-btn" data-name="Grower Plan" data-price="319">Add to Cart</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Legacy Plan</td>
-                                        <td>₱407 per tree (min 200)</td>
-                                        <td>Bulk planting with intercropping options</td>
-                                        <td><button class="add-to-cart-btn" data-name="Legacy Plan" data-price="407">Add to Cart</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="subscription-section">
-                    <h3 class="section-title">Aniya’s Subscription Tiers</h3>
-                    <p class="note">Note: Inclusions are still under feasibility studies and may vary upon discussion with founders and partners.</p>
-                    <div class="section-content">
-                        <div class="table-container">
-                            <table class="subscription-table">
-                                <thead>
-                                    <tr>
-                                        <th>Plan</th>
-                                        <th>Price</th>
-                                        <th>Includes</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Seedling Plan (for small scale)</td>
-                                        <td>₱499/semi-annual</td>
-                                        <td>
-                                            Personal farm dashboard access, assigned coffee tree with digital ID, quarterly photo updates, digital certificate, basic Knowledge Hub access, impact tracker
-                                        </td>
-                                        <td><button class="add-to-cart-btn" data-name="Seedling Plan" data-price="499">Add to Cart</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Grower Plan (for large scale)</td>
-                                        <td>₱499/quarter</td>
-                                        <td>
-                                            Monthly updates, update request system, farm milestone tracker, intercropping options, early access to new features, full Knowledge Hub access, personalized tags, ESG reports, VIP support, recognition, priority access to campaigns
-                                        </td>
-                                        <td><button class="add-to-cart-btn" data-name="Grower Plan Subscription" data-price="499">Add to Cart</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <div class="container">
+                <h2>Farm Packages</h2>
+                <div class="service-main">
+                    <div class="package-section">
+                        <h3 class="section-title">One-time Farming Packages</h3>
+                        <div class="section-content">
+                            <div class="table-container">
+                                <table class="package-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Package</th>
+                                            <th>Cost</th>
+                                            <th>Details</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Grower Plan</strong></td>
+                                            <td>
+                                                <strong>₱319 per tree</strong><br>
+                                                <small>(minimum 10 trees)</small>
+                                                <div class="quantity-controls">
+                                                    <button class="quantity-btn" onclick="changeQuantity('grower', -1)">-</button>
+                                                    <input type="number" id="growerQuantity" class="quantity-input" value="10" min="10" max="199">
+                                                    <button class="quantity-btn" onclick="changeQuantity('grower', 1)">+</button>
+                                                </div>
+                                                <small>Total: ₱<span id="growerTotal">3190</span></small>
+                                            </td>
+                                            <td>
+                                                <strong>Benefits:</strong>
+                                                <ul>
+                                                    <li>Plant real coffee trees in Aniya farms</li>
+                                                    <li>Quarterly updates with photos and tree insights</li>
+                                                    <li>Coffee token from Farm To Cup</li>
+                                                    <li>Dashboard access to monitor impact of your farm</li>
+                                                    <li>Community membership with Aniya updates and initiatives</li>
+                                                    <li>24/7 voice and non-voice customer support powered by artificial intelligence</li>
+                                                </ul>
+                                                <strong>Best For:</strong> Urban professionals, students, overseas workers, environmentalists, coffee lovers
+                                            </td>
+                                            <td>
+                                                <button class="add-to-cart-btn" onclick="addToCart('grower')">Add to Cart</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Legacy Plan</strong></td>
+                                            <td>
+                                                <strong>₱407 per tree</strong><br>
+                                                <small>(minimum 200 trees)</small>
+                                                <div class="quantity-controls">
+                                                    <button class="quantity-btn" onclick="changeQuantity('legacy', -1)">-</button>
+                                                    <input type="number" id="legacyQuantity" class="quantity-input" value="200" min="200" max="1000">
+                                                    <button class="quantity-btn" onclick="changeQuantity('legacy', 1)">+</button>
+                                                </div>
+                                                <small>Total: ₱<span id="legacyTotal">81400</span></small>
+                                            </td>
+                                            <td>
+                                                <strong>Benefits:</strong>
+                                                <ul>
+                                                    <li>Large-scale coffee tree planting (minimum 200 trees)</li>
+                                                    <li>Priority intercropping options (vegetables, livestock)</li>
+                                                    <li>Quarterly reports and direct communication with farm team</li>
+                                                    <li>Early access to future Aniya Coffee Villages</li>
+                                                    <li>Digital and physical certificates</li>
+                                                    <li>Personalized farm signage on allocated land</li>
+                                                    <li>Legacy Tree Tracker and carbon absorption reporting</li>
+                                                    <li>Future perks in physical Aniya x Clover projects</li>
+                                                </ul>
+                                                <strong>Best For:</strong> Investors, entrepreneurs, eco-conscious brands, small business owners, overseas Filipinos wanting to give back
+                                            </td>
+                                            <td>
+                                                <button class="add-to-cart-btn" onclick="addToCart('legacy')">Add to Cart</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <aside id="cartSidebar" class="cart-sidebar" style="display:none;">
-            <h3>Your Cart</h3>
-            <ul id="cartItems" class="cart-items"></ul>
-            <div class="cart-total">
-                Total: ₱<span id="cartTotal">0</span>
-            </div>
-            <button id="checkoutBtn" class="btn-primary">Checkout</button>
-            <button id="closeCartBtn" class="close-cart-btn">Close</button>
-        </aside>
-
-        <button id="openCartBtn" class="open-cart-btn" style="display:none;">Cart (<span id="cartCount">0</span>)</button>
     </main>
 
     <footer id="contact">
@@ -144,6 +668,204 @@
         </div>
     </footer>
 
-    <script src="service.js"></script>
+    <script>
+        console.log("Service page loaded successfully");
+        
+        // Cart functionality
+        let cart = [];
+        const headerCartCount = document.getElementById('headerCartCount');
+        const headerCartItems = document.getElementById('headerCartItems');
+        const headerCartTotal = document.getElementById('headerCartTotal');
+        const headerCartDropdown = document.getElementById('headerCartDropdown');
+        const headerCartButton = document.getElementById('headerCartButton');
+        const headerRemoveSelectedBtn = document.getElementById('headerRemoveSelectedBtn');
+        const headerCheckoutBtn = document.getElementById('headerCheckoutBtn');
+        const successMessage = document.getElementById('successMessage');
+
+        // Dropdown functionality
+        function toggleAboutDropdown(event) {
+            event.preventDefault();
+            const dropdownMenu = event.currentTarget.nextElementSibling;
+            const isVisible = dropdownMenu.style.display === 'block';
+            dropdownMenu.style.display = isVisible ? 'none' : 'block';
+            event.currentTarget.setAttribute('aria-expanded', !isVisible);
+        }
+
+        // Initialize dropdown event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            if (dropdownToggle) {
+                dropdownToggle.addEventListener('click', toggleAboutDropdown);
+            }
+        });
+
+        // Close dropdown if clicked outside
+        window.addEventListener('click', function(event) {
+            const dropdowns = document.querySelectorAll('.dropdown-menu');
+            dropdowns.forEach(menu => {
+                if (!menu.contains(event.target) && !menu.previousElementSibling.contains(event.target)) {
+                    menu.style.display = 'none';
+                    menu.previousElementSibling.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+
+        // Quantity controls
+        function changeQuantity(plan, change) {
+            const input = document.getElementById(plan + 'Quantity');
+            const total = document.getElementById(plan + 'Total');
+            let currentValue = parseInt(input.value);
+            let newValue = currentValue + change;
+            
+            if (plan === 'grower') {
+                newValue = Math.max(10, Math.min(199, newValue));
+                total.textContent = (newValue * 319).toLocaleString();
+            } else if (plan === 'legacy') {
+                newValue = Math.max(200, Math.min(1000, newValue));
+                total.textContent = (newValue * 407).toLocaleString();
+            }
+            
+            input.value = newValue;
+        }
+
+        // Update totals when quantity input changes
+        document.getElementById('growerQuantity').addEventListener('input', function() {
+            const value = Math.max(10, Math.min(199, parseInt(this.value) || 10));
+            this.value = value;
+            document.getElementById('growerTotal').textContent = (value * 319).toLocaleString();
+        });
+
+        document.getElementById('legacyQuantity').addEventListener('input', function() {
+            const value = Math.max(200, Math.min(1000, parseInt(this.value) || 200));
+            this.value = value;
+            document.getElementById('legacyTotal').textContent = (value * 407).toLocaleString();
+        });
+
+        // Cart functionality
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            headerCartCount.textContent = totalItems;
+            headerCartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+            
+            headerCartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.className = 'empty-cart';
+                emptyMessage.textContent = 'Your cart is empty';
+                headerCartItems.appendChild(emptyMessage);
+            } else {
+                cart.forEach((item, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <input type="checkbox" class="cart-item-checkbox" data-index="${index}">
+                        <div style="flex: 1;">
+                            <strong>${item.name}</strong><br>
+                            <small>${item.quantity} trees × ₱${item.price.toLocaleString()} = ₱${(item.price * item.quantity).toLocaleString()}</small>
+                        </div>
+                    `;
+                    headerCartItems.appendChild(li);
+                });
+            }
+            
+            headerCartTotal.textContent = totalPrice.toLocaleString();
+        }
+
+        function addToCart(plan) {
+            const quantity = parseInt(document.getElementById(plan + 'Quantity').value);
+            const pricePerTree = plan === 'grower' ? 319 : 407;
+            const planName = plan === 'grower' ? 'Grower Plan' : 'Legacy Plan';
+            
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.name === planName);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    name: planName,
+                    price: pricePerTree,
+                    quantity: quantity
+                });
+            }
+            
+            updateCartUI();
+            showSuccessMessage();
+            
+            // Show cart dropdown briefly
+            headerCartDropdown.style.display = 'block';
+            setTimeout(() => {
+                if (!headerCartDropdown.matches(':hover')) {
+                    headerCartDropdown.style.display = 'none';
+                }
+            }, 2000);
+        }
+
+        function showSuccessMessage() {
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        // Remove selected items from cart
+        headerRemoveSelectedBtn.addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('.cart-item-checkbox');
+            const indexesToRemove = [];
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    indexesToRemove.push(parseInt(checkbox.getAttribute('data-index')));
+                }
+            });
+            
+            // Remove items from cart in reverse order to avoid index shift
+            indexesToRemove.sort((a, b) => b - a);
+            indexesToRemove.forEach(i => {
+                cart.splice(i, 1);
+            });
+            
+            updateCartUI();
+        });
+
+        // Cart button toggle
+        headerCartButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isVisible = headerCartDropdown.style.display === 'block';
+            headerCartDropdown.style.display = isVisible ? 'none' : 'block';
+        });
+
+        // Checkout functionality
+        headerCheckoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Prepare checkout data
+            const checkoutData = {
+                items: cart,
+                totalPrice: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+            };
+            
+            // Store checkout data in localStorage
+            localStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+            
+            // Redirect to aniya_registration_form.html
+            window.location.href = 'aniya_registration_form.html';
+        });
+
+        // Close cart dropdown if clicked outside
+        window.addEventListener('click', function(event) {
+            if (!headerCartDropdown.contains(event.target) && !headerCartButton.contains(event.target)) {
+                headerCartDropdown.style.display = 'none';
+            }
+        });
+
+        // Initialize cart UI on page load
+        updateCartUI();
+    </script>
 </body>
 </html>
