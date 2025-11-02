@@ -2,9 +2,6 @@
 
 ## 📘 Project Overview
 The **Infoman Partnership App** is a web-based information management system developed to streamline the process of managing and monitoring partnerships between the university and external organizations.  
-
----
-
 The system enables administrators to track partnership details, manage organization data, and ensure efficient communication between stakeholders.
 
 ---
